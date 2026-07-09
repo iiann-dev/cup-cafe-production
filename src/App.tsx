@@ -1,0 +1,127 @@
+import { TabType } from './types';
+import { useState, useEffect, useRef } from 'react';
+import HomeView from './components/HomeView';
+import MenuView from './components/MenuView';
+import OurStoryView from './components/OurStoryView';
+import GalleryView from './components/GalleryView';
+import ReviewsView from './components/ReviewsView';
+import ContactView from './components/ContactView';
+import Lenis from 'lenis';
+
+const tabs: { id: TabType; label: string }[] = [
+  { id: 'home', label: 'Home' },
+  { id: 'menu', label: 'Menu' },
+  { id: 'our-story', label: 'Our Story' },
+  { id: 'gallery', label: 'Gallery' },
+  { id: 'reviews', label: 'Reviews' },
+  { id: 'contact', label: 'Visit Us' },
+];
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState<TabType>('home');
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const lenisRef = useRef<Lenis | null>(null);
+
+  useEffect(() => {
+    const lenis = new Lenis({ duration: 1.2, easing: (t: number) => Math.min(1, 1 - Math.pow(1 - t, 3)) });
+    lenisRef.current = lenis;
+
+    function raf(time: number) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    const handleScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', handleScroll);
+    return () => { lenis.destroy(); window.removeEventListener('scroll', handleScroll); };
+  }, []);
+
+  const navigate = (tab: TabType) => {
+    setActiveTab(tab);
+    setMobileOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  return (
+    <div className="min-h-screen bg-background text-on-surface font-body">
+      {/* Header */}
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-background/85 backdrop-blur-xl shadow-lg' : 'bg-transparent'}`}>
+        <div className="px-margin-desktop max-w-screen-2xl mx-auto flex items-center justify-between h-20">
+          <button onClick={() => navigate('home')} className="flex items-center gap-2 group">
+            <span className="material-symbols-outlined text-secondary text-2xl">local_cafe</span>
+            <span className="font-headline-md text-headline-md text-primary group-hover:text-secondary transition-colors">Cup Cafe.</span>
+          </button>
+
+          <nav className="hidden md:flex items-center gap-8">
+            {tabs.map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => navigate(tab.id)}
+                className={`font-label-sm text-label-sm uppercase tracking-widest py-2 relative transition-colors ${
+                  activeTab === tab.id ? 'text-secondary' : 'text-on-surface-variant hover:text-primary'
+                }`}
+              >
+                {tab.label}
+                {activeTab === tab.id && (
+                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-6 h-[2px] bg-secondary rounded-full" />
+                )}
+              </button>
+            ))}
+            <button className="bg-secondary text-on-secondary px-6 py-3 rounded-full font-label-sm text-label-sm hover:scale-95 transition-transform shadow-lg shadow-secondary/20">
+              Order Now
+            </button>
+          </nav>
+
+          <button className="md:hidden text-primary" onClick={() => setMobileOpen(!mobileOpen)}>
+            <span className="material-symbols-outlined text-3xl">{mobileOpen ? 'close' : 'menu'}</span>
+          </button>
+        </div>
+
+        {/* Mobile nav */}
+        {mobileOpen && (
+          <div className="md:hidden bg-background/95 backdrop-blur-xl border-t border-outline-variant/20 px-margin-desktop py-8 space-y-6">
+            {tabs.map(tab => (
+              <button key={tab.id} onClick={() => navigate(tab.id)} className="block w-full text-left font-headline-md text-xl py-2">
+                {tab.label}
+              </button>
+            ))}
+            <button className="w-full bg-secondary text-on-secondary py-4 rounded-full font-label-sm text-center">Order Now</button>
+          </div>
+        )}
+      </header>
+
+      <main className="pt-20">
+        {activeTab === 'home' && <HomeView onNavigate={navigate} />}
+        {activeTab === 'menu' && <MenuView />}
+        {activeTab === 'our-story' && <OurStoryView onNavigate={navigate} />}
+        {activeTab === 'gallery' && <GalleryView />}
+        {activeTab === 'reviews' && <ReviewsView />}
+        {activeTab === 'contact' && <ContactView />}
+      </main>
+
+      {/* Footer */}
+      <footer className="px-margin-desktop py-section-gap bg-primary text-on-primary border-t border-outline-variant/10">
+        <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-gutter">
+          <div>
+            <span className="font-headline-md text-headline-md text-secondary">Cup Cafe.</span>
+            <p className="font-body-md text-body-md text-on-surface-variant mt-4 max-w-xs">
+              Every Sandwich Has A Story. 123 Maple Street, Oakwood, CA 90210
+            </p>
+          </div>
+          <div className="flex flex-col gap-4">
+            <span className="font-label-sm uppercase tracking-widest text-secondary">Hours</span>
+            <p className="font-body-md text-sm">Mon-Fri 7am-8pm · Sat 8am-9pm · Sun 8am-7pm</p>
+          </div>
+          <div className="flex flex-col gap-4">
+            <span className="font-label-sm uppercase tracking-widest text-secondary">Follow</span>
+            <div className="flex gap-6">
+              {['instagram', 'facebook', 'twitter'].map(s => (
+                <button key={s} className="material-symbols-outlined hover:text-secondary transition-colors">{s === 'instagram' ? 'photo_camera' : s === 'facebook' ? 'groups' : 'alternate_email'}</button>
+              ))}
+            </div>
+            <p className="font-body-md text-xs text-on-surface-variant mt-4">© 2026 Cup Cafe. Handcrafted with ♥</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
