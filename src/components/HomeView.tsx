@@ -17,15 +17,6 @@ export default function HomeView({ onNavigate }: Props) {
       <section className="min-h-[90dvh] flex flex-col md:flex-row overflow-hidden">
         {/* Left Panel */}
         <div className="w-full md:w-[42%] bg-[#f5f0e6] flex flex-col justify-center px-8 md:px-16 py-16 relative min-h-[60dvh] md:min-h-[90dvh]">
-          {/* Floating "made with love" badge */}
-          <motion.div
-            initial={{ x: -30, opacity: 0, rotate: -5 }}
-            animate={{ x: 0, opacity: 1, rotate: -5 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="absolute top-10 left-8 md:left-16 bg-[#f5f0e6] text-on-surface px-4 py-1.5 rounded-lg shadow-sm rotate-[-5deg]"
-          >
-            <span className="font-caveat text-sm">made with love</span>
-          </motion.div>
 
           <motion.div
             initial={{ x: -60, opacity: 0 }}
@@ -59,30 +50,10 @@ export default function HomeView({ onNavigate }: Props) {
             >
               View Menu <span className="material-symbols-outlined text-sm align-middle ml-1">arrow_forward</span>
             </button>
-            <button className="bg-white text-[#C84A31] px-8 py-4 rounded-full font-label-sm text-label-sm border border-[#C84A31] hover:bg-[#C84A31] hover:text-white transition-all flex items-center gap-2">
-              Visit Us
-            </button>
+
           </motion.div>
 
-          {/* Social Proof */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.0 }}
-            className="absolute bottom-10 left-8 md:left-16 flex items-center gap-4"
-          >
-            <div className="flex">
-              {['photo-1507003211169-0a1dd7228f2d', 'photo-1438761681033-6461ffad8d80', 'photo-1472099645785-5658abf4ff4e'].map((p, i) => (
-                <img key={i} src={`https://images.unsplash.com/${p}?w=80&q=80&auto=format`} alt=""
-                  className={`w-9 h-9 rounded-full object-cover border-2 border-white ${i > 0 ? '-ml-3' : ''}`}
-                />
-              ))}
-            </div>
-            <div>
-              <p className="font-label-sm text-xs text-on-surface font-bold">Loved by Locals</p>
-              <p className="text-[11px] text-on-surface-variant">Recommended by you</p>
-            </div>
-          </motion.div>
+
         </div>
 
         {/* Right Panel — Hero Photo */}
@@ -92,17 +63,7 @@ export default function HomeView({ onNavigate }: Props) {
             src={IMAGES.hero}
             alt="Gourmet sandwich on ceramic plate"
           />
-          {/* Floating circular badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5, rotate: 10 }}
-            animate={{ opacity: 1, scale: 1, rotate: 5 }}
-            transition={{ duration: 0.6, delay: 1.2, type: 'spring' }}
-            className="absolute bottom-10 right-10 bg-white/90 backdrop-blur-sm w-28 h-28 rounded-full flex flex-col items-center justify-center text-center shadow-xl rotate-[5deg]"
-          >
-            <span className="text-[10px] font-caveat text-on-surface">Made with</span>
-            <span className="text-red-500 text-lg leading-none">♥</span>
-            <span className="text-[10px] font-caveat text-on-surface">Love, Local</span>
-          </motion.div>
+
         </motion.div>
       </section>
 
@@ -196,7 +157,7 @@ export default function HomeView({ onNavigate }: Props) {
         </motion.div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {GALLERY_ITEMS.slice(0, 5).map((item, i) => (
-            <motion.div key={i} {...stagger(i)} className={`${item.span === 'tall' ? 'aspect-[4/5] md:row-span-2' : 'aspect-square'} rounded-xl overflow-hidden`}>
+            <motion.div key={i} {...stagger(i)} className="aspect-square rounded-xl overflow-hidden">
               <img className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" src={item.src} alt={item.alt} />
             </motion.div>
           ))}
@@ -222,10 +183,10 @@ export default function HomeView({ onNavigate }: Props) {
               </div>
               <p className="font-body-md text-body-md text-on-surface-variant mb-8 italic">"{t.content}"</p>
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-secondary-fixed-dim flex items-center justify-center font-bold text-on-secondary-fixed text-xs">{t.initials}</div>
+                <div className="w-10 h-10 rounded-full bg-secondary-fixed-dim flex items-center justify-center font-bold text-on-secondary-fixed text-xs">{t.name.split(' ').map((n:string) => n[0]).join('')}</div>
                 <div>
                   <p className="font-label-sm text-label-sm text-primary">{t.name}</p>
-                  <p className="text-xs text-on-surface-variant">{t.role}</p>
+                  <p className="text-xs text-on-surface-variant">{t.date}</p>
                 </div>
               </div>
             </motion.div>

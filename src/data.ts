@@ -1,127 +1,204 @@
-import { MenuCategory, Review, GalleryItem, TeamMember, TimelineEvent, Amenity, DeliveryPartner, FAQItem } from './types';
+import { MenuCategory, Review, GalleryItem, Amenity, FAQItem } from './types';
 
-/* ─── Image Base (Unsplash) ─── */
 const U = (id: string, w = 1200) => `https://images.unsplash.com/${id}?w=${w}&q=85&auto=format`;
 
-/* ─── Menu Categories ─── */
+/* ─── Real Menu from cup-cafe.cafe-inspector.com ─── */
 export const MENU_CATEGORIES: MenuCategory[] = [
   {
-    id: 'sandwiches', label: 'Artisan Sandwiches', note: 'fan favorites', layout: 'grid',
+    id: 'gourmet-sandwiches', label: 'Gourmet Sandwiches',
+    note: 'All include: Lettuce, Tomato, Red Onion, Pickles, Jalapeno Spread. Subs extra.',
     items: [
-      { name: 'Roasted Chicken Pesto', description: 'Basil pesto, roasted chicken, mozzarella, tomato, arugula', price: '$12.50', badge: 'Fresh & Hearty' },
-      { name: 'Truffle Mushroom Melt', description: 'Wild mushrooms, truffle aioli, caramelized onions, gruyère', price: '$13.90', badge: 'Best Seller' },
-      { name: 'Smoky Bacon & Egg', description: 'Smoked bacon, fried egg, cheddar, chipotle mayo', price: '$11.90', badge: 'Rich & Satisfying' },
+      { name: 'Ami-Cado', description: 'Pastrami, Salami, Avocado, Pepper Jack Cheese, Lou\'s Special Sauce, on a Soft & Sweet Roll', price: '$10.90' },
+      { name: 'Llb Special', description: 'Roast Beef, Turkey, Ham, Swiss Cheese, Provolone Cheese, Lou\'s Special Sauce, on Dutch Crunch', price: '$10.90' },
+      { name: 'Roma\'s Club', description: 'Turkey, Bacon, Avocado, Swiss Cheese, Pesto Aioli Spread, on Dutch Crunch', price: '$11.75' },
+      { name: 'RB Mushroom', description: 'Roast Beef, Bacon, Mushrooms, Cheddar Cheese, Lou\'s Special Sauce, on a Dutch Crunch Roll', price: '$11.75' },
+      { name: 'Chicken Pesto', description: 'Chicken Breast, Avocado, American Cheese, Pesto Aioli Sweet, on Soft & Sweet Roll', price: '$10.90' },
+      { name: 'Italian Special', description: 'Ham, Salami, Mortadella, Provolone Cheese, Lou\'s Special Sauce, Dijon Mustard, on a Soft & Sweet Roll', price: '$10.90' },
+      { name: 'Ultimate Club', description: 'Roast Beef, Turkey, Salami, Ham, Bacon, Swiss Cheese, Lou\'s Special Sauce, Dijon Mustard, on a Soft & Sweet Roll', price: '$11.75' },
+      { name: 'Lou-Ben', description: 'Pastrami, Turkey, Provolone Cheese, Sauerkraut, Lou\'s Special Sauce, on a Sourdough Roll', price: '$10.90' },
+      { name: 'Turkey Cranberry', description: 'Turkey, Swiss Cheese, Cranberry, Lou\'s Special Sauce on a Sourdough Roll', price: '$10.90' },
+      { name: 'CBR', description: 'Chicken Breast, Bacon, Cheddar Cheese, Ranch Dressing, on a Soft & Sweet Roll', price: '$10.90' },
+      { name: 'Buffalo Chicken', description: 'Chicken Breast Filet marinated in Hot Buffalo Sauce, Bacon, Monterey Jack Cheese, Lou\'s Special Sauce', price: '$10.90' },
+      { name: 'Veggie', description: 'Alfalfa Sprouts, Roasted Peppers, Avocado, Cucumber, Pepperoncinis, Swiss Cheese, Lou\'s Special Sauce on a 9-Grain Wheat Roll', price: '$10.90' },
+      { name: 'Veggie-Licious', description: 'Eggplant, Mushrooms, Avocado, Roasted Peppers, Alfalfa Sprouts, Provolone and Cheddar Cheese, Lou\'s Special Sauce, on a Soft & Sweet Roll', price: '$10.90' },
+      { name: 'Crab Melt', description: 'Imitation Snow Crab Salad, Avocado, American Cheese, Lou\'s Special Sauce, on a Dutch Crunch Roll', price: '$11.35' },
+      { name: 'Tuna Melt', description: 'Tuna Salad, Avocado, Swiss and Cheddar Cheese, Lou\'s Special Sauce, on a Soft & Sweet Roll', price: '$10.90' },
+      { name: 'Hot Link', description: 'LOUISIANA Hot Link, Sauerkraut, Monterey Jack Cheese, Lou\'s Special Sauce, on a Soft & Sweet Roll', price: '$10.90' },
+      { name: 'Kick\'n R.B.', description: 'Roast Beef, EXTRA HOT Raw Horseradish, Pepper Jack Cheese, Lou\'s Special Sauce, on a Dutch Crunch Roll. Medium spice as-is.', price: '$11.25' },
+      { name: 'Barbeque Chicken', description: 'Chicken Breast Strips marinated in Barbeque Sauce, Monterey Jack Cheese, Lou\'s Special Sauce, on a Soft & Sweet Roll', price: '$10.90' },
+      { name: 'Hot Pastrami', description: 'Pastrami Brisket Marinated overnight steamed in our kettle, Cheddar Cheese, Lou\'s Special Sauce, on a Dutch Crunch Roll', price: '$10.90' },
+      { name: 'Hot and Sweet', description: 'Louisiana Hot Links, pineapple chunks, topped with teriyaki sauce, Provolone Cheese, Lou\'s Special Sauce', price: '$11.65' },
+      { name: 'Risky Bizness', description: 'Hot Pastrami Brisket, Crab Salad, Bacon, Avocado, Pepper Jack Cheese, Pepperoncini\'s, Lou\'s Special Sauce, on a Dutch Crunch Roll', price: '$12.15' },
+      { name: 'Pomaikai', description: 'Ham, Pineapple, Jalapeno Rings, Teriyaki Sauce, Sriracha, Pepper Jack Cheese, Lou\'s Special Sauce, on a Sourdough Roll', price: '$11.15' },
+      { name: 'Space Balls', description: 'Beef Meatballs, House Made Marinara Sauce, Provolone Cheese, Lou\'s Special Sauce, on a Soft and Sweet Roll', price: '$10.90' },
+      { name: 'Loquito', description: 'Chicken Breast, Avocado, Lime Juice, Jalapeno Rings, Sour Cream, Tortilla Chips, Monterey Jack Cheese, Lou\'s Special Sauce', price: '$11.15' },
+      { name: 'B.P.A.V.', description: 'Bacon, Alfalfa Sprouts, Roasted Peppers, Avocado, Cucumber, Pepperoncini\'s, Monterey Jack Cheese, Lou\'s Special Sauce on a Dutch Crunch', price: '$11.15' },
     ],
   },
   {
-    id: 'coffee', label: 'Coffee & Espresso', note: '— The Perfect Brew', layout: 'asymmetric',
+    id: 'breakfast', label: 'Breakfast Sandwiches',
+    note: 'Served until 2:00 PM daily',
     items: [
-      { name: 'Signature Flat White', description: 'Double shot artisan roast, perfectly micro-foamed milk', price: '$4.50 / $5.25' },
-      { name: 'Dark Chocolate Mocha', description: '70% cacao dark chocolate, double espresso, steamed milk', price: '$5.50' },
-      { name: '18-Hour Cold Brew', description: 'Slow-steeped signature blend served over crystalline ice', price: '$4.95' },
-      { name: 'Espresso Macchiato', description: 'Traditional small cup', price: '$3.50' },
-      { name: 'Cortado', description: 'Equal parts espresso & milk', price: '$4.00' },
-      { name: 'Iced Latte', description: 'Refreshing & creamy', price: '$4.75' },
-      { name: 'Pour Over', description: 'Single origin rotating', price: '$5.50' },
+      { name: 'Original Breakfast Sandwich', description: 'Choice of Bacon, Ham or both, with Egg, American Cheese, Hash Browns, Lou\'s Special Sauce, on a Ciabatta', price: '$7.99' },
+      { name: 'B.E.C.', description: 'Bacon, Egg, American Cheese, Hash Browns, Lou\'s Special Sauce, on a Croissant', price: '$7.99' },
+      { name: 'H.E.C.', description: 'Ham, Egg, American Cheese, Hash Browns, Lou\'s Special Sauce, on a Croissant', price: '$7.99' },
+      { name: 'Sausage Breakfast', description: 'Sausage Patty, Egg, American Cheese, Hash Browns, Lou\'s Special Sauce, on a Soft & Sweet Roll', price: '$7.99' },
+      { name: 'Steak & Egg', description: 'Steak, Egg, American Cheese, Hash Browns, Lou\'s Special Sauce, on a Soft & Sweet Roll', price: '$9.50' },
     ],
   },
   {
-    id: 'salads', label: 'Fresh Salads', note: '— From the Garden', layout: 'grid',
+    id: 'salads', label: 'Gourmet Salads',
+    note: 'Fresh & crisp — dressings included',
     items: [
-      { name: 'Burrata & Heirloom', description: 'Artisan burrata, multicolored heirloom tomatoes, basil pesto, balsamic reduction', price: '$14.50' },
-      { name: 'Citrus Beet Root', description: 'Roasted beets, goat cheese, baby spinach, orange segments, walnuts', price: '$13.25' },
-      { name: 'Modern Kale Caesar', description: 'Baby kale, crispy chickpeas, shaved parmesan, house-made tahini dressing', price: '$12.50' },
+      { name: 'BBQ Chicken Salad', description: 'Chicken Breast, Mixed Greens, Corn, Black Beans, Tortilla Strips, Ranch Dressing', price: '$10.90' },
+      { name: 'Chicken Pesto Salad', description: 'Chicken Breast, Mixed Greens, Cherry Tomatoes, Mozzarella, Pesto Dressing', price: '$10.90' },
+      { name: 'Greek Salad', description: 'Mixed Greens, Feta, Olives, Pepperoncini\'s, Tomatoes, Cucumbers, Greek Dressing', price: '$9.90' },
+      { name: 'Taco Salad', description: 'Ground Beef, Mixed Greens, Cheddar, Sour Cream, Salsa, Tortilla Strips', price: '$10.90' },
+      { name: 'Louie Salad', description: 'Turkey, Ham, Swiss, Egg, Mixed Greens, Lou\'s Special Sauce', price: '$10.90' },
     ],
   },
   {
-    id: 'burgers', label: 'House Burgers', note: '— The Grill House', layout: 'asymmetric',
+    id: 'soups', label: 'Soups',
+    note: 'New England Clam Chowder or Soup of the Day',
     items: [
-      { name: 'The Wagyu Signature', description: 'American Wagyu, aged cheddar, bone marrow butter, caramelized shallots, house pickles', price: '$19.00' },
-      { name: 'Smoky Truffle Burger', description: 'Double beef patty, truffle mayo, smoked gouda, crispy onions', price: '$16.50' },
+      { name: 'Soup 8 Oz.', description: 'Fresh made daily', price: '$4.99' },
+      { name: 'Soup 16 Oz.', description: 'Fresh made daily', price: '$7.49' },
     ],
   },
   {
-    id: 'drinks', label: 'Cold Drinks', note: '— Chill & Refresh', layout: 'list',
+    id: 'kids', label: 'Kids Menu',
+    note: 'For our little guests',
     items: [
-      { name: 'Lavender Lemonade', description: 'Refreshing lavender & lemon', price: '$5.25' },
-      { name: 'Iced Matcha Latte', description: 'Vibrant matcha with milk', price: '$6.50' },
-      { name: 'Forest Berry Bliss', description: 'Raspberry, blueberry, blackberry blend', price: '$7.00' },
-      { name: 'Hibiscus Sparkler', description: 'Sparkling hibiscus with mint & lime', price: '$5.75' },
+      { name: 'Grilled Cheese', description: 'Cheddar on white bread, served with apple slices', price: '$5.50' },
+      { name: 'Quesadilla', description: 'Cheese quesadilla with mild salsa', price: '$5.50' },
+      { name: 'Hot Dog', description: 'All-beef hot dog with fries', price: '$4.50' },
+    ],
+  },
+  {
+    id: 'espresso', label: 'Espresso Beverages',
+    note: 'Made to order',
+    items: [
+      { name: 'Espresso', description: 'Single shot', price: '$2.00' },
+      { name: 'Macchiato', description: 'Espresso with a dollop of foam', price: '$2.50' },
+      { name: 'Cappuccino', description: 'Espresso, steamed milk, thick foam', price: '$3.00' },
+      { name: 'Latte', description: 'Espresso with steamed milk', price: '$3.50' },
+      { name: 'Mocha', description: 'Espresso, chocolate, steamed milk', price: '$4.00' },
+      { name: 'White Mocha', description: 'Espresso, white chocolate, steamed milk', price: '$4.00' },
+      { name: 'Caramel Latte', description: 'Latte with caramel syrup', price: '$4.25' },
+      { name: 'Americano', description: 'Espresso with hot water', price: '$2.50' },
+      { name: 'Chai Latte', description: 'Spiced chai with steamed milk', price: '$4.00' },
+      { name: 'Hot Chocolate', description: 'Steamed milk with rich chocolate', price: '$3.25' },
+      { name: 'Steamer', description: 'Steamed milk with flavored syrup', price: '$2.50' },
+      { name: 'Iced Coffee', description: 'Chilled brewed coffee', price: '$3.00' },
+      { name: 'Tea', description: 'Choice of black, green, or herbal', price: '$2.50' },
+      { name: 'Affogato', description: 'Espresso over vanilla ice cream', price: '$4.50' },
+    ],
+  },
+  {
+    id: 'design-your-own', label: 'Design Your Own Sandwich',
+    note: 'Pick your base, then build',
+    items: [
+      { name: '6" Sandwich', description: 'Choose your meat, bread, cheese, veggies, and spread', price: '$8.90' },
+      { name: '12" Sandwich', description: 'Choose your meat, bread, cheese, veggies, and spread', price: '$11.90' },
+    ],
+  },
+  {
+    id: 'add-ons', label: 'Add-Ons',
+    note: 'Topping upgrades',
+    items: [
+      { name: 'Extra Meat', description: 'Any additional meat portion', price: '$2.50' },
+      { name: 'Extra Cheese', description: 'Any additional cheese', price: '$1.00' },
+      { name: 'Avocado', description: 'Fresh sliced avocado', price: '$1.50' },
+      { name: 'Bacon', description: 'Crispy bacon strips', price: '$1.50' },
+    ],
+  },
+  {
+    id: 'catering', label: 'Catering Menu',
+    note: 'The Works Box — most popular!',
+    items: [
+      { name: 'The Works Box', description: 'Assorted gourmet sandwiches, sides, and a cookie. Perfect for groups.', price: '$8.90' },
+      { name: 'Classic Box', description: 'Ham & Swiss or Turkey & Swiss on choice of bread with chips', price: '$7.90' },
+      { name: 'Veggie Special Box', description: 'Vegetarian sandwich with fresh veggies and spread', price: '$8.40' },
+      { name: 'Breakfast Box', description: 'Breakfast sandwich, hash browns, coffee', price: '$7.00' },
+      { name: 'Soup Box', description: 'Soup of the day + half sandwich', price: '$7.90' },
+      { name: 'Salad Box', description: 'Choice of gourmet salad + bread roll', price: '$8.90' },
+    ],
+  },
+  {
+    id: 'large-functions', label: 'Large Functions Menu',
+    note: 'Individual orders for events of 10+',
+    items: [
+      { name: 'Individual Box Lunch', description: 'Custom sandwich, chips, cookie, pickle spear', price: '$9.00' },
+    ],
+  },
+  {
+    id: 'sides', label: 'Additional Sides',
+    note: 'Perfect to round out your meal',
+    items: [
+      { name: 'Deep Dish Gourmet Cookies', description: 'Chocolate Chip, Peanut Butter Brownie, or Oatmeal Raisin', price: '$2.50' },
+      { name: 'Kettle Chips', description: 'BBQ, Sea Salt, Salt & Vinegar, Maui Onion, Sour Cream & Onion, Funky Fusion, Zesty Ranch, Buffalo Bleu, Fully Loaded, Jalapeno, Honey Dijon, and more', price: '$1.50' },
+      { name: 'Soup 8 Oz.', description: 'Clam Chowder or Soup of the Day', price: '$4.99' },
+      { name: 'Soup 16 Oz.', description: 'Clam Chowder or Soup of the Day', price: '$7.49' },
     ],
   },
 ];
 
-/* ─── Home Featured Items ─── */
+/* ─── Featured Items (top picks from real menu) ─── */
 export const FEATURED_ITEMS = [
-  { name: 'Roasted Chicken Pesto', description: 'Basil pesto, roasted chicken, mozzarella, tomato, arugula', price: '$12.50', badge: 'Fresh & Hearty', image: U('photo-1553909489-cd47e0907980') },
-  { name: 'Truffle Mushroom Melt', description: 'Wild mushrooms, truffle aioli, caramelized onions, gruyère', price: '$13.90', badge: 'Best Seller', image: U('photo-1677511084683-0eba66ebaa7c') },
-  { name: 'Smoky Bacon & Egg', description: 'Smoked bacon, fried egg, cheddar, chipotle mayo', price: '$11.90', badge: 'Rich & Satisfying', image: U('photo-1700937314577-898450cafe35') },
+  { name: 'Roma\'s Club', description: 'Turkey, Bacon, Avocado, Swiss Cheese, Pesto Aioli Spread, on Dutch Crunch', price: '$11.75', badge: 'Best Seller', image: U('photo-1553909489-cd47e0907980') },
+  { name: 'Chicken Pesto', description: 'Chicken Breast, Avocado, American Cheese, Pesto Aioli Sweet, on Soft & Sweet Roll', price: '$10.90', badge: 'Customer Favorite', image: U('photo-1677511084683-0eba66ebaa7c') },
+  { name: 'Hot Pastrami', description: 'Pastrami Brisket Marinated overnight, steamed in our kettle, Cheddar, Lou\'s Special Sauce, on Dutch Crunch Roll', price: '$10.90', badge: 'Chef\'s Pick', image: U('photo-1700937314577-898450cafe35') },
 ];
 
-/* ─── Testimonials ─── */
+/* ─── Real Reviews from cafe-inspector.com ─── */
 export const TESTIMONIALS: Review[] = [
-  { name: 'Jason M.', initials: 'JM', role: 'Local Guide', time: '', content: "The best sandwich I've had in town! The sauce is honestly addicting. I come here at least twice a week.", rating: 5 },
-  { name: 'Sarah L.', initials: 'SL', role: 'Regular Customer', time: '', content: 'Cozy place, amazing food, and the staff treat you like family. Cup Cafe is a gem!', rating: 5 },
-  { name: 'Daniel K.', initials: 'DK', role: 'Food Blogger', time: '', content: "You can taste the quality in every bite. Everything feels fresh and handmade.", rating: 5 },
+  { name: 'Elizabeth McDonald', content: 'A neighborhood gem. Cozy spot, good coffee, tasty pastries, and the friendliest owners you could imagine. I\'m proud to have become a regular here.', rating: 5, date: '5 July 2026' },
+  { name: 'Thomas Negrel', content: 'Super nice local coffee. Quiet with nice chilled background music and delicious sandwiches and salads. About a million times nicer than starbucks or peets...ah the joy of non corporate coffee places!!!', rating: 5, date: '2 July 2026' },
+  { name: 'Lindsay Grizzard', content: 'I love this place. The owners are so incredibly sweet and offer the best customer service around.', rating: 5, date: '28 June 2026' },
 ];
 
-export const ALL_REVIEWS: Review[] = [
-  { name: 'Sarah L.', initials: 'SL', role: 'Local Guide', time: '1 week ago', content: "This place is a vibe. The aesthetic is beautiful but the coffee is the real winner. The 'Golden Hour' roast is smooth and rich.", rating: 5 },
-  { name: 'Daniel K.', initials: 'DK', role: 'Regular', time: '3 days ago', content: 'Secret sauce is truly secret. And addictive.', rating: 5 },
-  { name: 'Marcus Chen', initials: 'MC', role: 'Community Member', time: '', content: "The staff remembers my order every time. It's the small things that make Cup Cafe my home away from home.", rating: 5 },
-  { name: 'Anna H.', initials: 'AH', role: 'Designer', time: '1 month ago', content: 'Great atmosphere for working, but gets a bit crowded on weekends. The roasted chicken sandwich is a must-try!', rating: 4.5 },
-];
+export const ALL_REVIEWS: Review[] = TESTIMONIALS;
 
-/* ─── Gallery ─── */
+/* ─── Gallery (real photos from client site) ─── */
+const G = (n: number) => `https://cup-cafe.cafe-inspector.com/cdn/img/cup-cafe/photo${n}.jpg`;
+
 export const GALLERY_ITEMS: GalleryItem[] = [
-  { src: U('photo-1509042239860-f550ce710b93', 600), alt: 'Coffee latte art', span: 'square' },
-  { src: U('photo-1522202176988-66273c2fd55f', 600), alt: 'Friends laughing together', span: 'tall' },
-  { src: U('photo-1677511084683-0eba66ebaa7c', 600), alt: 'Grilled cheese sandwich', span: 'square' },
-  { src: U('photo-1777502286448-35389817f504', 600), alt: 'Cafe interior sunset', span: 'tall' },
-  { src: U('photo-1592417817098-8fd3d9eb14a5', 600), alt: 'Fresh basil & tomatoes', span: 'square' },
-  { src: U('photo-1700937314577-898450cafe35', 600), alt: 'Customer biting sandwich', span: 'square' },
-  { src: U('photo-1495474472287-4d71bcdd2085', 600), alt: 'Coffee mugs on wall', span: 'square' },
-  { src: U('photo-1540189549336-e6e99c3679fe', 600), alt: 'Fresh ingredients', span: 'square' },
+  { src: G(1), alt: 'Cup Cafe exterior' },
+  { src: G(2), alt: 'Cafe interior' },
+  { src: G(3), alt: 'Sandwich preparation' },
+  { src: G(4), alt: 'Coffee bar' },
+  { src: G(5), alt: 'Pastry display' },
+  { src: G(6), alt: 'Seating area' },
+  { src: G(7), alt: 'Menu board' },
+  { src: G(8), alt: 'Outdoor seating' },
+  { src: G(9), alt: 'Espresso machine' },
+  { src: G(10), alt: 'Sandwich close-up' },
+  { src: G(11), alt: 'Cafe counter' },
+  { src: G(12), alt: 'Customer enjoying coffee' },
 ];
 
-/* ─── Team ─── */
-export const TEAM: TeamMember[] = [
-  { name: 'Marco', role: 'Head Barista', image: U('photo-1507003211169-0a1dd7228f2d', 400) },
-  { name: 'Sarah', role: 'Pastry Lead', image: U('photo-1438761681033-6461ffad8d80', 400), offset: true },
-  { name: 'David', role: 'General Manager', image: U('photo-1472099645785-5658abf4ff4e', 400) },
-  { name: 'Elena', role: 'Kitchen Soul', image: U('photo-1544005313-94ddf0286df2', 400), offset: true },
-];
-
-/* ─── Timeline ─── */
-export const TIMELINE: TimelineEvent[] = [
-  { year: '2012', title: 'The Seed', description: "Lou rents a tiny 200sq ft corner booth. The first sandwich, the 'Original Hero', is born.", active: true },
-  { year: '2015', title: 'Finding Home', description: 'We moved to our current Oakwood location. The iconic neon sign is lit for the first time.' },
-  { year: '2019', title: "The Secret's Out", description: "Lou's Special Sauce is bottled for the first time due to overwhelming customer demand." },
-  { year: 'Present', title: 'A Community Anchor', description: 'Voted local favorite five years running. Still early mornings, still small batches.', active: true },
-];
-
-/* ─── Amenities ─── */
+/* ─── Real Amenities ─── */
 export const AMENITIES: Amenity[] = [
   { icon: 'wifi', label: 'Free WiFi' },
-  { icon: 'pets', label: 'Pet Friendly' },
-  { icon: 'park', label: 'Outdoor Seating' },
-  { icon: 'accessible', label: 'Accessible' },
-  { icon: 'local_parking', label: 'Parking' },
+  { icon: 'transit_enterexit', label: 'Outdoor Seating' },
+  { icon: 'directions_bike', label: 'Bike Parking' },
+  { icon: 'local_parking', label: 'Street Parking' },
+  { icon: 'accessible', label: 'Wheelchair Accessible' },
+  { icon: 'favorite_border', label: 'Vegan Options' },
+  { icon: 'credit_card', label: 'Accepts Cards' },
+  { icon: 'tap_and_play', label: 'Apple Pay' },
+  { icon: 'android', label: 'Android Pay' },
+  { icon: 'thumb_up', label: 'Staff Masks' },
+  { icon: 'move_to_inbox', label: 'Takeout' },
+  { icon: 'coffee', label: 'Good for Working' },
 ];
 
-/* ─── Delivery Partners ─── */
-export const DELIVERY_PARTNERS: DeliveryPartner[] = [
-  { icon: 'delivery_dining', name: 'DoorDash' },
-  { icon: 'lunch_dining', name: 'UberEats' },
-  { icon: 'shopping_bag', name: 'Grubhub' },
-  { icon: 'stars', name: 'Direct Pick-up' },
-];
-
-/* ─── FAQ ─── */
+/* ─── Real FAQ ─── */
 export const FAQ: FAQItem[] = [
-  { question: 'Do you offer gluten-free options?', answer: 'Absolutely. Most of our signature sandwiches can be made with our artisan gluten-free bread. Just ask our team when ordering!' },
-  { question: 'Can I pre-order for a large group?', answer: 'Yes, we love catering! For orders over 10 items, we recommend placing your order at least 24 hours in advance.' },
-  { question: 'Where do you source your coffee beans?', answer: 'We partner with local small-batch roasters who prioritize ethical sourcing and direct trade.' },
+  { question: 'Do you offer gluten-free options?', answer: 'Yes! Most of our gourmet sandwiches can be made on a gluten-free bread option. Just let our team know when ordering.' },
+  { question: 'Can I pre-order for a large group?', answer: 'Absolutely — we recommend placing large orders (10+) at least 24 hours in advance. Check our Catering Menu for box lunch options.' },
+  { question: 'What are your payment options?', answer: 'We accept all major credit cards, Apple Pay, Android Pay, and good old cash.' },
+  { question: 'Do you have vegan options?', answer: 'Yes, we offer vegan-friendly sandwiches and salads. Our Veggie and Veggie-Licious sandwiches can be prepared vegan upon request.' },
 ];
 
 /* ─── Images ─── */
@@ -130,5 +207,4 @@ export const IMAGES = {
   sauce: U('photo-1498837167922-ddd27525d352', 800),
   interior: U('photo-1777502286448-35389817f504', 800),
   chef: U('photo-1556910103-1c02745aae4d', 800),
-  map: U('photo-1524661135-423995f22d0b', 800),
 };

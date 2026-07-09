@@ -30,23 +30,17 @@ export default function GalleryView() {
           <p className="font-body-lg text-body-lg text-on-surface-variant mt-4 max-w-xl">Real moments, Real people, Real good food.</p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {GALLERY_ITEMS.map((item, i) => (
             <motion.div
               key={i} {...stagger(i)}
-              className={`${item.span === 'tall' ? 'aspect-[4/5] md:row-span-2' : 'aspect-square'} rounded-xl overflow-hidden group cursor-pointer relative`}
+              className="aspect-square rounded-xl overflow-hidden group cursor-pointer relative"
               onClick={() => openLightbox(item)}
             >
               <img className="w-full h-full object-cover grayscale-[0.15] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" src={item.src} alt={item.alt} />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-500" />
             </motion.div>
           ))}
-          <motion.div {...stagger(GALLERY_ITEMS.length)}
-            className="aspect-square bg-secondary-fixed-dim rounded-xl flex flex-col items-center justify-center p-6 text-center group cursor-pointer"
-          >
-            <span className="material-symbols-outlined text-secondary text-4xl mb-2">photo_camera</span>
-            <p className="font-label-sm text-xs text-on-secondary-fixed">Follow Us @CupCafe</p>
-          </motion.div>
         </div>
       </section>
 
@@ -54,7 +48,7 @@ export default function GalleryView() {
       <motion.section {...stagger(0)} className="mt-section-gap mb-section-gap px-margin-desktop max-w-screen-md mx-auto text-center">
         <h2 className="font-headline-lg text-headline-lg text-primary mb-6">Experience it <span className="italic text-secondary">in person.</span></h2>
         <p className="font-body-lg text-body-lg text-on-surface-variant mb-10">
-          The scent of freshly baked bread and the hiss of the espresso machine are waiting for you. Come find your favorite corner.
+          6 Monterey Blvd, San Francisco — 7AM to 2PM, Mon–Sat. The best sandwiches in town are waiting.
         </p>
         <div className="flex flex-col md:flex-row gap-4 justify-center">
           <button className="bg-primary text-on-primary px-10 py-4 rounded-xl font-label-sm text-label-sm hover:scale-105 transition-transform">Visit Us Today</button>

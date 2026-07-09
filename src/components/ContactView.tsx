@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FAQ, AMENITIES, DELIVERY_PARTNERS, IMAGES } from '../data';
+import { FAQ, AMENITIES, IMAGES } from '../data';
 import { motion } from 'framer-motion';
 
 const fadeUp = { initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-40px' }, transition: { duration: 0.6 } };
@@ -17,7 +17,7 @@ export default function ContactView() {
             <span className="font-label-sm text-secondary uppercase tracking-widest block mb-4">The Neighborhood Spot</span>
             <h1 className="font-display-lg text-display-lg text-primary mb-8">Visit <span className="italic text-secondary">Us</span></h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
-              Nestled in the heart of Oakwood, we're more than just a cafe. We're a destination for handcrafted sandwiches, artisanal coffee, and community connection.
+              Nestled in the heart of San Francisco, we're a neighborhood sandwich spot serving handcrafted sandwiches, espresso, and good vibes since 2012.
             </p>
           </motion.div>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="md:col-span-5 relative hidden md:block">
@@ -25,7 +25,7 @@ export default function ContactView() {
               <svg className="w-full h-full text-secondary/20" viewBox="0 0 100 100">
                 <path d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" id="contactCircle" />
                 <text className="font-label-sm text-[8px] uppercase tracking-widest fill-secondary">
-                  <textPath href="#contactCircle">• Fresh Daily • Handcrafted with Love • The Best Coffee •</textPath>
+                  <textPath href="#contactCircle">• Fresh Daily • Handcrafted with Love • Lou's Special Sauce •</textPath>
                 </text>
               </svg>
               <span className="material-symbols-outlined absolute text-secondary text-3xl">favorite</span>
@@ -42,25 +42,23 @@ export default function ContactView() {
             <div className="p-12 md:w-1/2 flex flex-col justify-between">
               <div>
                 <h2 className="font-headline-lg text-headline-lg text-primary mb-6">Our Location</h2>
-                <p className="font-body-md text-body-md text-on-surface-variant mb-2">123 Maple Street</p>
-                <p className="font-body-md text-body-md text-on-surface-variant mb-8">Oakwood, CA 90210</p>
-                <div className="flex items-center gap-4 mb-4">
-                  <span className="material-symbols-outlined text-secondary">call</span>
-                  <span className="font-label-sm text-label-sm">(125) 456-7890</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="material-symbols-outlined text-secondary">mail</span>
-                  <span className="font-label-sm text-label-sm">hello@cupcafe.com</span>
-                </div>
+                <p className="font-body-md text-body-md text-on-surface-variant mb-2">6 Monterey Blvd</p>
+                <p className="font-body-md text-body-md text-on-surface-variant mb-8">San Francisco, CA 94131, USA</p>
               </div>
-              <div className="mt-12">
-                <button className="flex items-center gap-2 group font-label-sm text-label-sm text-secondary">
+              <div>
+                <a href="https://maps.google.com/maps?q=6+Monterey+Blvd+San+Francisco+CA+94131" target="_blank" rel="noopener"
+                  className="flex items-center gap-2 group font-label-sm text-label-sm text-secondary"
+                >
                   Get Directions <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
-                </button>
+                </a>
               </div>
             </div>
             <div className="md:w-1/2 h-[400px] md:h-auto bg-surface-container-highest flex items-center justify-center relative overflow-hidden">
-              <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=600&q=85&auto=format" alt="Map" />
+              <iframe className="w-full h-full"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12621.811403208607!2d-122.4347697!3d37.732519!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2b7600634dcc96a4!2sCup+Cafe!5e0!3m2!1sru!2sua!4v1497357957612"
+                style={{ border: 0 }} allowFullScreen loading="lazy"
+                title="Cup Cafe location"
+              />
             </div>
           </motion.div>
 
@@ -73,20 +71,20 @@ export default function ContactView() {
               </div>
               <ul className="space-y-6">
                 {[
-                  { day: 'Mon - Fri', time: '7am - 8pm' },
-                  { day: 'Saturday', time: '8am - 9pm' },
-                  { day: 'Sunday', time: '8am - 7pm' },
+                  { day: 'Mon - Fri', time: '7AM - 2PM' },
+                  { day: 'Saturday', time: '7AM - 2PM' },
+                  { day: 'Sunday', time: 'Closed' },
                 ].map((h, i) => (
                   <li key={i} className="flex justify-between items-end border-b border-white/10 pb-2">
                     <span className="font-label-sm text-label-sm">{h.day}</span>
-                    <span className="font-headline-md text-headline-md text-white">{h.time}</span>
+                    <span className={`font-headline-md text-headline-md ${h.time === 'Closed' ? 'text-secondary-fixed-dim' : 'text-white'}`}>{h.time}</span>
                   </li>
                 ))}
               </ul>
             </div>
             <div className="mt-12 bg-white/5 p-4 rounded-lg border border-white/10">
               <p className="font-decorative-note text-decorative-note italic text-secondary-fixed-dim">
-                "We're closed on Tuesdays to let our team rest and source the freshest local ingredients."
+                We're closed on Sundays. Early breakfast & lunch served daily until 2PM!
               </p>
             </div>
           </motion.div>
@@ -94,8 +92,8 @@ export default function ContactView() {
           {/* Amenities */}
           <motion.div {...fadeUp} className="md:col-span-12 py-16 grid grid-cols-1 md:grid-cols-5 gap-gutter items-center">
             <div className="md:col-span-2">
-              <h3 className="font-headline-lg text-headline-lg text-primary mb-4">Little Comforts</h3>
-              <p className="font-body-md text-body-md text-on-surface-variant">We've thought of everything to make your stay feel like home.</p>
+              <h3 className="font-headline-lg text-headline-lg text-primary mb-4">What We Offer</h3>
+              <p className="font-body-md text-body-md text-on-surface-variant">We've thought of everything to make your visit enjoyable.</p>
             </div>
             <div className="md:col-span-3 flex flex-wrap gap-8 justify-between">
               {AMENITIES.map((amenity, i) => (
@@ -111,43 +109,22 @@ export default function ContactView() {
             </div>
           </motion.div>
 
-          {/* Delivery + Catering */}
-          <motion.div {...fadeUp} className="md:col-span-12 grid grid-cols-1 md:grid-cols-2 gap-gutter mt-12">
-            <div className="rounded-xl overflow-hidden editorial-shadow bg-surface-container-low min-h-[300px] flex items-center justify-center">
-              <div className="text-center p-8">
-                <h3 className="font-headline-md text-headline-md mb-4">Enjoy at Home</h3>
-                <p className="font-body-md text-on-surface-variant">Can't make it in? We partner with the best to bring our kitchen to yours.</p>
+          {/* Catering Box (no delivery) */}
+          <motion.div {...fadeUp} className="md:col-span-12 mb-12">
+            <div className="bg-surface-container rounded-xl p-12 border-l-4 border-secondary relative overflow-hidden text-center md:text-left">
+              <div className="relative z-10 max-w-2xl mx-auto md:mx-0">
+                <h4 className="font-headline-md text-headline-md text-primary mb-4">Corporate Catering</h4>
+                <p className="font-body-md text-body-md text-on-surface-variant mb-6">Planning an office lunch or local event? Our catering boxes are packed with gourmet sandwiches, salads, and cookies. Call us or order in-store to arrange.</p>
+                <button className="bg-secondary text-white px-8 py-4 rounded-full font-label-sm text-label-sm hover:bg-on-secondary-fixed-variant transition-colors">
+                  Inquire About Catering
+                </button>
               </div>
-            </div>
-            <div className="flex flex-col justify-center space-y-12 px-8">
-              <div>
-                <h4 className="font-label-sm text-label-sm text-secondary uppercase tracking-widest mb-6">Our Delivery Partners</h4>
-                <div className="grid grid-cols-2 gap-8">
-                  {DELIVERY_PARTNERS.map((partner, i) => (
-                    <motion.div key={i} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
-                      className="flex items-center gap-4 p-4 border border-outline-variant rounded-lg hover:border-secondary transition-colors cursor-pointer"
-                    >
-                      <span className="material-symbols-outlined text-secondary">{partner.icon}</span>
-                      <span className="font-label-sm text-label-sm">{partner.name}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-              <div className="bg-surface-container rounded-xl p-8 border-l-4 border-secondary relative overflow-hidden">
-                <div className="relative z-10">
-                  <h4 className="font-headline-md text-headline-md text-primary mb-4">Corporate Catering</h4>
-                  <p className="font-body-md text-body-md text-on-surface-variant mb-6">Planning an office lunch or local event? Our sandwich platters are legendary.</p>
-                  <button className="bg-secondary text-white px-8 py-4 rounded-full font-label-sm text-label-sm hover:bg-on-secondary-fixed-variant transition-colors">
-                    Download Catering Menu
-                  </button>
-                </div>
-                <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-secondary/5 pointer-events-none">potted_plant</span>
-              </div>
+              <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-secondary/5 pointer-events-none">potted_plant</span>
             </div>
           </motion.div>
 
           {/* Contact Form */}
-          <motion.div {...fadeUp} className="md:col-span-12 mt-16 grid grid-cols-1 md:grid-cols-12 gap-gutter">
+          <motion.div {...fadeUp} className="md:col-span-12 mt-8 grid grid-cols-1 md:grid-cols-12 gap-gutter">
             <div className="md:col-span-5">
               <span className="font-decorative-note text-secondary italic block mb-4">Get in touch</span>
               <h2 className="font-headline-lg text-headline-lg text-primary mb-6">We'd love to <br/><span className="italic text-secondary">hear from you.</span></h2>
@@ -216,39 +193,14 @@ export default function ContactView() {
         </div>
       </motion.section>
 
-      {/* Order Online CTA */}
-      <motion.section {...fadeUp} className="px-margin-desktop py-section-gap">
-        <div className="max-w-screen-2xl mx-auto bg-primary-container text-on-primary-container rounded-2xl overflow-hidden flex flex-col md:flex-row editorial-shadow">
-          <div className="w-full md:w-3/5 p-12 md:p-20 flex flex-col justify-center">
-            <span className="font-decorative-note text-decorative-note text-secondary-fixed-dim mb-4">Hungry? We've got you.</span>
-            <h2 className="font-display-md text-headline-lg md:text-display-md text-background mb-8 leading-tight">
-              Freshness delivered, <br/>or ready for <span className="italic text-secondary-fixed-dim">pick-up.</span>
-            </h2>
-            <div className="flex flex-col sm:flex-row gap-gutter">
-              <button className="bg-secondary text-on-secondary px-10 py-5 rounded-full font-label-sm text-label-sm hover:bg-secondary-container transition-all flex items-center justify-center gap-3">
-                ORDER NOW <span className="material-symbols-outlined">arrow_outward</span>
-              </button>
-              <button className="border border-on-primary-container/30 text-on-primary-container px-10 py-5 rounded-full font-label-sm text-label-sm hover:bg-white/5 transition-all text-center">
-                VIEW MENU
-              </button>
-            </div>
-          </div>
-          <div className="w-full md:w-2/5 min-h-[300px] bg-secondary-container/20 flex items-center justify-center">
-            <div className="text-center p-8">
-              <span className="material-symbols-outlined text-6xl text-secondary">lunch_dining</span>
-            </div>
-          </div>
-        </div>
-      </motion.section>
-
       {/* Ending */}
       <motion.section {...fadeUp} className="py-section-gap text-center px-margin-desktop bg-surface-container/30">
         <div className="max-w-2xl mx-auto">
           <div className="mb-6 flex justify-center">
-            <span className="material-symbols-outlined text-secondary text-6xl">coffee</span>
+            <span className="material-symbols-outlined text-secondary text-6xl">lunch_dining</span>
           </div>
           <h3 className="font-display-md text-headline-lg text-primary mb-4">See You Tomorrow</h3>
-          <p className="font-body-lg text-body-lg text-on-surface-variant italic">The coffee is grinding, and the bread is rising. We can't wait to welcome you back.</p>
+          <p className="font-body-lg text-body-lg text-on-surface-variant italic">7AM to 2PM, Monday through Saturday. The bread is rising, and Lou's Special Sauce is ready.</p>
         </div>
       </motion.section>
     </div>

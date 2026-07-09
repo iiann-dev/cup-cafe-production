@@ -66,8 +66,8 @@ export default function App() {
                 )}
               </button>
             ))}
-            <button className="bg-secondary text-on-secondary px-6 py-3 rounded-full font-label-sm text-label-sm hover:scale-95 transition-transform shadow-lg shadow-secondary/20">
-              Order Now
+            <button onClick={() => navigate('menu')} className="bg-secondary text-on-secondary px-6 py-3 rounded-full font-label-sm text-label-sm hover:scale-95 transition-transform shadow-lg shadow-secondary/20">
+              View Menu
             </button>
           </nav>
 
@@ -84,7 +84,7 @@ export default function App() {
                 {tab.label}
               </button>
             ))}
-            <button className="w-full bg-secondary text-on-secondary py-4 rounded-full font-label-sm text-center">Order Now</button>
+            <button onClick={() => navigate('menu')} className="w-full bg-secondary text-on-secondary py-4 rounded-full font-label-sm text-center">View Menu</button>
           </div>
         )}
       </header>
@@ -104,12 +104,12 @@ export default function App() {
           <div>
             <span className="font-headline-md text-headline-md text-secondary">Cup Cafe.</span>
             <p className="font-body-md text-body-md text-on-surface-variant mt-4 max-w-xs">
-              Every Sandwich Has A Story. 123 Maple Street, Oakwood, CA 90210
+              Every Sandwich Has A Story. 6 Monterey Blvd, San Francisco, CA 94131
             </p>
           </div>
           <div className="flex flex-col gap-4">
             <span className="font-label-sm uppercase tracking-widest text-secondary">Hours</span>
-            <p className="font-body-md text-sm">Mon-Fri 7am-8pm · Sat 8am-9pm · Sun 8am-7pm</p>
+            <p className="font-body-md text-sm">Mon–Sat 7AM–2PM · Sunday Closed</p>
           </div>
           <div className="flex flex-col gap-4">
             <span className="font-label-sm uppercase tracking-widest text-secondary">Follow</span>

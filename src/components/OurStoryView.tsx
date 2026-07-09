@@ -1,5 +1,5 @@
 import { TabType } from '../types';
-import { TEAM, TIMELINE, IMAGES } from '../data';
+import { IMAGES } from '../data';
 import { motion } from 'framer-motion';
 
 const fadeUp = { initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-60px' }, transition: { duration: 0.6 } };
@@ -26,15 +26,6 @@ export default function OurStoryView({ onNavigate }: Props) {
             <div className="rounded-2xl overflow-hidden editorial-shadow">
               <img className="w-full aspect-[4/3] object-cover hover:scale-105 transition-transform duration-700" src={IMAGES.interior} alt="Cafe interior" />
             </div>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
-              className="absolute -bottom-8 -left-8 bg-background p-6 rounded-xl editorial-shadow max-w-xs hidden lg:block"
-            >
-              <div className="flex items-center gap-4 mb-3">
-                <span className="material-symbols-outlined text-secondary">star</span>
-                <span className="font-label-sm">Voted "Best Secret Sauce" 2023</span>
-              </div>
-              <p className="text-on-surface-variant text-sm font-body-md italic">"It's the kind of flavor you crave for days."</p>
-            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -51,7 +42,7 @@ export default function OurStoryView({ onNavigate }: Props) {
             <span className="font-decorative-note text-secondary mb-4 block italic">The Heart of the Kitchen</span>
             <h2 className="font-headline-lg text-headline-lg mb-6">The Sauce That Started It All</h2>
             <p className="font-body-lg text-body-lg text-on-surface-variant mb-8">
-              Lou's signature sauce wasn't planned — it was a happy accident in a tiny kitchen. A dash of this, a pinch of that, and suddenly a neighborhood legend was born.
+              Lou's signature sauce wasn't planned — it was a happy accident in a tiny kitchen. A dash of this, a pinch of that, and suddenly a neighborhood legend was born. Today, Lou's Special Sauce is on every sandwich we make.
             </p>
             <div className="grid grid-cols-2 gap-6">
               {[
@@ -111,64 +102,13 @@ export default function OurStoryView({ onNavigate }: Props) {
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="py-section-gap px-margin-desktop bg-surface-container overflow-hidden">
-        <div className="max-w-screen-2xl mx-auto">
-          <motion.div {...fadeUp} className="mb-16">
-            <h2 className="font-headline-lg text-headline-lg">Our Journey <br/><span className="italic text-secondary">Through Time</span></h2>
-          </motion.div>
-          <div className="relative flex flex-col md:flex-row gap-gutter md:items-start">
-            <div className="hidden md:block absolute top-12 left-0 w-full h-[2px] bg-outline-variant/30" />
-            {TIMELINE.map((event, i) => (
-              <motion.div key={i} initial={{ y: 30, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
-                className="relative z-10 md:w-1/4 pt-20"
-              >
-                <div className={`w-6 h-6 rounded-full ${event.active ? 'bg-secondary' : 'bg-outline-variant'} absolute top-10 left-0 md:left-1/2 -translate-x-1/2 ${event.active ? 'border-4 border-white shadow-lg' : ''}`} />
-                <span className={`font-decorative-note ${event.active ? 'text-secondary' : 'text-on-surface-variant'} mb-2 block`}>{event.year}</span>
-                <h5 className="font-headline-md text-[24px] mb-4">{event.title}</h5>
-                <p className="font-body-md text-on-surface-variant pr-4">{event.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Team */}
-      <section className="py-section-gap px-margin-desktop bg-background">
-        <div className="max-w-screen-2xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center mb-16">
-            <motion.div {...fadeUp} className="md:col-span-5">
-              <h2 className="font-headline-lg text-headline-lg">The Hands Behind <br/>The <span className="text-secondary italic">Magic.</span></h2>
-            </motion.div>
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
-              className="md:col-span-6 md:col-start-7"
-            >
-              <p className="font-body-lg text-on-surface-variant">Our team isn't just staff; they're family. Most of us have been here since the beginning, sharing recipes and stories over the morning brew.</p>
-            </motion.div>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-gutter">
-            {TEAM.map((member, i) => (
-              <motion.div key={i} initial={{ y: 30, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.12 }}
-                className={`group cursor-pointer ${member.offset ? 'mt-12' : ''}`}
-              >
-                <div className="aspect-[4/5] rounded-xl overflow-hidden mb-6 editorial-shadow transition-transform duration-500 group-hover:scale-[1.02]">
-                  <img className="w-full h-full object-cover" src={member.image} alt={member.name} />
-                </div>
-                <h6 className="font-headline-md text-[20px]">{member.name}</h6>
-                <p className="font-label-sm text-secondary uppercase tracking-widest mt-1">{member.role}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="py-section-gap px-margin-desktop">
         <motion.div {...fadeUp} className="max-w-screen-2xl mx-auto rounded-3xl overflow-hidden relative min-h-[400px] flex items-center justify-center bg-gradient-to-br from-primary to-primary-container">
           <div className="relative z-10 text-center max-w-2xl p-gutter">
             <h2 className="font-display-lg text-display-lg mb-8">Come Be Part Of <br/>Our <span className="text-secondary italic">Next Chapter.</span></h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-secondary text-on-secondary px-10 py-5 rounded-full font-label-sm text-label-sm shadow-lg hover:shadow-xl hover:scale-105 transition-all">Book A Table</button>
+              <button onClick={() => onNavigate('menu')} className="bg-secondary text-on-secondary px-10 py-5 rounded-full font-label-sm text-label-sm shadow-lg hover:shadow-xl hover:scale-105 transition-all">View Our Menu</button>
               <button onClick={() => onNavigate('contact')} className="bg-background text-on-surface px-10 py-5 rounded-full font-label-sm text-label-sm border border-outline hover:bg-surface-container transition-all">Find Us</button>
             </div>
           </div>
