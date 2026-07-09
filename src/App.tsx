@@ -38,7 +38,9 @@ export default function App() {
   const navigate = (tab: TabType) => {
     setActiveTab(tab);
     setMobileOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Lenis overrides native scrollTo — use its API for instant reset
+    if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true });
+    else window.scrollTo(0, 0);
   };
 
   return (
@@ -93,7 +95,7 @@ export default function App() {
         {activeTab === 'home' && <HomeView onNavigate={navigate} />}
         {activeTab === 'menu' && <MenuView />}
         {activeTab === 'our-story' && <OurStoryView onNavigate={navigate} />}
-        {activeTab === 'gallery' && <GalleryView />}
+        {activeTab === 'gallery' && <GalleryView onNavigate={navigate} />}
         {activeTab === 'reviews' && <ReviewsView />}
         {activeTab === 'contact' && <ContactView />}
       </main>

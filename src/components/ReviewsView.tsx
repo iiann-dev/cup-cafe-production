@@ -46,9 +46,10 @@ export default function ReviewsView() {
           <p className="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-xl mx-auto">
             We'd love to hear about your experience. Your feedback helps us keep the sandwiches fresh and the coffee brewing.
           </p>
-          <button className="bg-secondary text-on-secondary px-10 py-5 rounded-full font-label-sm text-label-sm shadow-xl hover:scale-105 transition-transform flex items-center gap-2 mx-auto">
+          <a href="https://www.google.com/maps/place/6+Monterey+Blvd,+San+Francisco,+CA+94131" target="_blank" rel="noopener"
+             className="bg-secondary text-on-secondary px-10 py-5 rounded-full font-label-sm text-label-sm shadow-xl hover:scale-105 transition-transform flex items-center gap-2 mx-auto inline-flex">
             Write a Review <span className="material-symbols-outlined">edit</span>
-          </button>
+          </a>
         </div>
       </motion.section>
     </div>
