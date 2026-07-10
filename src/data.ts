@@ -203,7 +203,7 @@ export const FAQ: FAQItem[] = [
 
 /* ─── Images ─── */
 export const IMAGES = {
-  hero: U('photo-1504674900247-0877df9cc836', 1400),
+  hero: '/hero.png',
   sauce: U('photo-1498837167922-ddd27525d352', 800),
   interior: U('photo-1777502286448-35389817f504', 800),
   chef: U('photo-1556910103-1c02745aae4d', 800),
