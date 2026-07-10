@@ -148,3 +148,42 @@ body {
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
+
+/* ─── Mobile Overrides ─── */
+@media (max-width: 760px) {
+  .py-section-gap {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+  }
+  .px-margin-desktop {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .mb-section-gap {
+    margin-bottom: 40px !important;
+  }
+  .gap-section-gap {
+    gap: 40px !important;
+  }
+  .gap-gutter {
+    gap: 16px !important;
+  }
+  .text-display-lg {
+    font-size: 36px !important;
+  }
+  .text-display-md {
+    font-size: 32px !important;
+  }
+  .text-headline-lg {
+    font-size: 28px !important;
+  }
+  .text-headline-md {
+    font-size: 24px !important;
+  }
+  .text-body-lg {
+    font-size: 15px !important;
+  }
+  .text-body-md {
+    font-size: 14px !important;
+  }
+}

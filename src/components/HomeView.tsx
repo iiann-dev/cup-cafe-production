@@ -142,24 +142,33 @@ export default function HomeView({ onNavigate }: Props) {
             aspect-ratio:auto; display:flex;
             flex-direction:column; container-type:normal;
           }
-          .hero-photo{ position:relative !important; height:340px; order:1; }
+          .hero-photo{ position:relative !important; height:260px; order:1; }
           .curve-svg{ display:none; }
           .hero-copy{
             position:relative; left:0; top:0; width:100%; height:auto;
-            order:2; padding:32px 20px 28px; gap:14px;
+            order:2; padding:24px 20px 20px; gap:10px;
           }
           .leaf-deco{ display:none; }
-          .headline{ font-size:1.8rem; max-width:100%; }
-          .sub{ max-width:100%; font-size:0.9rem; }
-          .cta-row{ flex-wrap:wrap; gap:12px; }
-          .hero-btn{ min-height:44px; }
-          .watch-link{ min-height:44px; display:inline-flex; align-items:center; }
-          .badge-daily{ width:80px; height:80px; left:auto; right:5%; top:6%; }
-          .badge-daily .daily-word{ font-size:10px; }
-          .badge-daily text{ font-size:5.5px; }
-          .card-sourced{ width:170px; left:4%; right:auto; top:auto; bottom:6%; padding:10px 12px; }
-          .social-proof{ flex-wrap:wrap; }
-          .proof-label{ font-size:9px; }
+          .eyebrow{ font-size:10px; gap:6px; }
+          .headline{ font-size:1.5rem; max-width:100%; line-height:1.15; }
+          .sub{ max-width:100%; font-size:0.825rem; line-height:1.5; }
+          .cta-row{ flex-wrap:wrap; gap:8px; }
+          .hero-btn{ min-height:44px; font-size:13px; padding:10px 18px !important; }
+          .play-btn{ width:32px !important; height:32px !important; }
+          .watch-link{ min-height:44px; display:inline-flex; align-items:center; font-size:13px; }
+          .badge-daily{ width:64px; height:64px; left:auto; right:3%; top:3%; }
+          .badge-daily .daily-word{ font-size:7px; }
+          .badge-daily text{ font-size:4px; }
+          .card-sourced{ width:150px; left:3%; right:auto; top:auto; bottom:3%; padding:8px 10px; gap:6px; border-radius:10px; }
+          .card-sourced h4{ font-size:7.5px; }
+          .card-sourced p{ font-size:6.5px; line-height:1.3; }
+          .card-sourced .icon-wrap{ width:22px !important; height:22px !important; }
+          .social-proof{ flex-wrap:wrap; gap:8px; }
+          .proof-label{ font-size:7.5px; }
+          .stars{ font-size:11px; }
+          .rating-num{ font-size:11px; }
+          .review-count{ font-size:10px; }
+          .avatars img{ width:22px !important; height:22px !important; }
         }
       `}</style>
 
@@ -426,7 +435,7 @@ export default function HomeView({ onNavigate }: Props) {
 
       {/* ═══ Visit Us CTA ═══ */}
       <section className="py-section-gap px-margin-desktop max-w-screen-2xl mx-auto">
-        <motion.div {...fadeUp} className="bg-gradient-to-br from-primary to-primary-container text-white rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden">
+        <motion.div {...fadeUp} className="bg-gradient-to-br from-primary to-primary-container text-white rounded-[24px] md:rounded-[40px] p-6 md:p-20 text-center relative overflow-hidden">
           <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-secondary/10 blur-3xl" />
           <div className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-secondary/10 blur-3xl" />
           <div className="relative z-10">
