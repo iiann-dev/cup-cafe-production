@@ -146,23 +146,43 @@ export default function HomeView({ onNavigate }: Props) {
           .curve-svg{ display:none; }
           .hero-copy{
             position:relative; left:0; top:0; width:100%; height:auto;
-            order:2; padding:36px 24px 30px; gap:16px;
+            order:2; padding:32px 20px 28px; gap:14px;
           }
           .leaf-deco{ display:none; }
-          .headline{ font-size:2.1rem; }
-          .sub{ max-width:100%; font-size:0.95rem; }
-          .badge-daily{ width:96px; height:96px; left:auto; right:5%; top:8%; }
-          .card-sourced{ width:190px; left:5%; right:auto; top:auto; bottom:8%; }
+          .headline{ font-size:1.8rem; max-width:100%; }
+          .sub{ max-width:100%; font-size:0.9rem; }
+          .cta-row{ flex-wrap:wrap; gap:12px; }
+          .hero-btn{ min-height:44px; }
+          .watch-link{ min-height:44px; display:inline-flex; align-items:center; }
+          .badge-daily{ width:80px; height:80px; left:auto; right:5%; top:6%; }
+          .badge-daily .daily-word{ font-size:10px; }
+          .badge-daily text{ font-size:5.5px; }
+          .card-sourced{ width:170px; left:4%; right:auto; top:auto; bottom:6%; padding:10px 12px; }
+          .social-proof{ flex-wrap:wrap; }
+          .proof-label{ font-size:9px; }
         }
       `}</style>
 
       <section className="hero-canvas" style={{ background: '#f6efe6' }}>
-        {/* Background Photo */}
-        <img
-          className="hero-photo"
-          src={IMAGES.hero}
-          alt="Grilled sandwich on a plate with fresh greens, wooden table setting"
-        />
+        {/* Responsive Hero Photo — WebP + sizes */}
+        <picture>
+          <source
+            media="(max-width: 600px)"
+            srcSet="/hero-mobile.webp"
+          />
+          <source
+            media="(min-width: 601px)"
+            srcSet="/hero-lg.webp 1200w, /hero.webp 1400w"
+            sizes="(min-width: 1456px) 58vw, 100vw"
+          />
+          <img
+            className="hero-photo"
+            src="/hero.png"
+            alt="Grilled sandwich on a plate with fresh greens, wooden table setting"
+            loading="eager"
+            decoding="async"
+          />
+        </picture>
 
         {/* Curve Overlay */}
         <svg className="curve-svg" viewBox="0 0 1456 734" preserveAspectRatio="none">
