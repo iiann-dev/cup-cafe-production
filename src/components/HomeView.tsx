@@ -1,6 +1,7 @@
 import { TabType } from '../types';
 import { FEATURED_ITEMS, TESTIMONIALS, GALLERY_ITEMS, IMAGES } from '../data';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 const fadeUp = { initial: { y: 40, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-60px' }, transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const } };
 const stagger = (i: number) => ({ ...fadeUp, transition: { ...fadeUp.transition, delay: i * 0.12 } });
@@ -13,57 +14,266 @@ export default function HomeView({ onNavigate }: Props) {
 
   return (
     <div>
-      {/* ═══ HERO — Every Sandwich Has A Story ═══ */}
-      <section className="min-h-[90dvh] flex flex-col md:flex-row overflow-hidden">
-        {/* Left Panel */}
-        <div className="w-full md:w-[42%] bg-[#f5f0e6] flex flex-col justify-center px-8 md:px-16 py-16 relative min-h-[60dvh] md:min-h-[90dvh]">
+      {/* ═══ HERO — Exact cup-cafe (1).html design ═══ */}
+      <style>{`
+        .hero-canvas{
+          position:relative; width:100%; aspect-ratio:1456/734;
+          overflow:hidden; container-type:inline-size;
+        }
+        .hero-photo{
+          position:absolute; inset:0; width:100%; height:100%;
+          object-fit:cover; display:block;
+        }
+        .curve-svg{
+          position:absolute; inset:0; width:100%; height:100%; pointer-events:none;
+        }
+        .curve-svg path{ fill:#f6efe6; }
+        .hero-copy{
+          position:absolute; left:6.4%; top:0; width:32%; height:100%; z-index:2;
+          display:flex; flex-direction:column; justify-content:center;
+          gap:clamp(10px,1.4cqw,22px);
+        }
+        .leaf-deco{
+          position:absolute; left:-4.5%; top:52%; width:2.6cqw; min-width:14px;
+          opacity:0.3; color:#766e66; pointer-events:none;
+        }
+        .eyebrow{
+          display:flex; align-items:center; gap:8px;
+          font-size:clamp(10px,0.85cqw,14px); font-weight:700;
+          letter-spacing:0.12em; color:#8a3a1e;
+        }
+        .eyebrow svg{ width:clamp(11px,0.95cqw,15px); height:auto; flex-shrink:0; }
+        .headline{
+          font-size:clamp(28px,4.55cqw,72px); line-height:1.07;
+          font-weight:600; color:#1c150f;
+          font-family:'Playfair Display', serif;
+        }
+        .headline em{ font-style:italic; color:#8a3a1e; }
+        .sub{
+          max-width:88%;
+          font-size:clamp(12px,1.1cqw,17px); line-height:1.6; color:#4a4033;
+        }
+        .cta-row{ display:flex; align-items:center; gap:clamp(10px,1.5cqw,22px); }
+        .hero-btn{
+          background:#9f4222; color:#fff; border:none;
+          padding:clamp(8px,1cqw,15px) clamp(14px,1.8cqw,27px);
+          border-radius:999px; cursor:pointer;
+          display:inline-flex; align-items:center; gap:8px;
+          text-decoration:none; white-space:nowrap;
+          font-size:clamp(11px,1cqw,15px); font-weight:600;
+          font-family:'Inter', sans-serif;
+        }
+        .hero-btn:hover{ background:#8a3a1e; }
+        .hero-btn svg{ width:clamp(11px,1cqw,16px); height:auto; }
+        .play-btn{
+          width:clamp(28px,3.2cqw,45px); height:clamp(28px,3.2cqw,45px);
+          border-radius:50%; border:1px solid #766e66;
+          background:transparent; display:flex;
+          align-items:center; justify-content:center;
+          cursor:pointer; color:#1c150f; flex-shrink:0;
+        }
+        .play-btn svg{ width:38%; height:38%; }
+        .watch-link{
+          font-weight:600; font-size:clamp(11px,1cqw,15px);
+          color:#1c150f; text-decoration:underline;
+          text-decoration-color:#9f4222; text-underline-offset:4px;
+          white-space:nowrap; cursor:pointer; background:none; border:none;
+          font-family:'Inter', sans-serif;
+        }
+        .social-proof{ display:flex; align-items:center; gap:clamp(8px,1cqw,14px); }
+        .avatars{ display:flex; }
+        .avatars img{
+          width:clamp(20px,2.5cqw,37px); height:clamp(20px,2.5cqw,37px);
+          border-radius:50%; object-fit:cover;
+          margin-left:-10px;
+          box-shadow:0 0 0 2px #f6efe6, 0 0 0 3px #9f4222;
+        }
+        .avatars img:first-child{ margin-left:0; }
+        .proof-text{ font-size:clamp(9px,0.8cqw,13px); }
+        .proof-label{
+          font-weight:700; letter-spacing:0.05em; color:#766e66;
+          display:block; margin-bottom:2px;
+          font-size:clamp(8.5px,0.72cqw,11px);
+        }
+        .stars{ color:#9f4222; letter-spacing:1px; }
+        .rating-num{ font-weight:700; color:#1c150f; margin-left:4px; }
+        .review-count{ color:#8a8072; }
+        .badge-daily{
+          position:absolute; left:81.4%; top:37.3%;
+          width:10.3%; aspect-ratio:1; border-radius:50%;
+          background:#8a3a1e; color:#fff;
+          display:flex; align-items:center; justify-content:center;
+          box-shadow:0 12px 30px rgba(0,0,0,0.25); z-index:2;
+        }
+        .badge-daily svg{ width:100%; height:100%; }
+        .badge-daily text{
+          fill:#fff; font-family:'Inter', sans-serif;
+          font-weight:700; font-size:7.4px; letter-spacing:1.1px;
+        }
+        .badge-daily .daily-word{
+          font-family:'Playfair Display', serif;
+          font-size:13px; font-weight:600; letter-spacing:0.5px;
+        }
+        .card-sourced{
+          position:absolute; left:82.5%; top:73%; width:16%;
+          background:#fbf8f2; border-radius:14px;
+          padding:clamp(8px,1.1cqw,18px) clamp(9px,1.3cqw,20px);
+          display:flex; gap:clamp(7px,1cqw,14px); align-items:flex-start;
+          box-shadow:0 16px 40px rgba(0,0,0,0.18); z-index:2;
+        }
+        .card-sourced .icon-wrap{
+          width:clamp(18px,2.3cqw,34px); height:clamp(18px,2.3cqw,34px);
+          border-radius:50%; background:#f6efe6;
+          display:flex; align-items:center; justify-content:center;
+          flex-shrink:0; color:#8a3a1e;
+        }
+        .card-sourced .icon-wrap svg{ width:52%; height:52%; }
+        .card-sourced h4{
+          font-size:clamp(8.5px,0.75cqw,12px); letter-spacing:0.04em;
+          margin-bottom:4px; color:#1c150f;
+          font-family:'Inter', sans-serif; font-weight:600;
+        }
+        .card-sourced p{
+          font-size:clamp(8px,0.7cqw,11.5px); line-height:1.4;
+          color:#6b5f4f; font-family:'Inter', sans-serif;
+        }
+        @media (max-width:760px){
+          .hero-canvas{
+            aspect-ratio:auto; display:flex;
+            flex-direction:column; container-type:normal;
+          }
+          .hero-photo{ position:relative !important; height:340px; order:1; }
+          .curve-svg{ display:none; }
+          .hero-copy{
+            position:relative; left:0; top:0; width:100%; height:auto;
+            order:2; padding:36px 24px 30px; gap:16px;
+          }
+          .leaf-deco{ display:none; }
+          .headline{ font-size:2.1rem; }
+          .sub{ max-width:100%; font-size:0.95rem; }
+          .badge-daily{ width:96px; height:96px; left:auto; right:5%; top:8%; }
+          .card-sourced{ width:190px; left:5%; right:auto; top:auto; bottom:8%; }
+        }
+      `}</style>
+
+      <section className="hero-canvas" style={{ background: '#f6efe6' }}>
+        {/* Background Photo */}
+        <img
+          className="hero-photo"
+          src={IMAGES.hero}
+          alt="Grilled sandwich on a plate with fresh greens, wooden table setting"
+        />
+
+        {/* Curve Overlay */}
+        <svg className="curve-svg" viewBox="0 0 1456 734" preserveAspectRatio="none">
+          <path d="M545,0 C543.3,10.8 535.0,45.8 535.0,65.0 C535.0,84.2 541.7,98.3 545.0,115.0 C548.3,131.7 551.7,148.3 555.0,165.0 C558.3,181.7 559.2,198.3 565.0,215.0 C570.8,231.7 581.7,248.3 590.0,265.0 C598.3,281.7 612.5,298.3 615.0,315.0 C617.5,331.7 610.8,348.3 605.0,365.0 C599.2,381.7 587.5,398.3 580.0,415.0 C572.5,431.7 561.7,448.3 560.0,465.0 C558.3,481.7 561.7,498.3 570.0,515.0 C578.3,531.7 595.0,548.3 610.0,565.0 C625.0,581.7 644.2,598.3 660.0,615.0 C675.8,631.7 693.3,648.3 705.0,665.0 C716.7,681.7 725.0,703.5 730.0,715.0 C735.0,726.5 734.2,730.8 735.0,734.0 L0,734 L0,0 Z"/>
+        </svg>
+
+        {/* Text Layer */}
+        <div className="hero-copy">
+          {/* Leaf Decoration */}
+          <svg className="leaf-deco" viewBox="0 0 40 200" fill="none" stroke="currentColor" strokeWidth="1">
+            <path d="M20 0 V200 M20 30 C5 40 5 55 20 65 M20 65 C35 75 35 90 20 100 M20 100 C5 110 5 125 20 135 M20 135 C35 145 35 160 20 170"/>
+          </svg>
 
           <motion.div
-            initial={{ x: -60, opacity: 0 }}
+            className="eyebrow"
+            initial={{ x: -30, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h1 className="font-display-lg text-[44px] md:text-[52px] leading-[1.1] text-primary mb-4">
-              Every<br />Sandwich<br />Has A{" "}
-              <span className="italic text-secondary font-caveat text-[52px] md:text-[58px]">Story.</span>
-            </h1>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-4 4-6 8-6 12a6 6 0 0 0 12 0c0-4-2-8-6-12z"/></svg>
+            MADE FRESH. MADE WITH LOVE.
           </motion.div>
 
-          <motion.p
-            initial={{ x: -60, opacity: 0 }}
+          <motion.h1
+            className="headline"
+            initial={{ x: -40, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="font-body-md text-body-md text-on-surface-variant max-w-xs mb-10"
+            transition={{ duration: 0.7, delay: 0.35 }}
+          >
+            Every<br />Sandwich<br />Has A <em>Story.</em>
+          </motion.h1>
+
+          <motion.p
+            className="sub"
+            initial={{ x: -40, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.5 }}
           >
             Handcrafted sandwiches made fresh every morning using local ingredients and our legendary signature sauces.
           </motion.p>
 
           <motion.div
-            initial={{ y: 30, opacity: 0 }}
+            className="cta-row"
+            initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="flex gap-4"
+            transition={{ duration: 0.6, delay: 0.7 }}
           >
-            <button
-              onClick={() => onNavigate('menu')}
-              className="bg-[#C84A31] text-white px-8 py-4 rounded-full font-label-sm text-label-sm hover:scale-95 transition-transform shadow-lg"
-            >
-              View Menu <span className="material-symbols-outlined text-sm align-middle ml-1">arrow_forward</span>
+            <button className="hero-btn" onClick={() => onNavigate('menu')}>
+              View Menu
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <path d="M5 12h14M13 5l7 7-7 7"/>
+              </svg>
             </button>
-
+            <button className="play-btn" aria-label="Watch our story">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <button className="watch-link" onClick={() => onNavigate('our-story')}>Watch Our Story</button>
           </motion.div>
 
-
+          <motion.div
+            className="social-proof"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.85 }}
+          >
+            <div className="avatars">
+              <img src="https://i.pravatar.cc/72?img=12" alt="" />
+              <img src="https://i.pravatar.cc/72?img=32" alt="" />
+              <img src="https://i.pravatar.cc/72?img=15" alt="" />
+            </div>
+            <div className="proof-text">
+              <span className="proof-label">LOVED BY OUR COMMUNITY</span>
+              <span className="stars">★★★★★</span><span className="rating-num">4.9</span> <span className="review-count">(230+ reviews)</span>
+            </div>
+          </motion.div>
         </div>
 
-        {/* Right Panel — Hero Photo */}
-        <motion.div className="w-full md:w-[58%] min-h-[50dvh] md:min-h-[90dvh] relative overflow-hidden" style={{ scale: heroScale }}>
-          <img
-            className="w-full h-full object-cover"
-            src={IMAGES.hero}
-            alt="Gourmet sandwich on ceramic plate"
-          />
+        {/* DAILY Badge */}
+        <motion.div
+          className="badge-daily"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 1, ease: [0.34, 1.56, 0.64, 1] }}
+        >
+          <svg viewBox="0 0 150 150">
+            <defs>
+              <path id="arcTop" d="M 20,75 A 55,55 0 0 1 130,75"/>
+              <path id="arcBottom" d="M 26,100 A 55,55 0 0 0 124,100"/>
+            </defs>
+            <text><textPath href="#arcTop" startOffset="50%" textAnchor="middle">FRESH INGREDIENTS</textPath></text>
+            <text className="daily-word" x="75" y="82" textAnchor="middle">DAILY</text>
+            <text><textPath href="#arcBottom" startOffset="50%" textAnchor="middle">MADE WITH CARE</textPath></text>
+          </svg>
+        </motion.div>
 
+        {/* Sourced Locally Card */}
+        <motion.div
+          className="card-sourced"
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.1 }}
+        >
+          <div className="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <path d="M12 2v6M9 5l3 3 3-3M4 14c0 5 4 8 8 8s8-3 8-8"/>
+            </svg>
+          </div>
+          <div>
+            <h4>SOURCED LOCALLY</h4>
+            <p>We partner with local farms to bring you the freshest ingredients every day.</p>
+          </div>
         </motion.div>
       </section>
 
