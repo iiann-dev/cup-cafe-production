@@ -1,12 +1,13 @@
 import { TabType } from './types';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import HomeView from './components/HomeView';
-import MenuView from './components/MenuView';
-import OurStoryView from './components/OurStoryView';
-import GalleryView from './components/GalleryView';
-import ReviewsView from './components/ReviewsView';
-import ContactView from './components/ContactView';
 import Lenis from 'lenis';
+
+const MenuView = lazy(() => import('./components/MenuView'));
+const OurStoryView = lazy(() => import('./components/OurStoryView'));
+const GalleryView = lazy(() => import('./components/GalleryView'));
+const ReviewsView = lazy(() => import('./components/ReviewsView'));
+const ContactView = lazy(() => import('./components/ContactView'));
 
 const tabs: { id: TabType; label: string }[] = [
   { id: 'home', label: 'Home' },
@@ -93,11 +94,11 @@ export default function App() {
 
       <main className="pt-20">
         {activeTab === 'home' && <HomeView onNavigate={navigate} />}
-        {activeTab === 'menu' && <MenuView />}
-        {activeTab === 'our-story' && <OurStoryView onNavigate={navigate} />}
-        {activeTab === 'gallery' && <GalleryView onNavigate={navigate} />}
-        {activeTab === 'reviews' && <ReviewsView />}
-        {activeTab === 'contact' && <ContactView />}
+        {activeTab === 'menu' && <Suspense fallback={<div className="h-screen animate-pulse bg-background" />}><MenuView /></Suspense>}
+        {activeTab === 'our-story' && <Suspense fallback={<div className="h-screen animate-pulse bg-background" />}><OurStoryView onNavigate={navigate} /></Suspense>}
+        {activeTab === 'gallery' && <Suspense fallback={<div className="h-screen animate-pulse bg-background" />}><GalleryView onNavigate={navigate} /></Suspense>}
+        {activeTab === 'reviews' && <Suspense fallback={<div className="h-screen animate-pulse bg-background" />}><ReviewsView /></Suspense>}
+        {activeTab === 'contact' && <Suspense fallback={<div className="h-screen animate-pulse bg-background" />}><ContactView /></Suspense>}
       </main>
 
       {/* Footer */}

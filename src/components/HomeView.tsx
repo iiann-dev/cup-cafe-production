@@ -316,7 +316,7 @@ export default function HomeView({ onNavigate }: Props) {
           {FEATURED_ITEMS.map((item, i) => (
             <motion.div key={i} {...stagger(i)} className="group cursor-pointer bg-surface-container-low rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-500">
               <div className="relative aspect-[4/5] overflow-hidden">
-                <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src={item.image} alt={item.name} />
+                <img loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src={item.image} alt={item.name} />
                 <div className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full font-decorative-note text-xs italic">{item.badge}</div>
               </div>
               <div className="p-8">
@@ -339,7 +339,7 @@ export default function HomeView({ onNavigate }: Props) {
         <div className="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-section-gap items-center">
           <motion.div {...fadeUp} className="relative">
             <div className="rounded-2xl overflow-hidden shadow-2xl">
-              <img className="w-full aspect-square object-cover" src={IMAGES.sauce} alt="Signature sauce" />
+              <img loading="lazy" className="w-full aspect-square object-cover" src={IMAGES.sauce} alt="Signature sauce" />
             </div>
             <motion.div
               initial={{ opacity: 0, x: 30 }}
@@ -374,16 +374,16 @@ export default function HomeView({ onNavigate }: Props) {
         </motion.div>
         <div className="grid grid-cols-2 md:grid-cols-12 gap-4">
           <motion.div {...stagger(0)} className="col-span-2 md:col-span-7 aspect-square rounded-2xl overflow-hidden">
-            <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=800&q=85&auto=format" alt="Fresh ingredients" />
+            <img loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=800&q=85&auto=format" alt="Fresh ingredients" />
           </motion.div>
           <motion.div {...stagger(1)} className="col-span-2 md:col-span-5 row-span-1 aspect-[4/5] rounded-2xl overflow-hidden mt-8 md:mt-16">
-            <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1559314809-0d155014e29e?w=800&q=85&auto=format" alt="Bread baking" />
+            <img loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1559314809-0d155014e29e?w=800&q=85&auto=format" alt="Bread baking" />
           </motion.div>
           <motion.div {...stagger(2)} className="col-span-2 md:col-span-5 aspect-square rounded-2xl overflow-hidden -mt-8">
-            <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=800&q=85&auto=format" alt="Herbs" />
+            <img loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=800&q=85&auto=format" alt="Herbs" />
           </motion.div>
           <motion.div {...stagger(3)} className="col-span-2 md:col-span-7 aspect-[4/5] rounded-2xl overflow-hidden">
-            <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&q=85&auto=format" alt="Chef preparing" />
+            <img loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&q=85&auto=format" alt="Chef preparing" />
           </motion.div>
         </div>
       </section>
@@ -397,7 +397,7 @@ export default function HomeView({ onNavigate }: Props) {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {GALLERY_ITEMS.slice(0, 5).map((item, i) => (
             <motion.div key={i} {...stagger(i)} className="aspect-square rounded-xl overflow-hidden">
-              <img className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" src={item.src} alt={item.alt} />
+              <img loading="lazy" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" src={item.src} alt={item.alt} />
             </motion.div>
           ))}
         </div>

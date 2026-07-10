@@ -38,7 +38,7 @@ export default function GalleryView({ onNavigate }: { onNavigate: (tab: TabType)
               className="aspect-square rounded-xl overflow-hidden group cursor-pointer relative"
               onClick={() => openLightbox(item)}
             >
-              <img className="w-full h-full object-cover grayscale-[0.15] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" src={item.src} alt={item.alt} />
+              <img loading="lazy" className="w-full h-full object-cover grayscale-[0.15] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" src={item.src} alt={item.alt} />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-500" />
             </motion.div>
           ))}
@@ -77,7 +77,7 @@ export default function GalleryView({ onNavigate }: { onNavigate: (tab: TabType)
               className="max-w-5xl w-full h-full flex items-center justify-center"
               onClick={e => e.stopPropagation()}
             >
-              <img className="max-h-[80vh] max-w-full rounded-xl border-4 border-white/10 object-contain" src={lightboxItem.src} alt={lightboxItem.alt} />
+              <img loading="lazy" className="max-h-[80vh] max-w-full rounded-xl border-4 border-white/10 object-contain" src={lightboxItem.src} alt={lightboxItem.alt} />
             </motion.div>
           </motion.div>
         )}

@@ -24,7 +24,7 @@ export default function OurStoryView({ onNavigate }: Props) {
           </motion.div>
           <motion.div initial={{ x: 40, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="lg:col-span-5 relative">
             <div className="rounded-2xl overflow-hidden editorial-shadow">
-              <img className="w-full aspect-[4/3] object-cover hover:scale-105 transition-transform duration-700" src={IMAGES.interior} alt="Cafe interior" />
+              <img loading="lazy" className="w-full aspect-[4/3] object-cover hover:scale-105 transition-transform duration-700" src={IMAGES.interior} alt="Cafe interior" />
             </div>
           </motion.div>
         </div>
@@ -35,7 +35,7 @@ export default function OurStoryView({ onNavigate }: Props) {
         <div className="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-section-gap items-center">
           <motion.div {...fadeUp} className="relative">
             <div className="rounded-2xl overflow-hidden editorial-shadow">
-              <img className="w-full aspect-square object-cover hover:scale-105 transition-transform duration-700" src={IMAGES.sauce} alt="Signature sauce" />
+              <img loading="lazy" className="w-full aspect-square object-cover hover:scale-105 transition-transform duration-700" src={IMAGES.sauce} alt="Signature sauce" />
             </div>
           </motion.div>
           <motion.div initial={{ x: 60, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
@@ -78,10 +78,10 @@ export default function OurStoryView({ onNavigate }: Props) {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
             <div className="md:col-span-7 grid grid-cols-2 gap-4">
               <motion.div {...stagger(0)} className="aspect-square rounded-xl overflow-hidden editorial-shadow">
-                <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600&q=85&auto=format" alt="Fresh sourdough" />
+                <img loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600&q=85&auto=format" alt="Fresh sourdough" />
               </motion.div>
               <motion.div {...stagger(1)} className="aspect-[3/4] rounded-xl overflow-hidden editorial-shadow mt-12">
-                <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&q=85&auto=format" alt="Farm fresh" />
+                <img loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&q=85&auto=format" alt="Farm fresh" />
               </motion.div>
             </div>
             <div className="md:col-span-4 md:col-start-9 space-y-12">
