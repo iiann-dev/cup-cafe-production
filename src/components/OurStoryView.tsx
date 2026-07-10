@@ -92,7 +92,7 @@ export default function OurStoryView({ onNavigate }: Props) {
                 <motion.div key={i} initial={{ x: 40, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.3 + i * 0.15 }}
                   className="relative"
                 >
-                  <span className="font-decorative-note text-secondary text-5xl absolute -top-8 -left-8 opacity-20">{item.num}</span>
+                  <span className="font-decorative-note text-secondary text-4xl md:text-5xl absolute -top-4 md:-top-8 -left-4 md:-left-8 opacity-20">{item.num}</span>
                   <h4 className="font-headline-md text-headline-md mb-4">{item.title}</h4>
                   <p className="font-body-md text-on-surface-variant">{item.desc}</p>
                 </motion.div>
@@ -106,7 +106,7 @@ export default function OurStoryView({ onNavigate }: Props) {
       <section className="py-section-gap px-margin-desktop">
         <motion.div {...fadeUp} className="max-w-screen-2xl mx-auto rounded-3xl overflow-hidden relative min-h-[400px] flex items-center justify-center bg-gradient-to-br from-primary to-primary-container">
           <div className="relative z-10 text-center max-w-2xl p-gutter">
-            <h2 className="font-display-lg text-display-lg mb-8">Come Be Part Of <br/>Our <span className="text-secondary italic">Next Chapter.</span></h2>
+            <h2 className="font-display-lg text-display-lg mb-8">Come Be Part Of <br/>Our <span className="text-on-primary italic">Next Chapter.</span></h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button onClick={() => onNavigate('menu')} className="bg-secondary text-on-secondary px-10 py-5 rounded-full font-label-sm text-label-sm shadow-lg hover:shadow-xl hover:scale-105 transition-all">View Our Menu</button>
               <button onClick={() => onNavigate('contact')} className="bg-background text-on-surface px-10 py-5 rounded-full font-label-sm text-label-sm border border-outline hover:bg-surface-container transition-all">Find Us</button>

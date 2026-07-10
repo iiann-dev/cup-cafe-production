@@ -153,17 +153,13 @@ export default function HomeView({ onNavigate }: Props) {
           .headline{ font-size:1.5rem; max-width:100%; line-height:1.15; }
           .sub{ max-width:100%; font-size:0.825rem; line-height:1.5; }
           .cta-row{ flex-wrap:wrap; gap:8px; }
+          .social-proof{ display:flex !important; }
           .hero-btn{ min-height:44px; font-size:13px; padding:10px 18px !important; }
           .play-btn{ width:32px !important; height:32px !important; }
           .watch-link{ min-height:44px; display:inline-flex; align-items:center; font-size:13px; }
-          .badge-daily{ width:64px; height:64px; left:auto; right:3%; top:3%; }
-          .badge-daily .daily-word{ font-size:7px; }
-          .badge-daily text{ font-size:4px; }
-          .card-sourced{ width:150px; left:3%; right:auto; top:auto; bottom:3%; padding:8px 10px; gap:6px; border-radius:10px; }
-          .card-sourced h4{ font-size:7.5px; }
-          .card-sourced p{ font-size:6.5px; line-height:1.3; }
-          .card-sourced .icon-wrap{ width:22px !important; height:22px !important; }
-          .social-proof{ flex-wrap:wrap; gap:8px; }
+          .badge-daily{ display:none; }
+          .card-sourced{ display:none; }
+          .social-proof{ flex-wrap:wrap; gap:6px; margin-top:4px; }
           .proof-label{ font-size:7.5px; }
           .stars{ font-size:11px; }
           .rating-num{ font-size:11px; }
@@ -440,7 +436,7 @@ export default function HomeView({ onNavigate }: Props) {
           <div className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-secondary/10 blur-3xl" />
           <div className="relative z-10">
             <span className="font-decorative-note text-secondary italic block mb-4">We're Waiting For You</span>
-            <h2 className="font-display-md text-[48px] md:text-[56px] leading-tight mb-8">Come Experience<br/>The <span className="italic text-secondary">Cup Cafe</span> Difference</h2>
+            <h2 className="font-display-md text-[48px] md:text-[56px] leading-tight mb-8">Come Experience<br/>The <span className="italic text-on-primary">Cup Cafe</span> Difference</h2>
             <div className="flex flex-col md:flex-row gap-4 justify-center">
               <button onClick={() => onNavigate('menu')} className="bg-secondary text-on-secondary px-10 py-5 rounded-full font-label-sm text-label-sm hover:scale-105 transition-transform shadow-2xl">
                 View Our Menu
