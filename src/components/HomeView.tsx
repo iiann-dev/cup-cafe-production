@@ -317,9 +317,7 @@ export default function HomeView({ onNavigate }: Props) {
                 <p className="font-body-md text-body-md text-on-surface-variant mb-6">{item.description}</p>
                 <div className="flex items-center justify-between">
                   <span className="font-headline-md text-headline-md text-secondary">{item.price}</span>
-                  <button className="w-12 h-12 rounded-full bg-secondary text-on-secondary flex items-center justify-center hover:scale-110 transition-transform">
-                    <span className="material-symbols-outlined">add</span>
-                  </button>
+                  <div className="w-12 h-12"></div>
                 </div>
               </div>
             </motion.div>

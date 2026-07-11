@@ -21,16 +21,6 @@ export default function ContactView() {
             </p>
           </motion.div>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="md:col-span-5 relative hidden md:block">
-            <div className="absolute -top-12 -right-12 w-40 h-40 flex items-center justify-center">
-              <svg className="w-full h-full text-secondary/20" viewBox="0 0 100 100">
-                <path d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" id="contactCircle" />
-                <text className="font-label-sm text-[8px] uppercase tracking-widest fill-secondary">
-                  <textPath href="#contactCircle">• Fresh Daily • Handcrafted with Love • Lou's Special Sauce •</textPath>
-                </text>
-              </svg>
-              <span className="material-symbols-outlined absolute text-secondary text-3xl">favorite</span>
-            </div>
-          </motion.div>
         </div>
       </section>
 
