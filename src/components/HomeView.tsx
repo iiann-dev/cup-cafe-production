@@ -241,9 +241,6 @@ export default function HomeView({ onNavigate }: Props) {
                 <path d="M5 12h14M13 5l7 7-7 7"/>
               </svg>
             </button>
-            <button className="play-btn" aria-label="Watch our story">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </button>
             <button className="watch-link" onClick={() => onNavigate('our-story')}>Watch Our Story</button>
           </motion.div>
 
@@ -260,7 +257,7 @@ export default function HomeView({ onNavigate }: Props) {
             </div>
             <div className="proof-text">
               <span className="proof-label">LOVED BY OUR COMMUNITY</span>
-              <span className="stars">★★★★★</span><span className="rating-num">4.9</span> <span className="review-count">(230+ reviews)</span>
+              <span className="stars">★★★★★</span><span className="rating-num">4.8</span> <span className="review-count">(225 reviews)</span>
             </div>
           </motion.div>
         </div>
