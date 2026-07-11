@@ -20,7 +20,6 @@ export default function ContactView() {
               Nestled in the heart of San Francisco, we're a neighborhood sandwich spot serving handcrafted sandwiches, espresso, and good vibes since 2012.
             </p>
           </motion.div>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="md:col-span-5 relative hidden md:block">
         </div>
       </section>
 
