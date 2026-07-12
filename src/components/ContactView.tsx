@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { FAQ, AMENITIES, IMAGES } from '../data';
 import { motion } from 'framer-motion';
 
@@ -7,6 +7,12 @@ const stagger = (i: number) => ({ ...fadeUp, transition: { ...fadeUp.transition,
 
 export default function ContactView() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [subject, setSubject] = useState('Catering Inquiry');
+  const formRef = useRef<HTMLDivElement>(null);
+  const handleCateringClick = () => {
+    setSubject('Catering Inquiry');
+    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
     <div className="pt-12">
@@ -104,7 +110,7 @@ export default function ContactView() {
               <div className="relative z-10 max-w-2xl mx-auto md:mx-0">
                 <h4 className="font-headline-md text-headline-md text-primary mb-4">Corporate Catering</h4>
                 <p className="font-body-md text-body-md text-on-surface-variant mb-6">Planning an office lunch or local event? Our catering boxes are packed with gourmet sandwiches, salads, and cookies. Call us or order in-store to arrange.</p>
-                <button className="bg-secondary text-white px-8 py-4 rounded-full font-label-sm text-label-sm hover:bg-on-secondary-fixed-variant transition-colors">
+                <button onClick={handleCateringClick} className="bg-secondary text-white px-8 py-4 rounded-full font-label-sm text-label-sm hover:bg-on-secondary-fixed-variant transition-colors">
                   Inquire About Catering
                 </button>
               </div>
@@ -113,7 +119,7 @@ export default function ContactView() {
           </motion.div>
 
           {/* Contact Form */}
-          <motion.div {...fadeUp} className="md:col-span-12 mt-8 grid grid-cols-1 md:grid-cols-12 gap-gutter">
+          <motion.div ref={formRef} {...fadeUp} className="md:col-span-12 mt-8 grid grid-cols-1 md:grid-cols-12 gap-gutter">
             <div className="md:col-span-5">
               <span className="font-decorative-note text-secondary italic block mb-4">Get in touch</span>
               <h2 className="font-headline-lg text-headline-lg text-primary mb-6">We'd love to <br/><span className="italic text-secondary">hear from you.</span></h2>
@@ -133,7 +139,7 @@ export default function ContactView() {
                 </div>
                 <div className="space-y-2">
                   <label className="font-headline-md text-body-md italic text-primary">Subject</label>
-                  <select className="w-full bg-surface-container-lowest border-b border-outline-variant focus:border-secondary transition-colors outline-none py-3 px-2 font-body-md">
+                  <select value={subject} onChange={e => setSubject(e.target.value)} className="w-full bg-surface-container-lowest border-b border-outline-variant focus:border-secondary transition-colors outline-none py-3 px-2 font-body-md">
                     <option>Catering Inquiry</option>
                     <option>General Question</option>
                     <option>Feedback</option>
