@@ -185,7 +185,10 @@ export default function HomeView({ onNavigate }: Props) {
             src="/hero.png"
             alt="Grilled sandwich on a plate with fresh greens, wooden table setting"
             loading="eager"
+            fetchpriority="high"
             decoding="async"
+            width="1265"
+            height="1013"
           />
         </picture>
 
