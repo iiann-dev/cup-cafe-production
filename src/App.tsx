@@ -1,15 +1,14 @@
-import { useEffect, useRef, useState, lazy, Suspense } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, Outlet } from 'react-router-dom';
 import Lenis from 'lenis';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
-
-const MenuPage = lazy(() => import('./pages/MenuPage'));
-const OurStoryPage = lazy(() => import('./pages/OurStoryPage'));
-const GalleryPage = lazy(() => import('./pages/GalleryPage'));
-const ReviewsPage = lazy(() => import('./pages/ReviewsPage'));
-const ContactPage = lazy(() => import('./pages/ContactPage'));
+import MenuPage from './pages/MenuPage';
+import OurStoryPage from './pages/OurStoryPage';
+import GalleryPage from './pages/GalleryPage';
+import ReviewsPage from './pages/ReviewsPage';
+import ContactPage from './pages/ContactPage';
 
 function Layout() {
   const location = useLocation();
@@ -26,15 +25,15 @@ function Layout() {
     return () => { lenis.destroy(); window.removeEventListener('scroll', handleScroll); };
   }, []);
 
-  useEffect(() => { window.scrollTo(0, 0); }, [location.pathname]);
+  useEffect(() => {
+    if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true });
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen bg-background text-on-surface font-body">
       <Nav scrolled={scrolled} />
       <main className="pt-20">
-        <Suspense fallback={<div className="h-screen animate-pulse bg-background" />}>
-          <Outlet />
-        </Suspense>
+        <Outlet />
       </main>
       <Footer />
     </div>
