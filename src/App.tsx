@@ -25,7 +25,7 @@ export default function App() {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    const lenis = new Lenis({ duration: 0.8, easing: (t: number) => Math.min(1, 1 - Math.pow(1 - t, 3)) });
+    const lenis = new Lenis({ duration: 0.5, easing: (t: number) => Math.min(1, 1 - Math.pow(1 - t, 3)) });
     lenisRef.current = lenis;
 
     function raf(time: number) { lenis.raf(time); requestAnimationFrame(raf); }
