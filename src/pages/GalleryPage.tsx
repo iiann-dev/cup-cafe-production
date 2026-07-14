@@ -1,4 +1,4 @@
-import { TabType } from '../types';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { GALLERY_ITEMS } from '../data';
 import type { GalleryItem } from '../types';
@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const stagger = (i: number) => ({ initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true }, transition: { delay: i * 0.07, duration: 0.5 } });
 
-export default function GalleryView({ onNavigate }: { onNavigate: (tab: TabType) => void }) {
+export default function GalleryPage() {
+  const navigate = useNavigate();
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxItem, setLightboxItem] = useState<GalleryItem | null>(null);
 
@@ -52,8 +53,8 @@ export default function GalleryView({ onNavigate }: { onNavigate: (tab: TabType)
           6 Monterey Blvd, San Francisco — 7AM to 2PM, Mon–Sat. The best sandwiches in town are waiting.
         </p>
         <div className="flex flex-col md:flex-row gap-4 justify-center">
-          <button onClick={() => onNavigate('contact')} className="bg-primary text-on-primary px-10 py-4 rounded-xl font-label-sm text-label-sm hover:scale-105 transition-transform">Visit Us Today</button>
-          <button onClick={() => onNavigate('menu')} className="border border-primary text-primary px-10 py-4 rounded-xl font-label-sm text-label-sm hover:bg-primary hover:text-on-primary transition-all">View Our Menu</button>
+          <button onClick={() => navigate('/contact')} className="bg-primary text-on-primary px-10 py-4 rounded-xl font-label-sm text-label-sm hover:scale-105 transition-transform">Visit Us Today</button>
+          <button onClick={() => navigate('/menu')} className="border border-primary text-primary px-10 py-4 rounded-xl font-label-sm text-label-sm hover:bg-primary hover:text-on-primary transition-all">View Our Menu</button>
         </div>
       </motion.section>
 

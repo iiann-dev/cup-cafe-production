@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const fadeUp = { initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-40px' }, transition: { duration: 0.6 } };
 const stagger = (i: number) => ({ ...fadeUp, transition: { ...fadeUp.transition, delay: i * 0.12 } });
 
-export default function ReviewsView() {
+export default function ReviewsPage() {
   return (
     <div className="px-margin-desktop max-w-screen-2xl mx-auto pt-12">
       <motion.div initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="mb-section-gap">

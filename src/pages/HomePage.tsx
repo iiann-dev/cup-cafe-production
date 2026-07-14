@@ -1,4 +1,4 @@
-import { TabType } from '../types';
+import { useNavigate } from 'react-router-dom';
 import { FEATURED_ITEMS, TESTIMONIALS, GALLERY_ITEMS, IMAGES } from '../data';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
@@ -6,9 +6,8 @@ import { useRef } from 'react';
 const fadeUp = { initial: { y: 40, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-60px' }, transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const } };
 const stagger = (i: number) => ({ ...fadeUp, transition: { ...fadeUp.transition, delay: i * 0.12 } });
 
-interface Props { onNavigate: (tab: TabType) => void; }
-
-export default function HomeView({ onNavigate }: Props) {
+export default function HomePage() {
+  const navigate = useNavigate();
   const { scrollYProgress } = useScroll();
   const heroScale = useTransform(scrollYProgress, [0, 0.15], [1, 1.08]);
 
@@ -235,13 +234,13 @@ export default function HomeView({ onNavigate }: Props) {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            <button className="hero-btn" onClick={() => onNavigate('menu')}>
+            <button className="hero-btn" onClick={() => navigate('/menu')}>
               View Menu
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
                 <path d="M5 12h14M13 5l7 7-7 7"/>
               </svg>
             </button>
-            <button className="watch-link" onClick={() => onNavigate('our-story')}>Watch Our Story</button>
+            <button className="watch-link" onClick={() => navigate('/our-story')}>Watch Our Story</button>
           </motion.div>
 
           <motion.div
@@ -351,7 +350,7 @@ export default function HomeView({ onNavigate }: Props) {
             <p className="font-body-lg text-body-lg text-on-surface-variant mb-8">
               Lou's signature sauce wasn't planned — it was a happy accident in a tiny kitchen. A dash of this, a pinch of that, and suddenly a neighborhood legend was born.
             </p>
-            <button onClick={() => onNavigate('our-story')} className="group inline-flex items-center gap-3 font-label-sm text-label-sm text-secondary">
+            <button onClick={() => navigate('/our-story')} className="group inline-flex items-center gap-3 font-label-sm text-label-sm text-secondary">
               Read Our Full Story <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_right_alt</span>
             </button>
           </motion.div>
@@ -393,7 +392,7 @@ export default function HomeView({ onNavigate }: Props) {
           ))}
         </div>
         <motion.div {...fadeUp} className="mt-12 text-center">
-          <button onClick={() => onNavigate('gallery')} className="group inline-flex items-center gap-3 font-label-sm text-label-sm text-secondary border border-secondary px-8 py-4 rounded-full hover:bg-secondary hover:text-on-secondary transition-all">
+          <button onClick={() => navigate('/gallery')} className="group inline-flex items-center gap-3 font-label-sm text-label-sm text-secondary border border-secondary px-8 py-4 rounded-full hover:bg-secondary hover:text-on-secondary transition-all">
             View Full Gallery <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
           </button>
         </motion.div>
@@ -433,10 +432,10 @@ export default function HomeView({ onNavigate }: Props) {
             <span className="font-decorative-note text-secondary italic block mb-4">We're Waiting For You</span>
             <h2 className="font-display-md text-[48px] md:text-[56px] leading-tight mb-8">Come Experience<br/>The <span className="italic text-on-primary">Cup Cafe</span> Difference</h2>
             <div className="flex flex-col md:flex-row gap-4 justify-center">
-              <button onClick={() => onNavigate('menu')} className="bg-secondary text-on-secondary px-10 py-5 rounded-full font-label-sm text-label-sm hover:scale-105 transition-transform shadow-2xl">
+              <button onClick={() => navigate('/menu')} className="bg-secondary text-on-secondary px-10 py-5 rounded-full font-label-sm text-label-sm hover:scale-105 transition-transform shadow-2xl">
                 View Our Menu
               </button>
-              <button onClick={() => onNavigate('contact')} className="border border-white/40 text-white px-10 py-5 rounded-full font-label-sm text-label-sm hover:bg-white/10 transition-all">
+              <button onClick={() => navigate('/contact')} className="border border-white/40 text-white px-10 py-5 rounded-full font-label-sm text-label-sm hover:bg-white/10 transition-all">
                 Find Us
               </button>
             </div>

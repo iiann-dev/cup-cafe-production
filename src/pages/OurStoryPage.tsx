@@ -1,13 +1,13 @@
-import { TabType } from '../types';
+import { useNavigate } from 'react-router-dom';
 import { IMAGES } from '../data';
 import { motion } from 'framer-motion';
 
 const fadeUp = { initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-60px' }, transition: { duration: 0.6 } };
 const stagger = (i: number) => ({ ...fadeUp, transition: { ...fadeUp.transition, delay: i * 0.12 } });
 
-interface Props { onNavigate: (tab: TabType) => void; }
+export default function OurStoryPage() {
+  const navigate = useNavigate();
 
-export default function OurStoryView({ onNavigate }: Props) {
   return (
     <div>
       {/* Hero */}
@@ -107,8 +107,8 @@ export default function OurStoryView({ onNavigate }: Props) {
           <div className="relative z-10 text-center max-w-2xl p-gutter">
             <h2 className="font-display-lg text-display-lg mb-8"><span className="text-secondary">Come Be Part Of</span> <br/><span className="text-on-primary">Our <span className="italic">Next Chapter.</span></span></h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button onClick={() => onNavigate('menu')} className="bg-secondary text-on-secondary px-10 py-5 rounded-full font-label-sm text-label-sm shadow-lg hover:shadow-xl hover:scale-105 transition-all">View Our Menu</button>
-              <button onClick={() => onNavigate('contact')} className="bg-background text-on-surface px-10 py-5 rounded-full font-label-sm text-label-sm border border-outline hover:bg-surface-container transition-all">Find Us</button>
+              <button onClick={() => navigate('/menu')} className="bg-secondary text-on-secondary px-10 py-5 rounded-full font-label-sm text-label-sm shadow-lg hover:shadow-xl hover:scale-105 transition-all">View Our Menu</button>
+              <button onClick={() => navigate('/contact')} className="bg-background text-on-surface px-10 py-5 rounded-full font-label-sm text-label-sm border border-outline hover:bg-surface-container transition-all">Find Us</button>
             </div>
           </div>
         </motion.div>

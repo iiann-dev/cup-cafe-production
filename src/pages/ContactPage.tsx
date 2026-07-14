@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 const fadeUp = { initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-40px' }, transition: { duration: 0.6 } };
 const stagger = (i: number) => ({ ...fadeUp, transition: { ...fadeUp.transition, delay: i * 0.1 } });
 
-export default function ContactView() {
+export default function ContactPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [subject, setSubject] = useState('Catering Inquiry');
   const formRef = useRef<HTMLDivElement>(null);
