@@ -45,8 +45,8 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
               )}
             </button>
           ))}
-          <button onClick={() => navTo('/menu')} className="bg-secondary text-on-secondary px-6 py-3 rounded-full font-label-sm text-label-sm hover:scale-95 transition-transform shadow-lg shadow-secondary/20">
-            View Menu
+          <button onClick={() => navTo('/contact')} className="bg-secondary text-on-secondary px-6 py-3 rounded-full font-label-sm text-label-sm hover:scale-95 transition-transform shadow-lg shadow-secondary/20">
+            Contact Us
           </button>
         </nav>
 
@@ -62,7 +62,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
               {tab.label}
             </button>
           ))}
-          <button onClick={() => navTo('/menu')} className="w-full bg-secondary text-on-secondary py-4 rounded-full font-label-sm text-center">View Menu</button>
+          <button onClick={() => navTo('/contact')} className="w-full bg-secondary text-on-secondary py-4 rounded-full font-label-sm text-center">Contact Us</button>
         </div>
       )}
     </header>
