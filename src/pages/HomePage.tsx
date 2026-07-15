@@ -322,12 +322,12 @@ export default function HomePage() {
             </motion.div>
           ))}
         </div>
-        {/* Mobile-only: Contact Us link */}
+        {/* Mobile-only: View More Menu link */}
         <a
-          href="/contact#form"
+          href="/menu"
           className="md:hidden block text-center text-secondary font-label-sm text-label-sm mt-10 tracking-wider transition-opacity hover:opacity-80"
         >
-          Contact Us
+          View More Menu <span className="material-symbols-outlined text-sm align-middle ml-1">arrow_right_alt</span>
         </a>
       </section>
 

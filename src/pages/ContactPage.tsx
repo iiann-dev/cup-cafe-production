@@ -1,11 +1,13 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { FAQ, AMENITIES, IMAGES } from '../data';
 import { motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 
 const fadeUp = { initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-40px' }, transition: { duration: 0.6 } };
 const stagger = (i: number) => ({ ...fadeUp, transition: { ...fadeUp.transition, delay: i * 0.1 } });
 
 export default function ContactPage() {
+  const { hash } = useLocation();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [subject, setSubject] = useState('Catering Inquiry');
   const formRef = useRef<HTMLDivElement>(null);
@@ -13,6 +15,12 @@ export default function ContactPage() {
     setSubject('Catering Inquiry');
     formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
+
+  useEffect(() => {
+    if (hash === '#form' && formRef.current) {
+      setTimeout(() => formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    }
+  }, [hash]);
 
   return (
     <div className="pt-12">
