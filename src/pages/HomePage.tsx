@@ -322,6 +322,13 @@ export default function HomePage() {
             </motion.div>
           ))}
         </div>
+        {/* Mobile-only: View Full Menu link */}
+        <a
+          href="/menu"
+          className="md:hidden block text-center text-secondary font-label-sm text-label-sm mt-10 tracking-wider transition-opacity hover:opacity-80"
+        >
+          View Full Menu
+        </a>
       </section>
 
       {/* ═══ Sauce Section ═══ */}
