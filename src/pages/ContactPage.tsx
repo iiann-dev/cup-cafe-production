@@ -119,7 +119,7 @@ export default function ContactPage() {
           </motion.div>
 
           {/* Contact Form */}
-          <motion.div ref={formRef} {...fadeUp} className="md:col-span-12 mt-8 grid grid-cols-1 md:grid-cols-12 gap-gutter">
+          <motion.div ref={formRef} id="form" {...fadeUp} className="md:col-span-12 mt-8 grid grid-cols-1 md:grid-cols-12 gap-gutter">
             <div className="md:col-span-5">
               <span className="font-decorative-note text-secondary italic block mb-4">Get in touch</span>
               <h2 className="font-headline-lg text-headline-lg text-primary mb-6">We'd love to <br/><span className="italic text-secondary">hear from you.</span></h2>

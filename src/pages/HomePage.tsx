@@ -324,7 +324,7 @@ export default function HomePage() {
         </div>
         {/* Mobile-only: Contact Us link */}
         <a
-          href="/contact"
+          href="/contact#form"
           className="md:hidden block text-center text-secondary font-label-sm text-label-sm mt-10 tracking-wider transition-opacity hover:opacity-80"
         >
           Contact Us
