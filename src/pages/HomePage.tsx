@@ -439,10 +439,7 @@ export default function HomePage() {
             <span className="font-decorative-note text-secondary italic block mb-4">We're Waiting For You</span>
             <h2 className="font-display-md text-[48px] md:text-[56px] leading-tight mb-8">Come Experience<br/>The <span className="italic text-on-primary">Cup Cafe</span> Difference</h2>
             <div className="flex flex-col md:flex-row gap-4 justify-center">
-              <button onClick={() => navigate('/menu')} className="bg-secondary text-on-secondary px-10 py-5 rounded-full font-label-sm text-label-sm hover:scale-105 transition-transform shadow-2xl">
-                View Our Menu
-              </button>
-              <button onClick={() => navigate('/contact')} className="border border-white/40 text-white px-10 py-5 rounded-full font-label-sm text-label-sm hover:bg-white/10 transition-all">
+              <button onClick={() => navigate('/contact')} className="border border-secondary text-secondary px-12 py-5 rounded-full font-label-sm text-label-sm hover:bg-secondary hover:text-on-secondary transition-all duration-300">
                 Find Us
               </button>
             </div>
