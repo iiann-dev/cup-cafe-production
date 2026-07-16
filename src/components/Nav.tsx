@@ -26,7 +26,11 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-background/85 backdrop-blur-xl shadow-lg' : 'bg-transparent'}`}>
       <div className="px-margin-desktop max-w-screen-2xl mx-auto flex items-center justify-between h-20">
         <button onClick={() => navTo('/')} className="flex items-center gap-2 group">
-          <span className="material-symbols-outlined text-secondary text-2xl">local_cafe</span>
+          <img
+            src="/images/cup-logo.png"
+            alt="Cup Cafe"
+            className="h-8 md:h-9 w-auto object-contain"
+          />
           <span className="font-headline-md text-headline-md text-primary group-hover:text-secondary transition-colors">Cup Cafe.</span>
         </button>
 
