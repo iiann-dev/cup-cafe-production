@@ -27,7 +27,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
       <div className="px-margin-desktop max-w-screen-2xl mx-auto flex items-center justify-between h-20">
         <button onClick={() => navTo('/')} className="flex items-center gap-2 group">
           <img
-            src="/images/cup-logo.png"
+            src="/images/new (1).png"
             alt="Cup Cafe"
             className="h-12 md:h-14 w-auto object-contain"
           />
