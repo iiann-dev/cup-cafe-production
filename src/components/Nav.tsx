@@ -29,7 +29,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
           <img
             src="/images/cup-logo.png"
             alt="Cup Cafe"
-            className="h-8 md:h-9 w-auto object-contain"
+            className="h-12 md:h-14 w-auto object-contain"
           />
           <span className="font-headline-md text-headline-md text-primary group-hover:text-secondary transition-colors">Cup Cafe.</span>
         </button>
