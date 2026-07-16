@@ -370,10 +370,10 @@ export default function HomePage() {
           <h2 className="font-headline-lg text-headline-lg">Honest Ingredients, <br/><span className="italic text-secondary">Every Single Morning.</span></h2>
         </motion.div>
         <div className="grid grid-cols-2 md:grid-cols-12 gap-4">
-          <motion.div {...stagger(0)} className="col-span-2 md:col-span-7 aspect-square rounded-2xl overflow-hidden">
+          <motion.div {...stagger(0)} className="col-span-2 md:col-span-7 aspect-square rounded-2xl overflow-hidden hidden md:block">
             <img loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=800&q=85&auto=format" alt="Fresh ingredients" />
           </motion.div>
-          <motion.div {...stagger(1)} className="col-span-2 md:col-span-5 row-span-1 aspect-[4/5] rounded-2xl overflow-hidden mt-8 md:mt-16">
+          <motion.div {...stagger(1)} className="col-span-2 md:col-span-5 row-span-1 aspect-[4/5] rounded-2xl overflow-hidden mt-8 md:mt-16 hidden md:block">
             <img loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1559314809-0d155014e29e?w=800&q=85&auto=format" alt="Bread baking" />
           </motion.div>
           <motion.div {...stagger(2)} className="col-span-2 md:col-span-5 aspect-square rounded-2xl overflow-hidden -mt-8">
