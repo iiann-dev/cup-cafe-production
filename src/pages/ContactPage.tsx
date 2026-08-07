@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { FAQ, AMENITIES, IMAGES } from '../data';
 import { motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
+import { useLenis } from '../context/LenisContext';
 
 const fadeUp = { initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-40px' }, transition: { duration: 0.6 } };
 const stagger = (i: number) => ({ ...fadeUp, transition: { ...fadeUp.transition, delay: i * 0.1 } });
@@ -11,16 +12,22 @@ export default function ContactPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [subject, setSubject] = useState('Catering Inquiry');
   const formRef = useRef<HTMLDivElement>(null);
+  const lenis = useLenis();
+
   const handleCateringClick = () => {
     setSubject('Catering Inquiry');
-    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (lenis && formRef.current) {
+      lenis.scrollTo(formRef.current, { offset: -80, duration: 0.6, easing: (t: number) => Math.min(1, 1 - Math.pow(1 - t, 3)) });
+    }
   };
 
   useEffect(() => {
-    if (hash === '#form' && formRef.current) {
-      setTimeout(() => formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    if (hash === '#form' && formRef.current && lenis) {
+      setTimeout(() => {
+        lenis.scrollTo(formRef.current, { offset: -80, duration: 0.6, easing: (t: number) => Math.min(1, 1 - Math.pow(1 - t, 3)) });
+      }, 100);
     }
-  }, [hash]);
+  }, [hash, lenis]);
 
   return (
     <div className="pt-28">

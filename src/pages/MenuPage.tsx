@@ -1,17 +1,26 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { MENU_CATEGORIES } from '../data';
 import { motion } from 'framer-motion';
+import { useLenis } from '../context/LenisContext';
 
-const fadeUp = { initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-40px' }, transition: { duration: 0.6 } };
+const fadeUp = {
+  initial: { y: 30, opacity: 0 },
+  whileInView: { y: 0, opacity: 1 },
+  viewport: { once: true, margin: '-40px' },
+  transition: { duration: 0.6 }
+};
 
 export default function MenuPage() {
   const [activeCategory, setActiveCategory] = useState(MENU_CATEGORIES[0].id);
   const listRef = useRef<HTMLDivElement>(null);
+  const lenis = useLenis();
 
   const selectCategory = (id: string) => {
     setActiveCategory(id);
-    // Always show the list from the top — no snap to wherever the page was
-    listRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Use Lenis scrollTo for consistent smooth scrolling that works with its internal state
+    if (lenis && listRef.current) {
+      lenis.scrollTo(listRef.current, { offset: -80, duration: 0.6, easing: (t: number) => Math.min(1, 1 - Math.pow(1 - t, 3)) });
+    }
   };
 
   return (
@@ -26,7 +35,9 @@ export default function MenuPage() {
             {MENU_CATEGORIES.map((cat, i) => (
               <motion.button
                 key={cat.id}
-                initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: i * 0.05 }}
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: i * 0.05 }}
                 onClick={() => selectCategory(cat.id)}
                 className={`font-label-sm text-label-sm px-5 py-3 rounded-full whitespace-nowrap transition-all ${
                   activeCategory === cat.id
@@ -54,7 +65,12 @@ export default function MenuPage() {
                 /* Design Your Own — special display */
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {cat.items.map((item, i) => (
-                    <motion.div key={i} initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                    <motion.div
+                      key={i}
+                      initial={{ y: 20, opacity: 0 }}
+                      whileInView={{ y: 0, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1 }}
                       className="bg-secondary-fixed-dim/20 p-8 rounded-3xl text-center border border-secondary/20"
                     >
                       <span className="font-decorative-note text-secondary text-6xl block mb-4">
@@ -70,7 +86,12 @@ export default function MenuPage() {
                 /* All other categories — list style */
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
                   {cat.items.map((item, i) => (
-                    <motion.div key={i} initial={{ y: 15, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.04 }}
+                    <motion.div
+                      key={i}
+                      initial={{ y: 15, opacity: 0 }}
+                      whileInView={{ y: 0, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.04 }}
                       className="border-b border-outline-variant/20 pb-4 group"
                     >
                       <div className="flex justify-between items-start mb-1">
