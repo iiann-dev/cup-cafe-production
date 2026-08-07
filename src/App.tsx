@@ -32,7 +32,7 @@ function Layout() {
   return (
     <div className="min-h-screen bg-background text-on-surface font-body">
       <Nav scrolled={scrolled} />
-      <main className="pt-20">
+      <main className="pt-28">
         <Outlet />
       </main>
       <Footer />
