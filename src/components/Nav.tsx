@@ -23,7 +23,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
   const active = location.pathname;
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-background/85 backdrop-blur-xl shadow-lg' : 'bg-transparent'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-surface/85 backdrop-blur-xl shadow-sm border-b border-outline-variant/60' : 'bg-transparent'}`}>
       <div className="px-margin-desktop max-w-screen-2xl mx-auto flex items-center justify-between h-20">
         <button onClick={() => navTo('/')} className="flex items-center gap-2 group">
           <img
@@ -60,7 +60,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-background/95 backdrop-blur-xl border-t border-outline-variant/20 px-margin-desktop py-8 space-y-6">
+        <div className="md:hidden bg-surface/95 backdrop-blur-xl border-t border-outline-variant/60 px-margin-desktop py-8 space-y-6">
           {tabs.map(tab => (
             <button key={tab.path} onClick={() => navTo(tab.path)} className="block w-full text-left font-headline-md text-xl py-2">
               {tab.label}

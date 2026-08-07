@@ -159,7 +159,7 @@ export default function ContactPage() {
                   <textarea className="w-full bg-surface-container-lowest border-b border-outline-variant focus:border-secondary transition-colors outline-none py-3 px-2 font-body-md" placeholder="How can we help?" rows={5} />
                 </div>
                 <div className="pt-6">
-                  <button className="bg-primary text-on-primary px-10 py-4 rounded-full font-label-sm text-label-sm hover:bg-secondary transition-all flex items-center justify-center gap-3" type="submit">
+                  <button className="bg-secondary text-on-primary px-10 py-4 rounded-full font-label-sm text-label-sm hover:bg-secondary-container transition-all flex items-center justify-center gap-3" type="submit">
                     Send Message <span className="material-symbols-outlined">send</span>
                   </button>
                 </div>

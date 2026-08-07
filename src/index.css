@@ -2,55 +2,56 @@
 
 /* ─── Cup Cafe — Exact Stitch Design Tokens ─── */
 @theme {
-  /* Colors — direct from Stitch tailwind.config */
-  --color-on-surface: #1c1c19;
-  --color-on-error: #ffffff;
-  --color-tertiary-fixed-dim: #bbccb0;
-  --color-on-background: #1c1c19;
-  --color-secondary: #a23e1e;
-  --color-background: #fdf9f4;
-  --color-inverse-on-surface: #f4f0eb;
-  --color-outline-variant: #cfc4bd;
-  --color-on-primary-fixed: #1e1b18;
-  --color-secondary-container: #fe825c;
-  --color-primary-container: #2d2926;
-  --color-surface-container-low: #f7f3ee;
-  --color-primary-fixed-dim: #cdc5c0;
-  --color-on-error-container: #93000a;
-  --color-on-secondary-fixed-variant: #822707;
-  --color-on-surface-variant: #4d4540;
-  --color-on-secondary: #ffffff;
-  --color-on-secondary-fixed: #3a0a00;
-  --color-primary-fixed: #e9e1dc;
-  --color-on-tertiary-fixed-variant: #3c4b35;
-  --color-surface: #fdf9f4;
-  --color-outline: #7e756f;
-  --color-on-tertiary: #ffffff;
-  --color-surface-tint: #635d5a;
-  --color-on-primary: #ffffff;
-  --color-inverse-primary: #cdc5c0;
-  --color-surface-bright: #fdf9f4;
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-dim: #ddd9d5;
-  --color-tertiary-container: #1f2d1a;
-  --color-on-primary-fixed-variant: #4b4642;
-  --color-on-secondary-container: #721d00;
-  --color-secondary-fixed-dim: #ffb59f;
-  --color-tertiary: #0b1807;
-  --color-secondary-fixed: #ffdbd1;
-  --color-tertiary-fixed: #d7e8cb;
-  --color-error-container: #ffdad6;
-  --color-on-primary-container: #96908b;
-  --color-surface-container-highest: #e6e2dd;
-  --color-on-tertiary-fixed: #121f0d;
-  --color-primary: #181512;
-  --color-inverse-surface: #31302d;
-  --color-error: #ba1a1a;
-  --color-surface-variant: #e6e2dd;
-  --color-surface-container-high: #ebe8e3;
-  --color-surface-container: #f1ede8;
-  --color-on-tertiary-container: #85957c;
-  --color-accent-cream: #f5f0e8;
+  /* Colors — Cup Cafe 2026 modern palette (bright, premium, warm) */
+    --color-on-surface: #1A1A1A;
+    --color-on-error: #ffffff;
+    --color-tertiary-fixed-dim: #c7d3b4;
+    --color-on-background: #1A1A1A;
+    --color-secondary: #d46a2e;
+    --color-background: #FCFAF7;
+    --color-inverse-on-surface: #f4f0eb;
+    --color-outline-variant: #ECE7E2;
+    --color-on-primary-fixed: #1A1A1A;
+    --color-secondary-container: #E57B3E;
+    --color-primary-container: #181818;
+    --color-surface-container-low: #FFFFFF;
+    --color-primary-fixed-dim: #e5ded8;
+    --color-on-error-container: #93000a;
+    --color-on-secondary-fixed-variant: #7a3a1e;
+    --color-on-surface-variant: #6E6A66;
+    --color-on-secondary: #ffffff;
+    --color-on-secondary-fixed: #5a2a12;
+    --color-primary-fixed: #ffffff;
+    --color-on-tertiary-fixed-variant: #3c4b35;
+    --color-surface: #FFFFFF;
+    --color-outline: #D8D2CD;
+    --color-on-tertiary: #ffffff;
+    --color-surface-tint: #b8b2ac;
+    --color-on-primary: #ffffff;
+    --color-inverse-primary: #e2dbd4;
+    --color-surface-bright: #FCFAF7;
+    --color-surface-container-lowest: #FFFFFF;
+    --color-surface-dim: #ECE8E3;
+    --color-tertiary-container: #1B2A12;
+    --color-on-primary-fixed-variant: #4D4D4D;
+    --color-on-secondary-container: #7a3411;
+    --color-secondary-fixed-dim: #F6D9C6;
+    --color-tertiary: #7B8B63;
+    --color-secondary-fixed: #FFE5D8;
+    --color-tertiary-fixed: #dce5ce;
+    --color-error-container: #ffdad6;
+    --color-on-primary-container: #C9C5C1;
+    --color-surface-container-highest: #F1EDE8;
+    --color-on-tertiary-fixed: #eaf1e0;
+    --color-primary: #1A1A1A;
+    --color-inverse-surface: #2A2A2A;
+    --color-error: #ba1a1a;
+    --color-surface-variant: #E7E2DC;
+    --color-surface-container-high: #F6F3EF;
+    --color-surface-container: #FCFAF7;
+    --color-on-tertiary-container: #f2f6ec;
+    --color-dark: #181818;
+    --color-accent-cream: #F6F2EC;
 
   /* Font Families */
   --font-headline-lg-mobile: "Playfair Display", serif;
@@ -127,11 +128,11 @@ body {
 }
 
 .editorial-shadow {
-  box-shadow: 0px 20px 40px rgba(45, 41, 38, 0.05);
+  box-shadow: 0px 20px 40px rgba(24, 24, 24, 0.05);
 }
 
 .artisan-shadow {
-  box-shadow: 0px 8px 24px rgba(45, 41, 38, 0.08);
+  box-shadow: 0px 8px 24px rgba(24, 24, 24, 0.08);
 }
 
 .stamp-rotate {

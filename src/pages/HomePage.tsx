@@ -5,11 +5,18 @@ import { useRef } from 'react';
 
 const fadeUp = { initial: { y: 40, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-60px' }, transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const } };
 const stagger = (i: number) => ({ ...fadeUp, transition: { ...fadeUp.transition, delay: i * 0.12 } });
+const wordReveal = (i: number) => ({ initial: { y: 42, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-60px' }, transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1] as const, delay: i * 0.1 } });
 
 export default function HomePage() {
   const navigate = useNavigate();
   const { scrollYProgress } = useScroll();
   const heroScale = useTransform(scrollYProgress, [0, 0.15], [1, 1.08]);
+
+  // Curved "tuck" sheet transition: featured section rises + rounds over the hero on scroll
+  const featuredRef = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress: featuredProgress } = useScroll({ target: featuredRef, offset: ['start end', 'start 0.2'] });
+  const featuredTop = useTransform(featuredProgress, [0, 1], [110, 0]);
+  const featuredRadius = useTransform(featuredProgress, [0, 1], [120, 28]);
 
   return (
     <div>
@@ -26,7 +33,7 @@ export default function HomePage() {
         .curve-svg{
           position:absolute; inset:0; width:100%; height:100%; pointer-events:none;
         }
-        .curve-svg path{ fill:#f6efe6; }
+        .curve-svg path{ fill:#FCFAF7; }
         .hero-copy{
           position:absolute; left:6.4%; top:0; width:32%; height:100%; z-index:2;
           display:flex; flex-direction:column; justify-content:center;
@@ -34,27 +41,27 @@ export default function HomePage() {
         }
         .leaf-deco{
           position:absolute; left:-4.5%; top:52%; width:2.6cqw; min-width:14px;
-          opacity:0.3; color:#766e66; pointer-events:none;
+          opacity:0.3; color:#6E6A66; pointer-events:none;
         }
         .eyebrow{
           display:flex; align-items:center; gap:8px;
           font-size:clamp(10px,0.85cqw,14px); font-weight:700;
-          letter-spacing:0.12em; color:#8a3a1e;
+          letter-spacing:0.12em; color:#D46A2E;
         }
         .eyebrow svg{ width:clamp(11px,0.95cqw,15px); height:auto; flex-shrink:0; }
         .headline{
           font-size:clamp(28px,4.55cqw,72px); line-height:1.07;
-          font-weight:600; color:#1c150f;
+          font-weight:600; color:#1A1A1A;
           font-family:'Playfair Display', serif;
         }
-        .headline em{ font-style:italic; color:#8a3a1e; }
+        .headline em{ font-style:italic; color:#D46A2E; }
         .sub{
           max-width:88%;
-          font-size:clamp(12px,1.1cqw,17px); line-height:1.6; color:#4a4033;
+          font-size:clamp(12px,1.1cqw,17px); line-height:1.6; color:#6E6A66;
         }
         .cta-row{ display:flex; align-items:center; gap:clamp(10px,1.5cqw,22px); }
         .hero-btn{
-          background:#9f4222; color:#fff; border:none;
+          background:#D46A2E; color:#fff; border:none;
           padding:clamp(8px,1cqw,15px) clamp(14px,1.8cqw,27px);
           border-radius:999px; cursor:pointer;
           display:inline-flex; align-items:center; gap:8px;
@@ -62,20 +69,20 @@ export default function HomePage() {
           font-size:clamp(11px,1cqw,15px); font-weight:600;
           font-family:'Inter', sans-serif;
         }
-        .hero-btn:hover{ background:#8a3a1e; }
+        .hero-btn:hover{ background:#E57B3E; }
         .hero-btn svg{ width:clamp(11px,1cqw,16px); height:auto; }
         .play-btn{
           width:clamp(28px,3.2cqw,45px); height:clamp(28px,3.2cqw,45px);
-          border-radius:50%; border:1px solid #766e66;
+          border-radius:50%; border:1px solid #6E6A66;
           background:transparent; display:flex;
           align-items:center; justify-content:center;
-          cursor:pointer; color:#1c150f; flex-shrink:0;
+          cursor:pointer; color:#1A1A1A; flex-shrink:0;
         }
         .play-btn svg{ width:38%; height:38%; }
         .watch-link{
           font-weight:600; font-size:clamp(11px,1cqw,15px);
-          color:#1c150f; text-decoration:underline;
-          text-decoration-color:#9f4222; text-underline-offset:4px;
+          color:#1A1A1A; text-decoration:underline;
+          text-decoration-color:#D46A2E; text-underline-offset:4px;
           white-space:nowrap; cursor:pointer; background:none; border:none;
           font-family:'Inter', sans-serif;
         }
@@ -85,22 +92,22 @@ export default function HomePage() {
           width:clamp(20px,2.5cqw,37px); height:clamp(20px,2.5cqw,37px);
           border-radius:50%; object-fit:cover;
           margin-left:-10px;
-          box-shadow:0 0 0 2px #f6efe6, 0 0 0 3px #9f4222;
+          box-shadow:0 0 0 2px #FCFAF7, 0 0 0 3px #D46A2E;
         }
         .avatars img:first-child{ margin-left:0; }
         .proof-text{ font-size:clamp(9px,0.8cqw,13px); }
         .proof-label{
-          font-weight:700; letter-spacing:0.05em; color:#766e66;
+          font-weight:700; letter-spacing:0.05em; color:#6E6A66;
           display:block; margin-bottom:2px;
           font-size:clamp(8.5px,0.72cqw,11px);
         }
-        .stars{ color:#9f4222; letter-spacing:1px; }
-        .rating-num{ font-weight:700; color:#1c150f; margin-left:4px; }
-        .review-count{ color:#8a8072; }
+        .stars{ color:#D46A2E; letter-spacing:1px; }
+        .rating-num{ font-weight:700; color:#1A1A1A; margin-left:4px; }
+        .review-count{ color:#6E6A66; }
         .badge-daily{
           position:absolute; left:81.4%; top:37.3%;
           width:10.3%; aspect-ratio:1; border-radius:50%;
-          background:#8a3a1e; color:#fff;
+          background:#D46A2E; color:#fff;
           display:flex; align-items:center; justify-content:center;
           box-shadow:0 12px 30px rgba(0,0,0,0.25); z-index:2;
         }
@@ -115,26 +122,26 @@ export default function HomePage() {
         }
         .card-sourced{
           position:absolute; left:82.5%; top:73%; width:16%;
-          background:#fbf8f2; border-radius:14px;
+          background:#FFFFFF; border-radius:14px;
           padding:clamp(8px,1.1cqw,18px) clamp(9px,1.3cqw,20px);
           display:flex; gap:clamp(7px,1cqw,14px); align-items:flex-start;
           box-shadow:0 16px 40px rgba(0,0,0,0.18); z-index:2;
         }
         .card-sourced .icon-wrap{
           width:clamp(18px,2.3cqw,34px); height:clamp(18px,2.3cqw,34px);
-          border-radius:50%; background:#f6efe6;
+          border-radius:50%; background:#FCFAF7;
           display:flex; align-items:center; justify-content:center;
-          flex-shrink:0; color:#8a3a1e;
+          flex-shrink:0; color:#D46A2E;
         }
         .card-sourced .icon-wrap svg{ width:52%; height:52%; }
         .card-sourced h4{
           font-size:clamp(8.5px,0.75cqw,12px); letter-spacing:0.04em;
-          margin-bottom:4px; color:#1c150f;
+          margin-bottom:4px; color:#1A1A1A;
           font-family:'Inter', sans-serif; font-weight:600;
         }
         .card-sourced p{
           font-size:clamp(8px,0.7cqw,11.5px); line-height:1.4;
-          color:#6b5f4f; font-family:'Inter', sans-serif;
+          color:#6E6A66; font-family:'Inter', sans-serif;
         }
         @media (max-width:760px){
           .hero-canvas{
@@ -167,7 +174,7 @@ export default function HomePage() {
         }
       `}</style>
 
-      <section className="hero-canvas" style={{ background: '#f6efe6' }}>
+      <section className="hero-canvas" style={{ background: '#FCFAF7' }}>
         {/* Responsive Hero Photo — WebP + sizes */}
         <picture>
           <source
@@ -298,11 +305,23 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* ═══ Featured Menu ═══ */}
-      <section className="py-section-gap px-margin-desktop max-w-screen-2xl mx-auto">
-        <motion.div {...fadeUp} className="text-center mb-16">
-          <span className="font-decorative-note text-secondary italic block mb-3">From Our Kitchen</span>
-          <h2 className="font-display-lg text-display-lg text-primary">Featured <span className="italic text-secondary">Menu</span></h2>
+      {/* ═══ Featured Menu — curved tuck sheet + staggered heading ═══ */}
+      <motion.div
+        ref={featuredRef}
+        style={{ y: featuredTop, borderTopLeftRadius: featuredRadius, borderTopRightRadius: featuredRadius }}
+        className="relative z-10 bg-surface px-margin-desktop pt-section-gap md:-mt-28 -mt-20 shadow-[0_-24px_60px_rgba(24,24,24,0.05)]"
+      >
+        <div className="max-w-screen-2xl mx-auto">
+        <motion.div className="text-center mb-16">
+          <motion.span {...wordReveal(0)} className="font-decorative-note text-secondary italic block mb-3">From Our Kitchen</motion.span>
+          <h2 className="font-display-lg text-display-lg text-primary">
+            <span className="inline-block overflow-hidden align-bottom">
+              <motion.span {...wordReveal(1)} className="inline-block">Featured </motion.span>
+            </span>
+            <span className="inline-block overflow-hidden align-bottom">
+              <motion.span {...wordReveal(2)} className="inline-block italic text-secondary">Menu</motion.span>
+            </span>
+          </h2>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
           {FEATURED_ITEMS.map((item, i) => (
@@ -329,7 +348,8 @@ export default function HomePage() {
         >
           View More Menu <span className="material-symbols-outlined text-sm align-middle ml-1">arrow_right_alt</span>
         </a>
-      </section>
+        </div>
+      </motion.div>
 
       {/* ═══ Sauce Section ═══ */}
       <section className="py-section-gap px-margin-desktop bg-gradient-to-b from-background via-surface-container-low to-background">
