@@ -371,7 +371,6 @@ export default function HomePage() {
             </motion.div>
           </motion.div>
           <motion.div initial={{ x: 60, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }}>
-            <span className="font-decorative-note text-secondary italic block mb-4">The Heart of the Kitchen</span>
             <h2 className="font-headline-lg text-headline-lg mb-6">The Sauce That Started It All</h2>
             <p className="font-body-lg text-body-lg text-on-surface-variant mb-8">
               Lou's signature sauce wasn't planned — it was a happy accident in a tiny kitchen. A dash of this, a pinch of that, and suddenly a neighborhood legend was born.
@@ -407,7 +406,6 @@ export default function HomePage() {
       {/* ═══ Moments Gallery ═══ */}
       <section className="py-section-gap px-margin-desktop max-w-screen-2xl mx-auto">
         <motion.div {...fadeUp} className="mb-section-gap">
-          <span className="font-decorative-note text-secondary italic block mb-2">captured moments</span>
           <h2 className="font-display-lg text-display-lg text-primary">Moments At <span className="italic text-secondary">Cup</span> Cafe</h2>
         </motion.div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
@@ -427,7 +425,6 @@ export default function HomePage() {
       {/* ═══ Testimonials ═══ */}
       <section className="py-section-gap px-margin-desktop max-w-screen-2xl mx-auto">
         <motion.div {...fadeUp} className="text-center mb-section-gap">
-          <span className="font-decorative-note text-secondary italic block mb-2">What They Say</span>
           <h2 className="font-display-lg text-display-lg text-primary">Kind Words From <br/><span className="italic text-secondary">Our Community.</span></h2>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
@@ -455,7 +452,6 @@ export default function HomePage() {
           <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-secondary/10 blur-3xl" />
           <div className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-secondary/10 blur-3xl" />
           <div className="relative z-10">
-            <span className="font-decorative-note text-secondary italic block mb-4">We're Waiting For You</span>
             <h2 className="font-display-md text-[48px] md:text-[56px] leading-tight mb-8">Come Experience<br/>The <span className="italic text-on-primary">Cup Cafe</span> Difference</h2>
             <div className="flex flex-col md:flex-row gap-4 justify-center">
               <button onClick={() => navigate('/contact')} className="border border-secondary text-secondary px-12 py-5 rounded-full font-label-sm text-label-sm hover:bg-secondary hover:text-on-secondary transition-all duration-300">
