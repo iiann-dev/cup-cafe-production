@@ -14,7 +14,7 @@ const tabs = [
 /* Spring for the sliding active-pill — crisp, not bouncy */
 const pillSpring = { type: 'spring', stiffness: 380, damping: 32, mass: 0.9 } as const;
 
-/* Magnetic wrapper for the CTA + logo: follows cursor with physical momentum */
+/* Magnetic wrapper for the CTA: follows cursor with physical momentum */
 function Magnetic({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -62,15 +62,19 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
       transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
       className="fixed top-0 inset-x-0 z-50 px-4 md:px-8 pt-3 md:pt-4"
     >
-      {/* Floating island — transparent at top, frosted glass pill on scroll */}
+      {/* Floating island — transparent at top, frosted glass pill on scroll. 3-col grid keeps links centered */}
       <div
-        className={`max-w-6xl mx-auto flex items-center justify-between rounded-full transition-all duration-500 ease-out ${
+        className={`max-w-6xl mx-auto grid grid-cols-[1fr_auto_1fr] items-center rounded-full transition-all duration-500 ease-out ${
           scrolled
             ? 'h-16 bg-white/80 backdrop-blur-xl shadow-lg shadow-black/5 border border-outline-variant/70'
             : 'h-20 border border-transparent'
         }`}
       >
-        <button onClick={() => navTo('/')} className="flex items-center gap-2 group pl-4 md:pl-6">
+        {/* Logo — left */}
+        <button
+          onClick={() => navTo('/')}
+          className="justify-self-start flex items-center gap-2 group pl-4 md:pl-6"
+        >
           <img
             src="/images/new (1).png"
             alt="Cup Cafe"
@@ -81,8 +85,8 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
           </span>
         </button>
 
-        {/* Desktop links — sliding shared pill */}
-        <nav className="hidden md:flex items-center gap-1">
+        {/* Centered links — Home .. Visit Us, sliding shared pill */}
+        <nav className="hidden md:flex items-center justify-center gap-1 self-center">
           {tabs.map(tab => {
             const isLit = lit === tab.path;
             const isActive = active === tab.path;
@@ -92,7 +96,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
                 onClick={() => navTo(tab.path)}
                 onMouseEnter={() => setHovered(tab.path)}
                 onMouseLeave={() => setHovered(null)}
-                className="relative px-4 py-2 rounded-full font-label-sm text-label-sm uppercase tracking-widest transition-colors duration-200"
+                className="relative px-4 py-2 rounded-full font-label-sm text-label-sm uppercase tracking-widest transition-colors duration-200 whitespace-nowrap"
               >
                 {isLit && (
                   <motion.span
@@ -111,13 +115,16 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
               </button>
             );
           })}
+        </nav>
 
-          <div className="pl-2">
+        {/* CTA + hamburger — right */}
+        <div className="justify-self-end flex items-center gap-2 pr-2 md:pr-4">
+          <div className="hidden md:block">
             <Magnetic>
               <motion.button
                 onClick={() => navTo('/contact#form')}
                 whileTap={{ scale: 0.96 }}
-                className="relative inline-flex items-center gap-2 bg-secondary text-on-secondary px-6 py-3 rounded-full font-label-sm text-label-sm shadow-lg shadow-secondary/25 overflow-hidden group"
+                className="relative inline-flex items-center gap-2 bg-secondary text-on-secondary pl-5 pr-4 py-2.5 rounded-full font-label-sm text-label-sm overflow-hidden group"
               >
                 <span className="relative z-10">Contact Us</span>
                 <span className="material-symbols-outlined relative z-10 text-sm">arrow_forward</span>
@@ -126,18 +133,17 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
               </motion.button>
             </Magnetic>
           </div>
-        </nav>
 
-        {/* Mobile hamburger */}
-        <button
-          aria-label="Toggle menu"
-          className={`md:hidden flex items-center justify-center w-10 h-10 rounded-full transition-colors ${
-            mobileOpen ? 'text-secondary' : 'text-primary'
-          }`}
-          onClick={() => setMobileOpen(o => !o)}
-        >
-          <span className="material-symbols-outlined text-3xl">{mobileOpen ? 'close' : 'menu'}</span>
-        </button>
+          <button
+            aria-label="Toggle menu"
+            className={`md:hidden flex items-center justify-center w-10 h-10 rounded-full transition-colors ${
+              mobileOpen ? 'text-secondary' : 'text-primary'
+            }`}
+            onClick={() => setMobileOpen(o => !o)}
+          >
+            <span className="material-symbols-outlined text-3xl">{mobileOpen ? 'close' : 'menu'}</span>
+          </button>
+        </div>
       </div>
 
       {/* Full-screen staggered mobile menu */}
@@ -161,7 +167,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
                     exit={{ opacity: 0, y: 12 }}
                     transition={{ delay: 0.05 * i, duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
                     onClick={() => navTo(tab.path)}
-                    className={`block w-full text-left font-headline-md text-3xl py-3 transition-colors ${
+                    className={`block w-full text-left font-headline text-3xl py-3 transition-colors ${
                       isActive ? 'text-secondary' : 'text-on-surface hover:text-secondary'
                     }`}
                   >
