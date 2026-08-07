@@ -28,7 +28,6 @@ export default function ContactPage() {
       <section className="px-margin-desktop max-w-screen-2xl mx-auto mb-section-gap">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-end">
           <motion.div initial={{ x: -40, opacity: 0 }} animate={{ x: 0, opacity: 1 }} className="md:col-span-7">
-            <span className="font-label-sm text-secondary uppercase tracking-widest block mb-4">The Neighborhood Spot</span>
             <h1 className="font-display-lg text-display-lg text-primary mb-8">Visit <span className="italic text-secondary">Us</span></h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
               Nestled in the heart of San Francisco, we're a neighborhood sandwich spot serving handcrafted sandwiches, espresso, and good vibes since 2012.
@@ -129,7 +128,6 @@ export default function ContactPage() {
           {/* Contact Form */}
           <motion.div ref={formRef} id="form" {...fadeUp} className="md:col-span-12 mt-8 grid grid-cols-1 md:grid-cols-12 gap-gutter">
             <div className="md:col-span-5">
-              <span className="font-decorative-note text-secondary italic block mb-4">Get in touch</span>
               <h2 className="font-headline-lg text-headline-lg text-primary mb-6">We'd love to <br/><span className="italic text-secondary">hear from you.</span></h2>
               <p className="font-body-md text-body-md text-on-surface-variant">Whether it's a question, a compliment, or a collaboration — drop us a line.</p>
             </div>
@@ -172,7 +170,6 @@ export default function ContactPage() {
       {/* FAQ */}
       <motion.section {...fadeUp} className="px-margin-desktop py-section-gap max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <span className="font-decorative-note text-decorative-note text-secondary italic">Common Curiosities</span>
           <h2 className="font-headline-lg text-headline-lg text-primary">F.A.Q</h2>
         </div>
         <div className="space-y-8">

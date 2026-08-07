@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { MENU_CATEGORIES } from '../data';
 import { motion } from 'framer-motion';
 
@@ -6,11 +6,17 @@ const fadeUp = { initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1
 
 export default function MenuPage() {
   const [activeCategory, setActiveCategory] = useState(MENU_CATEGORIES[0].id);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  const selectCategory = (id: string) => {
+    setActiveCategory(id);
+    // Always show the list from the top — no snap to wherever the page was
+    listRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
     <div className="px-margin-desktop max-w-screen-2xl mx-auto pt-12">
       <motion.div initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="mb-section-gap">
-        <span className="font-decorative-note text-secondary block mb-2 italic">handcrafted since 2012</span>
         <h1 className="font-display-lg text-display-lg text-primary">Our <span className="italic text-secondary">Menu</span></h1>
       </motion.div>
 
@@ -21,7 +27,7 @@ export default function MenuPage() {
               <motion.button
                 key={cat.id}
                 initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: i * 0.05 }}
-                onClick={() => setActiveCategory(cat.id)}
+                onClick={() => selectCategory(cat.id)}
                 className={`font-label-sm text-label-sm px-5 py-3 rounded-full whitespace-nowrap transition-all ${
                   activeCategory === cat.id
                     ? 'bg-secondary text-on-secondary shadow-lg'
@@ -34,12 +40,11 @@ export default function MenuPage() {
           </div>
         </aside>
 
-        <div className="flex-1 space-y-section-gap">
+        <div ref={listRef} className="flex-1 space-y-section-gap scroll-mt-32">
           {MENU_CATEGORIES.filter(c => c.id === activeCategory).map(cat => (
             <motion.section key={cat.id} {...fadeUp} className="scroll-mt-32">
               <div className="flex items-center justify-between mb-8">
                 <div>
-                  <span className="font-decorative-note text-secondary block mb-2 text-sm">{cat.note}</span>
                   <h2 className="font-headline-lg text-headline-lg italic">{cat.label}</h2>
                 </div>
                 <div className="h-px flex-1 mx-8 bg-outline-variant/30" />

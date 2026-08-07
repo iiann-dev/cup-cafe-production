@@ -27,7 +27,6 @@ export default function GalleryPage() {
     <div className="pt-12">
       <section className="px-margin-desktop max-w-screen-2xl mx-auto">
         <motion.div initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="mb-section-gap">
-          <span className="font-decorative-note text-secondary block mb-2 italic">captured moments</span>
           <h1 className="font-display-lg text-display-lg text-primary">Moments At <span className="italic text-secondary">Cup</span> Cafe</h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant mt-4 max-w-xl">Real moments, Real people, Real good food.</p>
         </motion.div>

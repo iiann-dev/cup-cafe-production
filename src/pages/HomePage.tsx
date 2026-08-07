@@ -313,7 +313,6 @@ export default function HomePage() {
       >
         <div className="max-w-screen-2xl mx-auto">
         <motion.div className="text-center mb-16">
-          <motion.span {...wordReveal(0)} className="font-decorative-note text-secondary italic block mb-3">From Our Kitchen</motion.span>
           <h2 className="font-display-lg text-display-lg text-primary">
             <span className="inline-block overflow-hidden align-bottom">
               <motion.span {...wordReveal(1)} className="inline-block">Featured </motion.span>

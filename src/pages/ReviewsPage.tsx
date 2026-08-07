@@ -8,7 +8,6 @@ export default function ReviewsPage() {
   return (
     <div className="px-margin-desktop max-w-screen-2xl mx-auto pt-12">
       <motion.div initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="mb-section-gap">
-        <span className="font-decorative-note text-secondary block mb-2 italic">what our guests say</span>
         <h1 className="font-display-lg text-display-lg text-primary">Kind Words From <br/>Our <span className="italic text-secondary">Community</span></h1>
       </motion.div>
 

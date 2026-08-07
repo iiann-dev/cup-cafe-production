@@ -67,7 +67,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
         className={`max-w-6xl mx-auto grid grid-cols-[1fr_auto_1fr] items-center rounded-full transition-all duration-500 ease-out ${
           scrolled
             ? 'h-16 bg-white/80 backdrop-blur-xl shadow-lg shadow-black/5 border border-outline-variant/70'
-            : 'h-20 border border-transparent'
+            : 'h-20 bg-white/80 backdrop-blur-xl shadow-lg shadow-black/5 border border-outline-variant/70'
         }`}
       >
         {/* Logo — left */}

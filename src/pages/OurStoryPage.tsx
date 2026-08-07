@@ -14,7 +14,6 @@ export default function OurStoryPage() {
       <section className="px-margin-desktop max-w-screen-2xl mx-auto mb-section-gap pt-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
           <motion.div initial={{ x: -40, opacity: 0 }} animate={{ x: 0, opacity: 1 }} className="lg:col-span-7">
-            <span className="font-label-sm text-secondary uppercase tracking-[0.2em] block mb-4">Our Journey</span>
             <h1 className="font-display-lg text-display-lg text-primary mb-8">
               The Story Behind <br/><span className="italic text-secondary">Every Bite.</span>
             </h1>
@@ -39,7 +38,6 @@ export default function OurStoryPage() {
             </div>
           </motion.div>
           <motion.div initial={{ x: 60, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
-            <span className="font-decorative-note text-secondary mb-4 block italic">The Heart of the Kitchen</span>
             <h2 className="font-headline-lg text-headline-lg mb-6">The Sauce That Started It All</h2>
             <p className="font-body-lg text-body-lg text-on-surface-variant mb-8">
               Lou's signature sauce wasn't planned — it was a happy accident in a tiny kitchen. A dash of this, a pinch of that, and suddenly a neighborhood legend was born. Today, Lou's Special Sauce is on every sandwich we make.
