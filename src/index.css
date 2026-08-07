@@ -108,8 +108,7 @@
 
 /* ─── Base Styles ─── */
 html {
-  /* Lenis handles smooth scrolling — disable native to prevent conflicts */
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
 }
 
 body {
