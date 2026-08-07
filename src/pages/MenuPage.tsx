@@ -15,7 +15,7 @@ export default function MenuPage() {
   };
 
   return (
-    <div className="px-margin-desktop max-w-screen-2xl mx-auto pt-12">
+    <div className="px-margin-desktop max-w-screen-2xl mx-auto pt-28">
       <motion.div initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="mb-section-gap">
         <h1 className="font-display-lg text-display-lg text-primary">Our <span className="italic text-secondary">Menu</span></h1>
       </motion.div>

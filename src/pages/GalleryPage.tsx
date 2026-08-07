@@ -24,7 +24,7 @@ export default function GalleryPage() {
   };
 
   return (
-    <div className="pt-12">
+    <div className="pt-28">
       <section className="px-margin-desktop max-w-screen-2xl mx-auto">
         <motion.div initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="mb-section-gap">
           <h1 className="font-display-lg text-display-lg text-primary">Moments At <span className="italic text-secondary">Cup</span> Cafe</h1>

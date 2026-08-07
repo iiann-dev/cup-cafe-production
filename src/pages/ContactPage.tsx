@@ -23,7 +23,7 @@ export default function ContactPage() {
   }, [hash]);
 
   return (
-    <div className="pt-12">
+    <div className="pt-28">
       {/* Hero */}
       <section className="px-margin-desktop max-w-screen-2xl mx-auto mb-section-gap">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-end">

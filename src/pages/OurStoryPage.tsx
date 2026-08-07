@@ -11,7 +11,7 @@ export default function OurStoryPage() {
   return (
     <div>
       {/* Hero */}
-      <section className="px-margin-desktop max-w-screen-2xl mx-auto mb-section-gap pt-12">
+      <section className="px-margin-desktop max-w-screen-2xl mx-auto mb-section-gap pt-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
           <motion.div initial={{ x: -40, opacity: 0 }} animate={{ x: 0, opacity: 1 }} className="lg:col-span-7">
             <h1 className="font-display-lg text-display-lg text-primary mb-8">
