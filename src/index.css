@@ -144,12 +144,24 @@ body {
   to { transform: rotate(360deg); }
 }
 
-.material-symbols-outlined {
-  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-}
-
 /* ─── Performance: content-visibility for below-fold sections ─── */
 section { content-visibility: auto; contain-intrinsic-size: 400px; }
+
+/* ─── Tablet Overrides (phones <760 keep their own block below) ─── */
+@media (max-width: 1024px) {
+  .px-margin-desktop {
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+  }
+  .py-section-gap {
+    padding-top: 96px !important;
+    padding-bottom: 96px !important;
+  }
+  .text-display-lg { font-size: 56px !important; }
+  .text-display-md { font-size: 44px !important; }
+  .text-headline-lg { font-size: 38px !important; }
+  .text-headline-md { font-size: 28px !important; }
+}
 
 /* ─── Mobile Overrides ─── */
 @media (max-width: 760px) {

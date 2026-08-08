@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { FAQ, AMENITIES, IMAGES } from '../data';
 import { motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
+import Icon, { type IconName } from '../components/Icon';
 
 const fadeUp = { initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-40px' }, transition: { duration: 0.6 } };
 const stagger = (i: number) => ({ ...fadeUp, transition: { ...fadeUp.transition, delay: i * 0.1 } });
@@ -51,7 +52,7 @@ export default function ContactPage() {
                 <a href="https://maps.google.com/maps?q=6+Monterey+Blvd+San+Francisco+CA+94131" target="_blank" rel="noopener"
                   className="flex items-center gap-2 group font-label-sm text-label-sm text-secondary"
                 >
-                  Get Directions <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
+                  Get Directions <Icon name="arrow_right_alt" className="group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
             </div>
@@ -69,7 +70,7 @@ export default function ContactPage() {
             <div>
               <div className="flex items-center justify-between mb-8">
                 <h2 className="font-headline-md text-headline-md text-white">Hours</h2>
-                <span className="material-symbols-outlined text-secondary-container text-4xl">schedule</span>
+                <Icon name="schedule" className="text-secondary-container text-4xl" />
               </div>
               <ul className="space-y-6">
                 {[
@@ -103,7 +104,7 @@ export default function ContactPage() {
                   className="flex flex-col items-center gap-3 w-24"
                 >
                   <div className="w-16 h-16 rounded-full bg-accent-cream flex items-center justify-center border border-outline-variant/20 hover:scale-110 transition-transform">
-                    <span className="material-symbols-outlined text-secondary text-3xl">{amenity.icon}</span>
+                    <Icon name={amenity.icon as IconName} className="text-secondary text-3xl" />
                   </div>
                   <span className="font-label-sm text-label-sm text-on-surface-variant">{amenity.label}</span>
                 </motion.div>
@@ -121,7 +122,7 @@ export default function ContactPage() {
                   Inquire About Catering
                 </button>
               </div>
-              <span className="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-secondary/5 pointer-events-none">potted_plant</span>
+              <Icon name="potted_plant" className="absolute -bottom-4 -right-4 text-9xl text-secondary/5 pointer-events-none" />
             </div>
           </motion.div>
 
@@ -158,7 +159,7 @@ export default function ContactPage() {
                 </div>
                 <div className="pt-6">
                   <button className="bg-secondary text-on-primary px-10 py-4 rounded-full font-label-sm text-label-sm hover:bg-secondary-container transition-all flex items-center justify-center gap-3" type="submit">
-                    Send Message <span className="material-symbols-outlined">send</span>
+                    Send Message <Icon name="send" />
                   </button>
                 </div>
               </form>
@@ -179,9 +180,7 @@ export default function ContactPage() {
             >
               <button className="flex justify-between items-center w-full text-left" onClick={() => setOpenFaq(openFaq === i ? null : i)}>
                 <h3 className="font-headline-md text-body-lg text-primary">{item.question}</h3>
-                <span className="material-symbols-outlined text-secondary transition-transform">
-                  {openFaq === i ? 'remove' : 'add'}
-                </span>
+                <Icon name={openFaq === i ? 'remove' : 'add'} className="text-secondary transition-transform" />
               </button>
               {openFaq === i && (
                 <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} className="mt-4 pr-12 overflow-hidden">
@@ -197,7 +196,7 @@ export default function ContactPage() {
       <motion.section {...fadeUp} className="py-section-gap text-center px-margin-desktop bg-surface-container/30">
         <div className="max-w-2xl mx-auto">
           <div className="mb-6 flex justify-center">
-            <span className="material-symbols-outlined text-secondary text-6xl">lunch_dining</span>
+            <Icon name="lunch_dining" className="text-secondary text-6xl" />
           </div>
           <h3 className="font-display-md text-headline-lg text-primary mb-4">See You Tomorrow</h3>
           <p className="font-body-lg text-body-lg text-on-surface-variant italic">7AM to 2PM, Monday through Saturday. The bread is rising, and Lou's Special Sauce is ready.</p>

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { GALLERY_ITEMS } from '../data';
 import type { GalleryItem } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
+import Icon from '../components/Icon';
 
 const stagger = (i: number) => ({ initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true }, transition: { delay: i * 0.07, duration: 0.5 } });
 
@@ -70,7 +71,7 @@ export default function GalleryPage() {
               className="absolute top-10 right-10 text-on-primary hover:text-secondary transition-colors z-10"
               onClick={closeLightbox}
             >
-              <span className="material-symbols-outlined text-5xl">close</span>
+              <Icon name="close" className="text-5xl" />
             </motion.button>
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.8, opacity: 0 }}

@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
+import Icon from './Icon';
 
 const tabs = [
   { path: '/', label: 'Home' },
@@ -86,7 +87,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
         </button>
 
         {/* Centered links — Home .. Visit Us, sliding shared pill */}
-        <nav className="hidden md:flex items-center justify-center gap-1 self-center">
+        <nav className="hidden md:flex items-center justify-center gap-0.5 lg:gap-1 self-center">
           {tabs.map(tab => {
             const isLit = lit === tab.path;
             const isActive = active === tab.path;
@@ -96,7 +97,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
                 onClick={() => navTo(tab.path)}
                 onMouseEnter={() => setHovered(tab.path)}
                 onMouseLeave={() => setHovered(null)}
-                className="relative px-4 py-2 rounded-full font-label-sm text-label-sm uppercase tracking-widest transition-colors duration-200 whitespace-nowrap"
+                className="relative px-2 lg:px-4 py-2 rounded-full font-label-sm text-label-sm uppercase tracking-widest transition-colors duration-200 whitespace-nowrap"
               >
                 {isLit && (
                   <motion.span
@@ -127,7 +128,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
                 className="relative inline-flex items-center gap-2 bg-secondary text-on-secondary pl-5 pr-4 py-2.5 rounded-full font-label-sm text-label-sm overflow-hidden group"
               >
                 <span className="relative z-10">Contact Us</span>
-                <span className="material-symbols-outlined relative z-10 text-sm">arrow_forward</span>
+                <Icon name="arrow_forward" className="relative z-10 text-sm" />
                 {/* hover fill sweep */}
                 <span className="absolute inset-0 bg-secondary-container scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out" />
               </motion.button>
@@ -141,7 +142,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
             }`}
             onClick={() => setMobileOpen(o => !o)}
           >
-            <span className="material-symbols-outlined text-3xl">{mobileOpen ? 'close' : 'menu'}</span>
+            <Icon name={mobileOpen ? 'close' : 'menu'} className="text-3xl" />
           </button>
         </div>
       </div>

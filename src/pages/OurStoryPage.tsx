@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { IMAGES } from '../data';
 import { motion } from 'framer-motion';
+import Icon, { type IconName } from '../components/Icon';
 
 const fadeUp = { initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-60px' }, transition: { duration: 0.6 } };
 const stagger = (i: number) => ({ ...fadeUp, transition: { ...fadeUp.transition, delay: i * 0.12 } });
@@ -53,7 +54,7 @@ export default function OurStoryPage() {
                   className="flex items-center gap-4"
                 >
                   <div className="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center">
-                    <span className="material-symbols-outlined text-secondary">{item.icon}</span>
+                    <Icon name={item.icon as IconName} className="text-secondary" />
                   </div>
                   <div>
                     <p className="font-label-sm text-sm uppercase tracking-wider">{item.label}</p>

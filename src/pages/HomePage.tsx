@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { FEATURED_ITEMS, TESTIMONIALS, GALLERY_ITEMS, IMAGES } from '../data';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import Icon from '../components/Icon';
 
 const fadeUp = { initial: { y: 40, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-60px' }, transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const } };
 const stagger = (i: number) => ({ ...fadeUp, transition: { ...fadeUp.transition, delay: i * 0.12 } });
@@ -143,7 +144,7 @@ export default function HomePage() {
           font-size:clamp(8px,0.7cqw,11.5px); line-height:1.4;
           color:#6E6A66; font-family:'Inter', sans-serif;
         }
-        @media (max-width:760px){
+        @media (max-width:1023px){
           .hero-canvas{
             aspect-ratio:auto; display:flex;
             flex-direction:column; container-type:normal;
@@ -192,6 +193,9 @@ export default function HomePage() {
             alt="Grilled sandwich on a plate with fresh greens, wooden table setting"
             loading="eager"
             decoding="async"
+            fetchPriority="high"
+            width={1456}
+            height={734}
           />
         </picture>
 
@@ -322,7 +326,7 @@ export default function HomePage() {
             </span>
           </h2>
         </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
           {FEATURED_ITEMS.map((item, i) => (
             <motion.div key={i} {...stagger(i)} className="group cursor-pointer bg-surface-container-low rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-500">
               <div className="relative aspect-[4/5] overflow-hidden">
@@ -345,7 +349,7 @@ export default function HomePage() {
           href="/menu"
           className="md:hidden block text-center text-secondary font-label-sm text-label-sm mt-10 tracking-wider transition-opacity hover:opacity-80"
         >
-          View More Menu <span className="material-symbols-outlined text-sm align-middle ml-1">arrow_right_alt</span>
+          View More Menu <Icon name="arrow_right_alt" className="text-sm align-middle ml-1" />
         </a>
         </div>
       </motion.div>
@@ -364,7 +368,7 @@ export default function HomePage() {
               className="absolute -bottom-8 -right-8 bg-background p-6 rounded-xl shadow-xl max-w-xs hidden lg:block"
             >
               <div className="flex items-center gap-4 mb-3">
-                <span className="material-symbols-outlined text-secondary">star</span>
+                <Icon name="star" className="text-secondary" />
                 <span className="font-label-sm">Voted "Best Secret Sauce" 2023</span>
               </div>
               <p className="text-on-surface-variant text-sm font-body-md italic">"The kind of flavor you crave for days."</p>
@@ -376,7 +380,7 @@ export default function HomePage() {
               Lou's signature sauce wasn't planned — it was a happy accident in a tiny kitchen. A dash of this, a pinch of that, and suddenly a neighborhood legend was born.
             </p>
             <button onClick={() => navigate('/our-story')} className="group inline-flex items-center gap-3 font-label-sm text-label-sm text-secondary">
-              Read Our Full Story <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_right_alt</span>
+              Read Our Full Story <Icon name="arrow_right_alt" className="group-hover:translate-x-2 transition-transform" />
             </button>
           </motion.div>
         </div>
@@ -408,7 +412,7 @@ export default function HomePage() {
         <motion.div {...fadeUp} className="mb-section-gap">
           <h2 className="font-display-lg text-display-lg text-primary">Moments At <span className="italic text-secondary">Cup</span> Cafe</h2>
         </motion.div>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {GALLERY_ITEMS.slice(0, 5).map((item, i) => (
             <motion.div key={i} {...stagger(i)} className="aspect-square rounded-xl overflow-hidden">
               <img loading="lazy" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" src={item.src} alt={item.alt} />
@@ -417,7 +421,7 @@ export default function HomePage() {
         </div>
         <motion.div {...fadeUp} className="mt-12 text-center">
           <button onClick={() => navigate('/gallery')} className="group inline-flex items-center gap-3 font-label-sm text-label-sm text-secondary border border-secondary px-8 py-4 rounded-full hover:bg-secondary hover:text-on-secondary transition-all">
-            View Full Gallery <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
+            View Full Gallery <Icon name="arrow_right_alt" className="group-hover:translate-x-1 transition-transform" />
           </button>
         </motion.div>
       </section>
@@ -427,11 +431,11 @@ export default function HomePage() {
         <motion.div {...fadeUp} className="text-center mb-section-gap">
           <h2 className="font-display-lg text-display-lg text-primary">Kind Words From <br/><span className="italic text-secondary">Our Community.</span></h2>
         </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
           {TESTIMONIALS.map((t, i) => (
             <motion.div key={i} {...stagger(i)} className="bg-surface-container-low p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-500">
               <div className="flex text-secondary mb-6">
-                {Array.from({ length: t.rating }).map((_, s) => <span key={s} className="material-symbols-outlined text-sm">star</span>)}
+                {Array.from({ length: t.rating }).map((_, s) => <Icon key={s} name="star" className="text-sm" />)}
               </div>
               <p className="font-body-md text-body-md text-on-surface-variant mb-8 italic">"{t.content}"</p>
               <div className="flex items-center gap-4">

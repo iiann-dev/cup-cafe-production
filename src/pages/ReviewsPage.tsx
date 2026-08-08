@@ -1,5 +1,6 @@
 import { TESTIMONIALS } from '../data';
 import { motion } from 'framer-motion';
+import Icon from '../components/Icon';
 
 const fadeUp = { initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-40px' }, transition: { duration: 0.6 } };
 const stagger = (i: number) => ({ ...fadeUp, transition: { ...fadeUp.transition, delay: i * 0.12 } });
@@ -20,7 +21,7 @@ export default function ReviewsPage() {
             <div>
               <div className="flex text-secondary mb-4">
                 {Array.from({ length: t.rating }).map((_, s) => (
-                  <span key={s} className="material-symbols-outlined text-sm">star</span>
+                  <Icon key={s} name="star" className="text-sm" />
                 ))}
               </div>
               <p className="font-body-md text-body-md text-on-surface-variant mb-8 italic leading-relaxed">"{t.content}"</p>
@@ -47,7 +48,7 @@ export default function ReviewsPage() {
           </p>
           <a href="https://www.google.com/maps/place/6+Monterey+Blvd,+San+Francisco,+CA+94131" target="_blank" rel="noopener"
              className="bg-secondary text-on-secondary px-10 py-5 rounded-full font-label-sm text-label-sm shadow-xl hover:scale-105 transition-transform flex items-center gap-2 mx-auto inline-flex">
-            Write a Review <span className="material-symbols-outlined">edit</span>
+            Write a Review <Icon name="edit" />
           </a>
         </div>
       </motion.section>

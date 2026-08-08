@@ -1,14 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, Outlet } from 'react-router-dom';
 import Lenis from 'lenis';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
-import MenuPage from './pages/MenuPage';
-import OurStoryPage from './pages/OurStoryPage';
-import GalleryPage from './pages/GalleryPage';
-import ReviewsPage from './pages/ReviewsPage';
-import ContactPage from './pages/ContactPage';
+
+/* Code-split: only the Home bundle loads on first visit */
+const MenuPage = lazy(() => import('./pages/MenuPage'));
+const OurStoryPage = lazy(() => import('./pages/OurStoryPage'));
+const GalleryPage = lazy(() => import('./pages/GalleryPage'));
+const ReviewsPage = lazy(() => import('./pages/ReviewsPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
 
 function Layout() {
   const location = useLocation();
@@ -46,11 +48,11 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="menu" element={<MenuPage />} />
-          <Route path="our-story" element={<OurStoryPage />} />
-          <Route path="gallery" element={<GalleryPage />} />
-          <Route path="reviews" element={<ReviewsPage />} />
-          <Route path="contact" element={<ContactPage />} />
+          <Route path="menu" element={<Suspense fallback={null}><MenuPage /></Suspense>} />
+          <Route path="our-story" element={<Suspense fallback={null}><OurStoryPage /></Suspense>} />
+          <Route path="gallery" element={<Suspense fallback={null}><GalleryPage /></Suspense>} />
+          <Route path="reviews" element={<Suspense fallback={null}><ReviewsPage /></Suspense>} />
+          <Route path="contact" element={<Suspense fallback={null}><ContactPage /></Suspense>} />
         </Route>
       </Routes>
     </BrowserRouter>

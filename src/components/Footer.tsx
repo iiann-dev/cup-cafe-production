@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import Icon from './Icon';
 
 const pages = [
   { path: '/', label: 'Home' },
@@ -29,7 +30,7 @@ export default function Footer() {
           <span className="font-label-sm uppercase tracking-widest text-secondary">Follow</span>
           <div className="flex gap-6">
             {['instagram', 'facebook', 'twitter'].map(s => (
-              <button key={s} className="material-symbols-outlined hover:text-secondary transition-colors">{s === 'instagram' ? 'photo_camera' : s === 'facebook' ? 'groups' : 'alternate_email'}</button>
+              <button key={s} className="hover:text-secondary transition-colors"><Icon name={s === 'instagram' ? 'photo_camera' : s === 'facebook' ? 'groups' : 'alternate_email'} /></button>
             ))}
           </div>
           <p className="font-body-md text-xs text-on-primary-container mt-4">© 2026 Cup Cafe. Handcrafted with ♥</p>

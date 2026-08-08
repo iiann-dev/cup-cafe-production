@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { MENU_CATEGORIES } from '../data';
+import { MENU_CATEGORIES } from '../data-menu';
 import { motion } from 'framer-motion';
 
 const fadeUp = { initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-40px' }, transition: { duration: 0.6 } };
