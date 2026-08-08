@@ -65,7 +65,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
     >
       {/* Floating island — transparent at top, frosted glass pill on scroll. 3-col grid keeps links centered */}
       <div
-        className={`max-w-6xl mx-auto grid grid-cols-[1fr_auto_1fr] items-center rounded-full transition-all duration-500 ease-out ${
+        className={`max-w-6xl mx-auto grid grid-cols-[1fr_auto] md:grid-cols-[1fr_auto_1fr] items-center rounded-full transition-all duration-500 ease-out ${
           scrolled
             ? 'h-16 bg-white/80 backdrop-blur-xl shadow-lg shadow-black/5 border border-outline-variant/70'
             : 'h-20 bg-white/80 backdrop-blur-xl shadow-lg shadow-black/5 border border-outline-variant/70'
