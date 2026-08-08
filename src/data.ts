@@ -6,9 +6,9 @@ const U = (id: string, w = 1200) => `https://images.unsplash.com/${id}?w=${w}&q=
 
 /* ─── Featured Items (top picks from real menu) ─── */
 export const FEATURED_ITEMS = [
-  { name: 'Roma\'s Club', description: 'Turkey, Bacon, Avocado, Swiss Cheese, Pesto Aioli Spread, on Dutch Crunch', price: '$11.75', badge: 'Best Seller', image: U('photo-1553909489-cd47e0907980') },
-  { name: 'Chicken Pesto', description: 'Chicken Breast, Avocado, American Cheese, Pesto Aioli Sweet, on Soft & Sweet Roll', price: '$10.90', badge: 'Customer Favorite', image: U('photo-1677511084683-0eba66ebaa7c') },
-  { name: 'Hot Pastrami', description: 'Pastrami Brisket Marinated overnight, steamed in our kettle, Cheddar, Lou\'s Special Sauce, on Dutch Crunch Roll', price: '$10.90', badge: 'Chef\'s Pick', image: U('photo-1700937314577-898450cafe35') },
+  { name: 'Roma\'s Club', description: 'Turkey, Bacon, Avocado, Swiss Cheese, Pesto Aioli Spread, on Dutch Crunch', price: '$11.75', badge: 'Best Seller', image: U('photo-1553909489-cd47e0907980', 800) },
+  { name: 'Chicken Pesto', description: 'Chicken Breast, Avocado, American Cheese, Pesto Aioli Sweet, on Soft & Sweet Roll', price: '$10.90', badge: 'Customer Favorite', image: U('photo-1677511084683-0eba66ebaa7c', 800) },
+  { name: 'Hot Pastrami', description: 'Pastrami Brisket Marinated overnight, steamed in our kettle, Cheddar, Lou\'s Special Sauce, on Dutch Crunch Roll', price: '$10.90', badge: 'Chef\'s Pick', image: U('photo-1700937314577-898450cafe35', 800) },
 ];
 
 /* ─── Real Reviews from cafe-inspector.com ─── */
@@ -21,21 +21,21 @@ export const TESTIMONIALS: Review[] = [
 export const ALL_REVIEWS: Review[] = TESTIMONIALS;
 
 /* ─── Gallery (real photos from client site) ─── */
-const G = (n: number) => `https://cup-cafe.cafe-inspector.com/cdn/img/cup-cafe/photo${n}.jpg`;
+const G = (n: number, w = 800) => `https://cup-cafe.cafe-inspector.com/cdn/img/cup-cafe/photo${n}.jpg?w=${w}&q=85&auto=format`;
 
 export const GALLERY_ITEMS: GalleryItem[] = [
-  { src: G(1), alt: 'Cup Cafe exterior' },
-  { src: G(2), alt: 'Cafe interior' },
-  { src: G(3), alt: 'Sandwich preparation' },
-  { src: G(4), alt: 'Coffee bar' },
-  { src: G(5), alt: 'Pastry display' },
-  { src: G(6), alt: 'Seating area' },
-  { src: G(7), alt: 'Menu board' },
-  { src: G(8), alt: 'Outdoor seating' },
-  { src: G(9), alt: 'Espresso machine' },
-  { src: G(10), alt: 'Sandwich close-up' },
-  { src: G(11), alt: 'Cafe counter' },
-  { src: G(12), alt: 'Customer enjoying coffee' },
+  { src: G(1, 800), alt: 'Cup Cafe exterior' },
+  { src: G(2, 800), alt: 'Cafe interior' },
+  { src: G(3, 800), alt: 'Sandwich preparation' },
+  { src: G(4, 800), alt: 'Coffee bar' },
+  { src: G(5, 800), alt: 'Pastry display' },
+  { src: G(6, 800), alt: 'Seating area' },
+  { src: G(7, 800), alt: 'Menu board' },
+  { src: G(8, 800), alt: 'Outdoor seating' },
+  { src: G(9, 800), alt: 'Espresso machine' },
+  { src: G(10, 800), alt: 'Sandwich close-up' },
+  { src: G(11, 800), alt: 'Cafe counter' },
+  { src: G(12, 800), alt: 'Customer enjoying coffee' },
 ];
 
 /* ─── Real Amenities ─── */
