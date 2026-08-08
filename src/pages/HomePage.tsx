@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { FEATURED_ITEMS, TESTIMONIALS, GALLERY_ITEMS, IMAGES } from '../data';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Icon from '../components/Icon';
 
 const fadeUp = { initial: { y: 40, opacity: 0 }, whileInView: { y: 0, opacity: 1 }, viewport: { once: true, margin: '-60px' }, transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const } };
@@ -13,11 +13,20 @@ export default function HomePage() {
   const { scrollYProgress } = useScroll();
   const heroScale = useTransform(scrollYProgress, [0, 0.15], [1, 1.08]);
 
+  // Detect mobile for disabling curve animation - synchronous check to avoid first-render mismatch
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 760);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 760);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   // Curved "tuck" sheet transition: featured section rises + rounds over the hero on scroll
   const featuredRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress: featuredProgress } = useScroll({ target: featuredRef, offset: ['start end', 'start 0.2'] });
-  const featuredTop = useTransform(featuredProgress, [0, 1], [110, 0]);
-  const featuredRadius = useTransform(featuredProgress, [0, 1], [120, 28]);
+  const featuredTop = useTransform(featuredProgress, [0, 1], [isMobile ? 0 : 110, 0]);
+  const featuredRadius = useTransform(featuredProgress, [0, 1], [isMobile ? 0 : 120, 28]);
 
   return (
     <div>
@@ -309,50 +318,92 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* ═══ Featured Menu — curved tuck sheet + staggered heading ═══ */}
-      <motion.div
-        ref={featuredRef}
-        style={{ y: featuredTop, borderTopLeftRadius: featuredRadius, borderTopRightRadius: featuredRadius }}
-        className="relative z-10 bg-surface px-margin-desktop pt-section-gap md:-mt-28 -mt-20 shadow-[0_-24px_60px_rgba(24,24,24,0.05)]"
-      >
-        <div className="max-w-screen-2xl mx-auto">
-        <motion.div className="text-center mb-16">
-          <h2 className="font-display-lg text-display-lg text-primary">
-            <span className="inline-block overflow-hidden align-bottom">
-              <motion.span {...wordReveal(1)} className="inline-block">Featured </motion.span>
-            </span>
-            <span className="inline-block overflow-hidden align-bottom">
-              <motion.span {...wordReveal(2)} className="inline-block italic text-secondary">Menu</motion.span>
-            </span>
-          </h2>
-        </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-          {FEATURED_ITEMS.map((item, i) => (
-            <motion.div key={i} {...stagger(i)} className="group cursor-pointer bg-surface-container-low rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-500">
-              <div className="relative aspect-[4/5] overflow-hidden">
-                <img loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src={item.image} alt={item.name} />
-                <div className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full font-decorative-note text-xs italic">{item.badge}</div>
-              </div>
-              <div className="p-8">
-                <h3 className="font-headline-md text-headline-md mb-2">{item.name}</h3>
-                <p className="font-body-md text-body-md text-on-surface-variant mb-6">{item.description}</p>
-                <div className="flex items-center justify-between">
-                  <span className="font-headline-md text-headline-md text-secondary">{item.price}</span>
-                  <div className="w-12 h-12"></div>
-                </div>
-              </div>
+      {/* ═══ Featured Menu — curved tuck sheet (desktop) / static (mobile) ═══ */}
+      {isMobile ? (
+        // Mobile: simple static section, no curve animation
+        <section className="relative z-10 bg-surface px-margin-desktop pt-section-gap">
+          <div className="max-w-screen-2xl mx-auto">
+            <motion.div className="text-center mb-16">
+              <h2 className="font-display-lg text-display-lg text-primary">
+                <span className="inline-block overflow-hidden align-bottom">
+                  <motion.span {...wordReveal(1)} className="inline-block">Featured </motion.span>
+                </span>
+                <span className="inline-block overflow-hidden align-bottom">
+                  <motion.span {...wordReveal(2)} className="inline-block italic text-secondary">Menu</motion.span>
+                </span>
+              </h2>
             </motion.div>
-          ))}
-        </div>
-        {/* Mobile-only: View More Menu link */}
-        <a
-          href="/menu"
-          className="md:hidden block text-center text-secondary font-label-sm text-label-sm mt-10 tracking-wider transition-opacity hover:opacity-80"
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+              {FEATURED_ITEMS.map((item, i) => (
+                <motion.div key={i} {...stagger(i)} className="group cursor-pointer bg-surface-container-low rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-500">
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    <img loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src={item.image} alt={item.name} />
+                    <div className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full font-decorative-note text-xs italic">{item.badge}</div>
+                  </div>
+                  <div className="p-8">
+                    <h3 className="font-headline-md text-headline-md mb-2">{item.name}</h3>
+                    <p className="font-body-md text-body-md text-on-surface-variant mb-6">{item.description}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="font-headline-md text-headline-md text-secondary">{item.price}</span>
+                      <div className="w-12 h-12"></div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            <a
+              href="/menu"
+              className="md:hidden block text-center text-secondary font-label-sm text-label-sm mt-10 tracking-wider transition-opacity hover:opacity-80"
+            >
+              View More Menu <Icon name="arrow_right_alt" className="text-sm align-middle ml-1" />
+            </a>
+          </div>
+        </section>
+      ) : (
+        // Desktop: curved tuck sheet transition
+        <motion.div
+          ref={featuredRef}
+          style={{ y: featuredTop, borderTopLeftRadius: featuredRadius, borderTopRightRadius: featuredRadius }}
+          className="relative z-10 bg-surface px-margin-desktop pt-section-gap md:-mt-28 shadow-[0_-24px_60px_rgba(24,24,24,0.05)]"
         >
-          View More Menu <Icon name="arrow_right_alt" className="text-sm align-middle ml-1" />
-        </a>
-        </div>
-      </motion.div>
+          <div className="max-w-screen-2xl mx-auto">
+            <motion.div className="text-center mb-16">
+              <h2 className="font-display-lg text-display-lg text-primary">
+                <span className="inline-block overflow-hidden align-bottom">
+                  <motion.span {...wordReveal(1)} className="inline-block">Featured </motion.span>
+                </span>
+                <span className="inline-block overflow-hidden align-bottom">
+                  <motion.span {...wordReveal(2)} className="inline-block italic text-secondary">Menu</motion.span>
+                </span>
+              </h2>
+            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+              {FEATURED_ITEMS.map((item, i) => (
+                <motion.div key={i} {...stagger(i)} className="group cursor-pointer bg-surface-container-low rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-500">
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    <img loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src={item.image} alt={item.name} />
+                    <div className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full font-decorative-note text-xs italic">{item.badge}</div>
+                  </div>
+                  <div className="p-8">
+                    <h3 className="font-headline-md text-headline-md mb-2">{item.name}</h3>
+                    <p className="font-body-md text-body-md text-on-surface-variant mb-6">{item.description}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="font-headline-md text-headline-md text-secondary">{item.price}</span>
+                      <div className="w-12 h-12"></div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            <a
+              href="/menu"
+              className="md:hidden block text-center text-secondary font-label-sm text-label-sm mt-10 tracking-wider transition-opacity hover:opacity-80"
+            >
+              View More Menu <Icon name="arrow_right_alt" className="text-sm align-middle ml-1" />
+            </a>
+          </div>
+        </motion.div>
+      )}
 
       {/* ═══ Sauce Section ═══ */}
       <section className="py-section-gap px-margin-desktop bg-gradient-to-b from-background via-surface-container-low to-background">

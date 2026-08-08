@@ -32,14 +32,14 @@ function Layout() {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen bg-background text-on-surface font-body">
-      <Nav scrolled={scrolled} />
-      <main className="pt-0">
-        <Outlet />
-      </main>
-      <Footer />
-    </div>
-  );
+        <div className="min-h-screen bg-background text-on-surface font-body">
+          <Nav scrolled={scrolled} />
+          <main className="pt-28 md:pt-0">
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
+      );
 }
 
 export default function App() {
