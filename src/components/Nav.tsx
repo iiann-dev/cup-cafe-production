@@ -168,7 +168,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
                     exit={{ opacity: 0, y: 12 }}
                     transition={{ delay: 0.05 * i, duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
                     onClick={() => navTo(tab.path)}
-                    className={`block w-full text-left font-headline text-3xl py-3 transition-colors ${
+                    className={`block w-full text-left font-label-sm font-semibold text-2xl uppercase tracking-widest py-3 transition-colors ${
                       isActive ? 'text-secondary' : 'text-on-surface hover:text-secondary'
                     }`}
                   >
@@ -183,7 +183,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
               exit={{ opacity: 0, y: 12 }}
               transition={{ delay: 0.05 * tabs.length, duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
               onClick={() => navTo('/contact#form')}
-              className="w-full bg-secondary text-on-secondary py-4 rounded-full font-label-sm text-center"
+              className="w-full bg-secondary text-on-secondary py-4 rounded-full font-label-sm text-label-sm text-center"
             >
               Contact Us
             </motion.button>
