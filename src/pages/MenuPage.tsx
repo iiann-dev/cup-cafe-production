@@ -9,10 +9,11 @@ export default function MenuPage() {
   const listRef = useRef<HTMLDivElement>(null);
 
   const selectCategory = (id: string) => {
-    setActiveCategory(id);
-    // Always show the list from the top — no snap to wherever the page was
-    listRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
+      // Jump to the top BEFORE the swap — otherwise the height collapse
+      // clamps the viewport to the new (shorter) page bottom first
+      listRef.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
+      setActiveCategory(id);
+    };
 
   return (
     <div className="px-margin-desktop max-w-screen-2xl mx-auto pt-28">
