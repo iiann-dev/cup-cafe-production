@@ -144,8 +144,10 @@ body {
   to { transform: rotate(360deg); }
 }
 
-/* ─── Performance: content-visibility for below-fold sections ─── */
-section { content-visibility: auto; contain-intrinsic-size: 400px; }
+/* ─── NOTE: content-visibility:auto removed — it breaks framer-motion
+   whileInView (IntersectionObserver) on real mobile browsers, leaving
+   section headings stuck invisible (Featured Menu white void). Perf is
+   covered by lazy images + code-split routes instead. ─── */
 
 /* ─── Tablet Overrides (phones <760 keep their own block below) ─── */
 @media (max-width: 1024px) {

@@ -22,11 +22,15 @@ export default function HomePage() {
     return () => window.removeEventListener('resize', check);
   }, []);
 
-  // Curved "tuck" sheet transition: featured section rises + rounds over the hero on scroll
+  // Curved "tuck" sheet transition: featured section rises + rounds over the hero on scroll.
+  // Mobile gets a softer version of the same effect (no curve SVG on small screens).
   const featuredRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress: featuredProgress } = useScroll({ target: featuredRef, offset: ['start end', 'start 0.2'] });
-  const featuredTop = useTransform(featuredProgress, [0, 1], [isMobile ? 0 : 110, 0]);
-  const featuredRadius = useTransform(featuredProgress, [0, 1], [isMobile ? 0 : 120, 28]);
+  const featuredTop = useTransform(featuredProgress, [0, 1], [isMobile ? 48 : 110, 0]);
+  const featuredRadius = useTransform(featuredProgress, [0, 1], [isMobile ? 28 : 120, isMobile ? 12 : 28]);
+  // Heading reveal synced to the tuck (scroll-linked, NOT whileInView -> never stuck invisible on phones)
+  const headingY = useTransform(featuredProgress, [0.1, 0.6], [28, 0]);
+  const headingOpacity = useTransform(featuredProgress, [0.1, 0.6], [0, 1]);
 
   return (
     <div>
@@ -196,7 +200,7 @@ export default function HomePage() {
             srcSet="/hero-lg.webp 1200w, /hero.webp 1400w"
             sizes="(min-width: 1456px) 58vw, 100vw"
           />
-          <img
+          <motion.img
             className="hero-photo"
             src="/hero.png"
             alt="Grilled sandwich on a plate with fresh greens, wooden table setting"
@@ -205,6 +209,7 @@ export default function HomePage() {
             fetchPriority="high"
             width={1456}
             height={734}
+            style={{ scale: heroScale }}
           />
         </picture>
 
@@ -318,17 +323,23 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* ═══ Featured Menu — curved tuck sheet (desktop) / static (mobile) ═══ */}
+      {/* ═══ Featured Menu — curved tuck sheet (both breakpoints, softer on mobile) ═══ */}
       {isMobile ? (
-        // Mobile: simple static section, no curve animation
-        <section className="relative z-10 bg-surface px-margin-desktop pt-section-gap">
+        // Mobile: scroll-linked "lift" — section rises + rounds its top corners
+        // as it tucks in over the hero, so the hero → section handoff feels alive.
+        <motion.section
+          ref={featuredRef}
+          style={{ y: featuredTop, borderTopLeftRadius: featuredRadius, borderTopRightRadius: featuredRadius }}
+          className="relative z-10 bg-surface px-margin-desktop pt-section-gap shadow-[0_-16px_40px_rgba(24,24,24,0.06)]"
+        >
           <div className="max-w-screen-2xl mx-auto">
-            <motion.div className="text-center mb-16" {...fadeUp}>
-              <h2 className="font-display-lg text-display-lg text-primary">
-                <span className="inline-block">Featured </span>
-                <span className="inline-block italic text-secondary">Menu</span>
-              </h2>
-            </motion.div>
+            <motion.h2
+              style={{ y: headingY, opacity: headingOpacity }}
+              className="font-display-lg text-display-lg text-primary text-center mb-16"
+            >
+              <span className="inline-block">Featured </span>
+              <span className="inline-block italic text-secondary">Menu</span>
+            </motion.h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
               {FEATURED_ITEMS.map((item, i) => (
                 <motion.div key={i} {...stagger(i)} className="group cursor-pointer bg-surface-container-low rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-500">
@@ -354,7 +365,7 @@ export default function HomePage() {
               View More Menu <Icon name="arrow_right_alt" className="text-sm align-middle ml-1" />
             </a>
           </div>
-        </section>
+        </motion.section>
       ) : (
         // Desktop: curved tuck sheet transition
         <motion.div
