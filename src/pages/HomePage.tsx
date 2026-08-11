@@ -491,14 +491,10 @@ export default function HomePage() {
         } shadow-[0_-24px_60px_rgba(24,24,24,0.05)]`}
       >
         <div className="max-w-screen-2xl mx-auto">
-          <motion.div className="text-center mb-16">
+          <motion.div className="text-center mb-16" {...fadeUp}>
             <h2 className="font-display-lg text-display-lg text-primary">
-              <span className="inline-block overflow-hidden align-bottom">
-                <motion.span {...wordReveal(1)} className="inline-block">Featured </motion.span>
-              </span>
-              <span className="inline-block overflow-hidden align-bottom">
-                <motion.span {...wordReveal(2)} className="inline-block italic text-secondary">Menu</motion.span>
-              </span>
+              <span className="inline-block">Featured </span>
+              <span className="inline-block italic text-secondary">Menu</span>
             </h2>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
