@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { FEATURED_ITEMS, TESTIMONIALS, GALLERY_ITEMS, IMAGES } from '../data';
+import { FEATURED_ITEMS, TESTIMONIALS, GALLERY_ITEMS, IMAGES, AVATARS } from '../data';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import Icon from '../components/Icon';
@@ -22,11 +22,31 @@ export default function HomePage() {
     return () => window.removeEventListener('resize', check);
   }, []);
 
+  // Phone-only (<640) detection — tablet (640–1023) gets the desktop-style curved tuck sheet
+  const [isPhone, setIsPhone] = useState(() => typeof window !== 'undefined' && window.innerWidth < 640);
+  useEffect(() => {
+    const check = () => setIsPhone(window.innerWidth < 640);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  const isTablet = isMobile && !isPhone;
+
   // Curved "tuck" sheet transition: featured section rises + rounds over the hero on scroll
+  // Desktop: full tuck (y 110→0, radius 120→28). Tablet: restrained rise (y 28→0), fixed 48px
+  // top corners — corners stay attached to the sheet, never morph. Phone: same layered sheet —
+  // starts overlapping ~24px (rounded 32px corners), slides up 48px more on scroll to cover the hero.
   const featuredRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress: featuredProgress } = useScroll({ target: featuredRef, offset: ['start end', 'start 0.2'] });
-  const featuredTop = useTransform(featuredProgress, [0, 1], [isMobile ? 0 : 110, 0]);
-  const featuredRadius = useTransform(featuredProgress, [0, 1], [isMobile ? 0 : 120, 28]);
+  // Phone: delay progress start (sheet rests at its -24px initial overlap until the user scrolls,
+  // then slides up 48px to cover the hero). Tablet/desktop: tuck as before.
+  const { scrollYProgress: featuredProgress } = useScroll({
+    target: featuredRef,
+    // Phone: sheet rests at its -24px initial overlap until the user scrolls it up (progress stays
+    // 0 while the sheet top sits below 55% of the viewport, i.e. at load). Tablet/desktop: tuck as before.
+    offset: isPhone ? ['start 55%', 'start 15%'] : ['start end', 'start 0.2'],
+  });
+  const featuredTop = useTransform(featuredProgress, [0, 1], isPhone ? [0, -48] : isTablet ? [28, 0] : [110, 0]);
+  const featuredRadius = useTransform(featuredProgress, [0, 1], isPhone ? [32, 32] : isTablet ? [48, 48] : [120, 28]);
 
   return (
     <div>
@@ -151,62 +171,199 @@ export default function HomePage() {
         }
         .card-sourced p{
           font-size:clamp(8px,0.7cqw,11.5px); line-height:1.4;
-          color:#6E6A66; font-family:'Inter', sans-serif;
+          color:#6E6A66; font-family:'Inter',sans-serif;
         }
-        @media (max-width:1023px){
+        /* Photo wrapper — anchors phone/tablet chips to the photo; fills canvas on desktop */
+        .hero-media{ position:absolute; inset:0; }
+        /* Monogram avatars — initials instead of stock photos */
+        .avatar-mono{
+          width:clamp(20px,2.5cqw,37px); height:clamp(20px,2.5cqw,37px);
+          border-radius:50%; display:inline-flex;
+          align-items:center; justify-content:center;
+          margin-left:-10px; color:#fff; flex-shrink:0;
+          font-family:'Manrope',sans-serif; font-weight:700;
+          font-size:clamp(7px,0.6cqw,10px); letter-spacing:0.02em;
+          box-shadow:0 0 0 2px #FCFAF7, 0 0 0 3px #D46A2E;
+        }
+        .avatar-mono:first-child{ margin-left:0; }
+        /* Phone/tablet chips — hidden on desktop (desktop has badge-daily + card-sourced) */
+        .badge-mobile, .card-mobile{ display:none; }
+        /* Mobile-only transition helpers — hidden on desktop/tablet */
+        .hero-curve-top, .hero-fade, .menu-curve-top{ display:none; }
+
+        /* ─── Phone (<640): stacked photo → copy, organic cream curve bridges them ─── */
+        @media (max-width:639px){
           .hero-canvas{
             aspect-ratio:auto; display:flex;
             flex-direction:column; container-type:normal;
           }
-          .hero-photo{ position:relative !important; height:260px; order:1; }
+          .hero-media{ position:relative; order:1; }
+          .hero-photo{ position:relative !important; height:240px; }
           .curve-svg{ display:none; }
           .hero-copy{
             position:relative; left:0; top:0; width:100%; height:auto;
-            order:2; padding:24px 20px 20px; gap:10px;
+            order:2; margin-top:-20px; padding:16px 20px 32px; gap:12px;
+            background:#FCFAF7; z-index:2;
+          }
+          /* organic asymmetric cream curve — cream overlaps the photo ~22-32px, bridges image → copy */
+          .hero-curve-top{
+            display:block; position:absolute; top:-20px; left:0;
+            width:100%; height:20px; z-index:1; pointer-events:none;
           }
           .leaf-deco{ display:none; }
-          .eyebrow{ font-size:10px; gap:6px; }
-          .headline{ font-size:1.5rem; max-width:100%; line-height:1.15; }
-          .sub{ max-width:100%; font-size:0.825rem; line-height:1.5; }
-          .cta-row{ flex-wrap:wrap; gap:8px; }
-          .social-proof{ display:flex !important; }
+          /* eyebrow rides up onto the transition line — the visual bridge between photo and type */
+          .eyebrow{ font-size:10px; gap:6px; margin-top:-14px; position:relative; z-index:2; }
+          .headline{ font-size:clamp(2rem,9vw,2.6rem); max-width:100%; line-height:1.12; text-wrap:balance; }
+          .sub{ max-width:100%; font-size:0.875rem; line-height:1.55; }
+          .cta-row{ flex-wrap:wrap; gap:10px; }
+          .social-proof{ flex-wrap:wrap; gap:8px; margin-top:6px; }
           .hero-btn{ min-height:44px; font-size:13px; padding:10px 18px !important; }
           .play-btn{ width:32px !important; height:32px !important; }
           .watch-link{ min-height:44px; display:inline-flex; align-items:center; font-size:13px; }
           .badge-daily{ display:none; }
           .card-sourced{ display:none; }
-          .social-proof{ flex-wrap:wrap; gap:6px; margin-top:4px; }
           .proof-label{ font-size:7.5px; }
           .stars{ font-size:11px; }
           .rating-num{ font-size:11px; }
           .review-count{ font-size:10px; }
-          .avatars img{ width:22px !important; height:22px !important; }
+          .avatars img, .avatar-mono{ width:24px !important; height:24px !important; }
+          .avatar-mono{ font-size:9px; }
+          /* DAILY badge chip — top-right of photo */
+          .badge-mobile{
+            display:flex; position:absolute; top:12px; right:12px; z-index:3;
+            width:56px; height:56px; border-radius:50%;
+            background:#D46A2E; color:#fff;
+            align-items:center; justify-content:center;
+            box-shadow:0 10px 24px rgba(0,0,0,0.25);
+          }
+          .badge-mobile span{
+            font-family:'Playfair Display',serif; font-weight:600;
+            font-size:13px; letter-spacing:0.5px;
+          }
+          /* SOURCED LOCALLY chip — bottom-right of photo (mirrors tablet placement, clear of eyebrow bridge) */
+          .card-mobile{
+            display:flex; position:absolute; right:12px; bottom:12px; left:auto; z-index:3;
+            align-items:center; gap:8px;
+            background:#FFFFFF; border-radius:999px;
+            padding:8px 14px; box-shadow:0 10px 24px rgba(0,0,0,0.18);
+          }
+          .card-mobile .icon-wrap{
+            width:22px; height:22px; border-radius:50%; background:#FCFAF7;
+            display:flex; align-items:center; justify-content:center; color:#D46A2E; flex-shrink:0;
+          }
+          .card-mobile .icon-wrap svg{ width:55%; height:55%; }
+          .card-mobile span{
+            font-family:'Manrope',sans-serif; font-weight:600;
+            font-size:10px; letter-spacing:0.04em; color:#1A1A1A; white-space:nowrap;
+          }
+        }
+
+        /* ─── Tablet (640–1023): SAME curved cream-sheet split as desktop, scaled ─── */
+        @media (min-width:640px) and (max-width:1023px){
+          .hero-canvas{
+            aspect-ratio:auto; height:clamp(440px,58vw,560px);
+            container-type:inline-size;
+          }
+          .hero-media{ position:absolute; inset:0; }
+          .hero-photo{ position:absolute !important; inset:0; height:100%; }
+          /* keep the desktop curve — visible again, photo shows right of the curved edge */
+          .hero-copy{
+            position:absolute; left:5.5%; top:0; width:34%; height:100%;
+            padding:0; gap:clamp(10px,1.5cqw,18px);
+          }
+          .leaf-deco{ display:block; left:-4.5%; top:52%; width:2.6cqw; }
+          .eyebrow{ font-size:clamp(10px,0.9cqw,13px); gap:8px; }
+          .headline{ font-size:clamp(2.1rem,5.2cqw,3rem); max-width:100%; line-height:1.1; text-wrap:balance; }
+          .sub{ max-width:100%; font-size:clamp(12px,1.05cqw,15px); line-height:1.6; }
+          .cta-row{ flex-wrap:wrap; gap:clamp(10px,1.4cqw,16px); }
+          .hero-btn{ min-height:44px; font-size:clamp(11px,1cqw,14px); padding:10px 18px !important; }
+          .play-btn{ width:clamp(30px,3cqw,38px) !important; height:clamp(30px,3cqw,38px) !important; }
+          .watch-link{ min-height:44px; display:inline-flex; align-items:center; font-size:clamp(11px,1cqw,14px); }
+          .social-proof{ margin-top:clamp(8px,1.2cqw,14px); }
+          .badge-daily{ display:none; }
+          .card-sourced{ display:none; }
+          .avatars img, .avatar-mono{ width:clamp(24px,2.6cqw,32px) !important; height:clamp(24px,2.6cqw,32px) !important; }
+          .avatar-mono{ font-size:clamp(8px,0.75cqw,11px); }
+          /* chips over the photo (right of the curve), like desktop badge/card placement */
+          .badge-mobile{
+            display:flex; position:absolute; top:clamp(100px,15vw,130px); right:clamp(12px,2cqw,20px);
+            width:clamp(52px,6.5cqw,72px); height:clamp(52px,6.5cqw,72px);
+            border-radius:50%; background:#D46A2E; color:#fff;
+            align-items:center; justify-content:center;
+            box-shadow:0 12px 28px rgba(0,0,0,0.25);
+          }
+          .badge-mobile span{
+            font-family:'Playfair Display',serif; font-weight:600;
+            font-size:clamp(13px,1.7cqw,18px); letter-spacing:0.5px;
+          }
+          .card-mobile{
+            display:flex; position:absolute; right:clamp(12px,2cqw,20px); bottom:clamp(14px,2.2cqw,24px);
+            left:auto; align-items:center; gap:8px;
+            background:#FFFFFF; border-radius:999px;
+            padding:9px 15px; box-shadow:0 12px 28px rgba(0,0,0,0.18);
+          }
+          .card-mobile .icon-wrap{
+            width:24px; height:24px; border-radius:50%; background:#FCFAF7;
+            display:flex; align-items:center; justify-content:center; color:#D46A2E; flex-shrink:0;
+          }
+          .card-mobile .icon-wrap svg{ width:55%; height:55%; }
+          .card-mobile span{
+            font-family:'Manrope',sans-serif; font-weight:600;
+            font-size:10.5px; letter-spacing:0.04em; color:#1A1A1A; white-space:nowrap;
+          }
         }
       `}</style>
 
       <section className="hero-canvas" style={{ background: '#FCFAF7' }}>
-        {/* Responsive Hero Photo — WebP + sizes */}
-        <picture>
-          <source
-            media="(max-width: 600px)"
-            srcSet="/hero-mobile.webp"
-          />
-          <source
-            media="(min-width: 601px)"
-            srcSet="/hero-lg.webp 1200w, /hero.webp 1400w"
-            sizes="(min-width: 1456px) 58vw, 100vw"
-          />
-          <img
-            className="hero-photo"
-            src="/hero.png"
-            alt="Grilled sandwich on a plate with fresh greens, wooden table setting"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            width={1456}
-            height={734}
-          />
-        </picture>
+        {/* Responsive Hero Photo — WebP + sizes, wrapper anchors chips */}
+        <div className="hero-media">
+          <picture>
+            <source
+              media="(max-width: 600px)"
+              srcSet="/hero-mobile.webp"
+            />
+            <source
+              media="(min-width: 601px)"
+              srcSet="/hero-lg.webp 1200w, /hero.webp 1400w"
+              sizes="(min-width: 1456px) 58vw, 100vw"
+            />
+            <img
+              className="hero-photo"
+              src="/hero.png"
+              alt="Grilled sandwich on a plate with fresh greens, wooden table setting"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              width={1456}
+              height={734}
+            />
+          </picture>
+
+          {/* DAILY badge chip — phone/tablet only */}
+          <motion.div
+            className="badge-mobile"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1, ease: [0.34, 1.56, 0.64, 1] }}
+          >
+            <span>DAILY</span>
+          </motion.div>
+
+          {/* Sourced Locally chip — phone/tablet only */}
+          <motion.div
+            className="card-mobile"
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 1.1 }}
+          >
+            <div className="icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <path d="M12 2v6M9 5l3 3 3-3M4 14c0 5 4 8 8 8s8-3 8-8"/>
+              </svg>
+            </div>
+            <span>SOURCED LOCALLY</span>
+          </motion.div>
+        </div>
 
         {/* Curve Overlay */}
         <svg className="curve-svg" viewBox="0 0 1456 734" preserveAspectRatio="none">
@@ -218,6 +375,11 @@ export default function HomePage() {
           {/* Leaf Decoration */}
           <svg className="leaf-deco" viewBox="0 0 40 200" fill="none" stroke="currentColor" strokeWidth="1">
             <path d="M20 0 V200 M20 30 C5 40 5 55 20 65 M20 65 C35 75 35 90 20 100 M20 100 C5 110 5 125 20 135 M20 135 C35 145 35 160 20 170"/>
+          </svg>
+
+          {/* Organic cream curve — bridges photo → copy (mobile only), asymmetric organic wave */}
+          <svg className="hero-curve-top" viewBox="0 0 390 20" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,16 C30,18 60,10 100,14 C140,18 180,8 220,12 C260,16 300,10 340,14 C360,16 380,12 390,14 L390,20 L0,20 Z" fill="#FCFAF7"/>
           </svg>
 
           <motion.div
@@ -236,7 +398,7 @@ export default function HomePage() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.35 }}
           >
-            Every<br />Sandwich<br />Has A <em>Story.</em>
+            Every{isMobile ? ' ' : <br />}Sandwich{isMobile ? ' ' : <br />}Has A <em>Story.</em>
           </motion.h1>
 
           <motion.p
@@ -270,9 +432,9 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.85 }}
           >
             <div className="avatars">
-              <img src="https://i.pravatar.cc/72?img=12" alt="" />
-              <img src="https://i.pravatar.cc/72?img=32" alt="" />
-              <img src="https://i.pravatar.cc/72?img=15" alt="" />
+              {AVATARS.map(a => (
+                <span key={a.initials} className="avatar-mono" style={{ backgroundColor: a.bg }}>{a.initials}</span>
+              ))}
             </div>
             <div className="proof-text">
               <span className="proof-label">LOVED BY OUR COMMUNITY</span>
@@ -318,88 +480,53 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* ═══ Featured Menu — curved tuck sheet (desktop) / static (mobile) ═══ */}
-      {isMobile ? (
-        // Mobile: simple static section, no curve animation
-        <section className="relative z-10 bg-surface px-margin-desktop pt-section-gap">
-          <div className="max-w-screen-2xl mx-auto">
-            <motion.div className="text-center mb-16" {...fadeUp}>
-              <h2 className="font-display-lg text-display-lg text-primary">
-                <span className="inline-block">Featured </span>
-                <span className="inline-block italic text-secondary">Menu</span>
-              </h2>
-            </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-              {FEATURED_ITEMS.map((item, i) => (
-                <motion.div key={i} {...stagger(i)} className="group cursor-pointer bg-surface-container-low rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-500">
-                  <div className="relative aspect-[4/5] overflow-hidden">
-                    <img loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src={item.image} alt={item.name} />
-                    <div className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full font-decorative-note text-xs italic">{item.badge}</div>
+      {/* ═══ Featured Menu — layered foreground sheet over the hero on ALL breakpoints ═══
+          Phone: overlaps hero ~24px with 32px rounded corners, slides up 48px on scroll.
+          Tablet: restrained rise (fixed 48px corners). Desktop: full tuck (morphing corners). */}
+      <motion.div
+        ref={featuredRef}
+        style={{ y: featuredTop, borderTopLeftRadius: featuredRadius, borderTopRightRadius: featuredRadius }}
+        className={`relative z-10 bg-surface px-margin-desktop pt-section-gap ${
+          isPhone ? '-mt-6' : isTablet ? '-mt-8' : 'md:-mt-28'
+        } shadow-[0_-24px_60px_rgba(24,24,24,0.05)]`}
+      >
+        <div className="max-w-screen-2xl mx-auto">
+          <motion.div className="text-center mb-16">
+            <h2 className="font-display-lg text-display-lg text-primary">
+              <span className="inline-block overflow-hidden align-bottom">
+                <motion.span {...wordReveal(1)} className="inline-block">Featured </motion.span>
+              </span>
+              <span className="inline-block overflow-hidden align-bottom">
+                <motion.span {...wordReveal(2)} className="inline-block italic text-secondary">Menu</motion.span>
+              </span>
+            </h2>
+          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+            {FEATURED_ITEMS.map((item, i) => (
+              <motion.div key={i} {...stagger(i)} className="group cursor-pointer bg-surface-container-low rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-500">
+                <div className="relative aspect-[4/5] overflow-hidden">
+                  <img loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src={item.image} alt={item.name} />
+                  <div className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full font-decorative-note text-xs italic">{item.badge}</div>
+                </div>
+                <div className="p-8">
+                  <h3 className="font-headline-md text-headline-md mb-2">{item.name}</h3>
+                  <p className="font-body-md text-body-md text-on-surface-variant mb-6">{item.description}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="font-headline-md text-headline-md text-secondary">{item.price}</span>
+                    <div className="w-12 h-12"></div>
                   </div>
-                  <div className="p-8">
-                    <h3 className="font-headline-md text-headline-md mb-2">{item.name}</h3>
-                    <p className="font-body-md text-body-md text-on-surface-variant mb-6">{item.description}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="font-headline-md text-headline-md text-secondary">{item.price}</span>
-                      <div className="w-12 h-12"></div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-            <a
-              href="/menu"
-              className="md:hidden block text-center text-secondary font-label-sm text-label-sm mt-10 tracking-wider transition-opacity hover:opacity-80"
-            >
-              View More Menu <Icon name="arrow_right_alt" className="text-sm align-middle ml-1" />
-            </a>
+                </div>
+              </motion.div>
+            ))}
           </div>
-        </section>
-      ) : (
-        // Desktop: curved tuck sheet transition
-        <motion.div
-          ref={featuredRef}
-          style={{ y: featuredTop, borderTopLeftRadius: featuredRadius, borderTopRightRadius: featuredRadius }}
-          className="relative z-10 bg-surface px-margin-desktop pt-section-gap md:-mt-28 shadow-[0_-24px_60px_rgba(24,24,24,0.05)]"
-        >
-          <div className="max-w-screen-2xl mx-auto">
-            <motion.div className="text-center mb-16">
-              <h2 className="font-display-lg text-display-lg text-primary">
-                <span className="inline-block overflow-hidden align-bottom">
-                  <motion.span {...wordReveal(1)} className="inline-block">Featured </motion.span>
-                </span>
-                <span className="inline-block overflow-hidden align-bottom">
-                  <motion.span {...wordReveal(2)} className="inline-block italic text-secondary">Menu</motion.span>
-                </span>
-              </h2>
-            </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-              {FEATURED_ITEMS.map((item, i) => (
-                <motion.div key={i} {...stagger(i)} className="group cursor-pointer bg-surface-container-low rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-500">
-                  <div className="relative aspect-[4/5] overflow-hidden">
-                    <img loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src={item.image} alt={item.name} />
-                    <div className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full font-decorative-note text-xs italic">{item.badge}</div>
-                  </div>
-                  <div className="p-8">
-                    <h3 className="font-headline-md text-headline-md mb-2">{item.name}</h3>
-                    <p className="font-body-md text-body-md text-on-surface-variant mb-6">{item.description}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="font-headline-md text-headline-md text-secondary">{item.price}</span>
-                      <div className="w-12 h-12"></div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-            <a
-              href="/menu"
-              className="md:hidden block text-center text-secondary font-label-sm text-label-sm mt-10 tracking-wider transition-opacity hover:opacity-80"
-            >
-              View More Menu <Icon name="arrow_right_alt" className="text-sm align-middle ml-1" />
-            </a>
-          </div>
-        </motion.div>
-      )}
+          <a
+            href="/menu"
+            className="md:hidden block text-center text-secondary font-label-sm text-label-sm mt-10 tracking-wider transition-opacity hover:opacity-80"
+          >
+            View More Menu <Icon name="arrow_right_alt" className="text-sm align-middle ml-1" />
+          </a>
+        </div>
+      </motion.div>
 
       {/* ═══ Sauce Section ═══ */}
       <section className="py-section-gap px-margin-desktop bg-gradient-to-b from-background via-surface-container-low to-background">

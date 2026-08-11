@@ -36,6 +36,8 @@ export default function Footer() {
           <p className="font-body-md text-xs text-on-primary-container mt-4">© 2026 Cup Cafe. Handcrafted with ♥</p>
         </div>
       </div>
+      {/* Dock clearance — phone bottom nav floats over the footer otherwise */}
+      <div className="h-28 md:hidden" aria-hidden="true" />
     </footer>
   );
 }

@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
-import Icon from './Icon';
+import Icon, { type IconName } from './Icon';
 
 const tabs = [
   { path: '/', label: 'Home' },
@@ -9,6 +9,19 @@ const tabs = [
   { path: '/our-story', label: 'Our Story' },
   { path: '/gallery', label: 'Gallery' },
   { path: '/reviews', label: 'Reviews' },
+  { path: '/contact', label: 'Visit Us' },
+];
+
+/* Phone dock — 4 main slots; the rest live in the More sheet */
+const dockTabs: { path: string; label: string; icon: IconName }[] = [
+  { path: '/', label: 'Home', icon: 'home' },
+  { path: '/menu', label: 'Menu', icon: 'lunch_dining' },
+  { path: '/gallery', label: 'Gallery', icon: 'photo_camera' },
+  { path: '/reviews', label: 'Reviews', icon: 'star' },
+];
+
+const moreTabs = [
+  { path: '/our-story', label: 'Our Story' },
   { path: '/contact', label: 'Visit Us' },
 ];
 
@@ -44,83 +57,110 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
   const navigate = useNavigate();
   const location = useLocation();
   const reduce = useReducedMotion();
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
 
   const active = location.pathname;
   /* The pill follows whichever is lit — hover takes priority over active */
   const lit = hovered ?? active;
+  const moreActive = moreTabs.some(t => active === t.path);
 
   const navTo = (path: string) => {
     navigate(path);
-    setMobileOpen(false);
+    setMoreOpen(false);
   };
+
+  /* Escape closes the More sheet — window-level so it works even unfocused */
+  useEffect(() => {
+    if (!moreOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMoreOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [moreOpen]);
 
   return (
     <motion.header
       initial={reduce ? false : { y: -16, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-      className="fixed top-0 inset-x-0 z-50 px-4 md:px-8 pt-3 md:pt-4"
+      className="fixed top-0 inset-x-0 z-50"
     >
-      {/* Floating island — transparent at top, frosted glass pill on scroll. 3-col grid keeps links centered */}
-      <div
-        className={`max-w-6xl mx-auto grid grid-cols-[1fr_auto] md:grid-cols-[1fr_auto_1fr] items-center rounded-full transition-all duration-500 ease-out ${
-          scrolled
-            ? 'h-16 bg-white/80 backdrop-blur-xl shadow-lg shadow-black/5 border border-outline-variant/70'
-            : 'h-20 bg-white/80 backdrop-blur-xl shadow-lg shadow-black/5 border border-outline-variant/70'
-        }`}
-      >
-        {/* Logo — left */}
+      {/* Phone: minimal floating logo only — hero breathes edge-to-edge */}
+      <div className="md:hidden px-4 pt-3">
         <button
           onClick={() => navTo('/')}
-          className="justify-self-start flex items-center gap-2 group pl-4 md:pl-6"
+          className="flex items-center gap-2 drop-shadow-sm"
+          aria-label="Cup Cafe home"
         >
           <img
             src="/images/new (1).png"
             alt="Cup Cafe"
-            className="h-10 md:h-12 w-auto object-contain"
+            className="h-9 w-auto object-contain"
           />
-          <span className="font-headline-md text-headline-md text-primary group-hover:text-secondary transition-colors duration-300">
-            Cup Cafe.
-          </span>
         </button>
+      </div>
 
-        {/* Centered links — Home .. Visit Us, sliding shared pill */}
-        <nav className="hidden md:flex items-center justify-center gap-0.5 lg:gap-1 self-center">
-          {tabs.map(tab => {
-            const isLit = lit === tab.path;
-            const isActive = active === tab.path;
-            return (
-              <button
-                key={tab.path}
-                onClick={() => navTo(tab.path)}
-                onMouseEnter={() => setHovered(tab.path)}
-                onMouseLeave={() => setHovered(null)}
-                className="relative px-2 lg:px-4 py-2 rounded-full font-label-sm text-label-sm uppercase tracking-widest transition-colors duration-200 whitespace-nowrap"
-              >
-                {isLit && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    transition={pillSpring}
-                    className="absolute inset-0 rounded-full bg-surface-container-highest/80"
-                  />
-                )}
-                <span
-                  className={`relative z-10 transition-colors duration-200 ${
-                    isActive ? 'text-secondary' : 'text-on-surface-variant hover:text-on-surface'
+      {/* Tablet+: floating island — transparent at top, frosted glass pill on scroll. 3-col grid keeps links centered */}
+      <div className="hidden md:block px-4 md:px-8 pt-3 md:pt-4">
+        <div
+          className={`max-w-6xl mx-auto grid grid-cols-[1fr_auto_1fr] items-center rounded-full transition-all duration-500 ease-out ${
+            scrolled
+              ? 'h-16 bg-white/80 backdrop-blur-xl shadow-lg shadow-black/5 border border-outline-variant/70'
+              : 'h-20 bg-white/80 backdrop-blur-xl shadow-lg shadow-black/5 border border-outline-variant/70'
+          }`}
+        >
+          {/* Logo — left */}
+          <button
+            onClick={() => navTo('/')}
+            className="justify-self-start flex items-center gap-2 group pl-4 md:pl-6"
+          >
+            <img
+              src="/images/new (1).png"
+              alt="Cup Cafe"
+              className="h-10 md:h-12 w-auto object-contain"
+            />
+            <span className="font-headline-md text-headline-md text-primary group-hover:text-secondary transition-colors duration-300">
+              Cup Cafe.
+            </span>
+          </button>
+
+          {/* Centered links — Home .. Visit Us, sliding shared pill. Our Story + Reviews tuck away below lg so 6 links never crowd tablet */}
+          <nav className="hidden md:flex items-center justify-center gap-0.5 lg:gap-1 self-center">
+            {tabs.map(tab => {
+              const isLit = lit === tab.path;
+              const isActive = active === tab.path;
+              const tight = tab.path === '/our-story' || tab.path === '/reviews';
+              return (
+                <button
+                  key={tab.path}
+                  onClick={() => navTo(tab.path)}
+                  onMouseEnter={() => setHovered(tab.path)}
+                  onMouseLeave={() => setHovered(null)}
+                  className={`relative px-2 lg:px-4 py-2 rounded-full font-label-sm text-label-sm uppercase tracking-widest transition-colors duration-200 whitespace-nowrap ${
+                    tight ? 'hidden lg:inline-flex' : 'inline-flex'
                   }`}
                 >
-                  {tab.label}
-                </span>
-              </button>
-            );
-          })}
-        </nav>
+                  {isLit && (
+                    <motion.span
+                      layoutId="nav-pill"
+                      transition={pillSpring}
+                      className="absolute inset-0 rounded-full bg-surface-container-highest/80"
+                    />
+                  )}
+                  <span
+                    className={`relative z-10 transition-colors duration-200 ${
+                      isActive ? 'text-secondary' : 'text-on-surface-variant hover:text-on-surface'
+                    }`}
+                  >
+                    {tab.label}
+                  </span>
+                </button>
+              );
+            })}
+          </nav>
 
-        {/* CTA + hamburger — right */}
-        <div className="justify-self-end flex items-center gap-2 pr-2 md:pr-4">
-          <div className="hidden md:block">
+          {/* CTA — right */}
+          <div className="justify-self-end flex items-center gap-2 pr-2 md:pr-4">
             <Magnetic>
               <motion.button
                 onClick={() => navTo('/contact#form')}
@@ -134,60 +174,127 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
               </motion.button>
             </Magnetic>
           </div>
+        </div>
+      </div>
 
+      {/* ═══ Phone: bottom dock — 4 main slots + More sheet trigger ═══ */}
+      <div
+        className="md:hidden fixed bottom-0 inset-x-0 z-50"
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      >
+        <div className="mx-4 mb-3 bg-white/90 backdrop-blur-xl rounded-full border border-outline-variant/70 shadow-lg shadow-black/10 px-2 py-1.5 flex items-center">
+          {dockTabs.map(tab => {
+            const isActive = active === tab.path;
+            return (
+              <button
+                key={tab.path}
+                onClick={() => navTo(tab.path)}
+                className="relative flex-1 min-w-0 flex flex-col items-center gap-0.5 py-1.5 rounded-full"
+                aria-label={tab.label}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="dock-pill"
+                    transition={pillSpring}
+                    className="absolute inset-0 rounded-full bg-secondary/15"
+                  />
+                )}
+                <Icon
+                  name={tab.icon}
+                  className={`relative z-10 text-[20px] transition-colors ${
+                    isActive ? 'text-secondary' : 'text-on-surface-variant'
+                  }`}
+                />
+                <span
+                  className={`relative z-10 text-[10px] font-semibold tracking-wide transition-colors ${
+                    isActive ? 'text-secondary' : 'text-on-surface-variant'
+                  }`}
+                >
+                  {tab.label}
+                </span>
+              </button>
+            );
+          })}
+
+          {/* More — Our Story + Visit Us sheet */}
           <button
-            aria-label="Toggle menu"
-            className={`md:hidden flex items-center justify-center w-10 h-10 rounded-full transition-colors ${
-              mobileOpen ? 'text-secondary' : 'text-primary'
-            }`}
-            onClick={() => setMobileOpen(o => !o)}
+            onClick={() => setMoreOpen(true)}
+            className="relative flex-1 min-w-0 flex flex-col items-center gap-0.5 py-1.5 rounded-full"
+            aria-label="More"
           >
-            <Icon name={mobileOpen ? 'close' : 'menu'} className="text-3xl" />
+            {moreActive && (
+              <motion.span
+                layoutId="dock-pill"
+                transition={pillSpring}
+                className="absolute inset-0 rounded-full bg-secondary/15"
+              />
+            )}
+            <Icon
+              name="more_horiz"
+              className={`relative z-10 text-[20px] transition-colors ${
+                moreActive ? 'text-secondary' : 'text-on-surface-variant'
+              }`}
+            />
+            <span
+              className={`relative z-10 text-[10px] font-semibold tracking-wide transition-colors ${
+                moreActive ? 'text-secondary' : 'text-on-surface-variant'
+              }`}
+            >
+              More
+            </span>
           </button>
         </div>
       </div>
 
-      {/* Full-screen staggered mobile menu */}
+      {/* ═══ More bottom sheet — z above the dock so the backdrop dims everything ═══ */}
       <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="md:hidden fixed inset-x-0 top-[88px] bottom-0 bg-surface/95 backdrop-blur-xl border-t border-outline-variant/60 px-8 py-10 flex flex-col"
+        {moreOpen && (
+          <div
+            className="md:hidden fixed inset-0 z-[60]"
+            style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
           >
-            <div className="flex-1 flex flex-col justify-start gap-2">
-              {tabs.map((tab, i) => {
-                const isActive = active === tab.path;
-                return (
-                  <motion.button
-                    key={tab.path}
-                    initial={{ opacity: 0, y: 22 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 12 }}
-                    transition={{ delay: 0.05 * i, duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
-                    onClick={() => navTo(tab.path)}
-                    className={`block w-full text-left font-label-sm font-semibold text-2xl uppercase tracking-widest py-3 transition-colors ${
-                      isActive ? 'text-secondary' : 'text-on-surface hover:text-secondary'
-                    }`}
-                  >
-                    {tab.label}
-                  </motion.button>
-                );
-              })}
-            </div>
-            <motion.button
-              initial={{ opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 12 }}
-              transition={{ delay: 0.05 * tabs.length, duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
-              onClick={() => navTo('/contact#form')}
-              className="w-full bg-secondary text-on-secondary py-4 rounded-full font-label-sm text-label-sm text-center"
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="absolute inset-0 bg-black/35 backdrop-blur-[2px]"
+              onClick={() => setMoreOpen(false)}
+            />
+            <motion.div
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '100%' }}
+              transition={{ type: 'spring', stiffness: 380, damping: 38 }}
+              className="absolute bottom-0 inset-x-0 mx-4 mb-24 bg-surface rounded-3xl border border-outline-variant/70 shadow-2xl p-6"
             >
-              Contact Us
-            </motion.button>
-          </motion.div>
+              <div className="w-10 h-1 rounded-full bg-outline mx-auto mb-5" />
+              <div className="flex flex-col">
+                {moreTabs.map(tab => {
+                  const isActive = active === tab.path;
+                  return (
+                    <button
+                      key={tab.path}
+                      onClick={() => navTo(tab.path)}
+                      className={`flex items-center justify-between py-4 font-label-sm text-label-sm uppercase tracking-widest transition-colors ${
+                        isActive ? 'text-secondary' : 'text-on-surface'
+                      }`}
+                    >
+                      {tab.label}
+                      <Icon name="arrow_right_alt" className="text-lg" />
+                    </button>
+                  );
+                })}
+              </div>
+              <button
+                onClick={() => navTo('/contact#form')}
+                className="mt-2 w-full bg-secondary text-on-secondary py-4 rounded-full font-label-sm text-label-sm flex items-center justify-center gap-2"
+              >
+                Contact Us
+                <Icon name="arrow_forward" className="text-sm" />
+              </button>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </motion.header>

@@ -20,6 +20,13 @@ export const TESTIMONIALS: Review[] = [
 
 export const ALL_REVIEWS: Review[] = TESTIMONIALS;
 
+/* ─── Hero social-proof monograms (real reviewer initials, brand colors) ─── */
+export const AVATARS = [
+  { initials: 'EM', bg: '#D46A2E' },
+  { initials: 'TN', bg: '#7B8B63' },
+  { initials: 'LG', bg: '#E57B3E' },
+];
+
 /* ─── Gallery (real photos from client site) ─── */
 const G = (n: number, w = 800) => `https://cup-cafe.cafe-inspector.com/cdn/img/cup-cafe/photo${n}.jpg?w=${w}&q=85&auto=format`;
 
