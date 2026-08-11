@@ -80,8 +80,8 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
 
   return (
     <motion.header
-      initial={reduce ? false : { y: -16, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
+      initial={reduce ? false : { opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
       className="fixed top-0 inset-x-0 z-50"
     >

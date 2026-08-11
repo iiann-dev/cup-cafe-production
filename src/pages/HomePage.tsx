@@ -41,12 +41,12 @@ export default function HomePage() {
   // then slides up 48px to cover the hero). Tablet/desktop: tuck as before.
   const { scrollYProgress: featuredProgress } = useScroll({
     target: featuredRef,
-    // Phone: sheet rests at its -24px initial overlap until the user scrolls it up (progress stays
-    // 0 while the sheet top sits below 55% of the viewport, i.e. at load). Tablet/desktop: tuck as before.
-    offset: isPhone ? ['start 55%', 'start 15%'] : ['start end', 'start 0.2'],
+    // Phone/tablet: delay progress start (sheet rests low until the user scrolls, then rises —
+    // keeps the tuck travel visible instead of consuming it at load). Desktop: tuck as before.
+    offset: isMobile ? ['start 55%', 'start 15%'] : ['start end', 'start 0.2'],
   });
-  const featuredTop = useTransform(featuredProgress, [0, 1], isPhone ? [0, -48] : isTablet ? [28, 0] : [110, 0]);
-  const featuredRadius = useTransform(featuredProgress, [0, 1], isPhone ? [32, 32] : isTablet ? [48, 48] : [120, 28]);
+  const featuredTop = useTransform(featuredProgress, [0, 1], isPhone ? [0, -96] : isTablet ? [100, 0] : [180, 0]);
+  const featuredRadius = useTransform(featuredProgress, [0, 1], isPhone ? [32, 32] : isTablet ? [56, 56] : [140, 32]);
 
   return (
     <div>
