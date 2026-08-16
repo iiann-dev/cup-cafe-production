@@ -33,7 +33,10 @@ export default function Footer() {
               <button key={s} className="hover:text-secondary transition-colors"><Icon name={s === 'instagram' ? 'photo_camera' : s === 'facebook' ? 'groups' : 'alternate_email'} /></button>
             ))}
           </div>
-          <p className="font-body-md text-xs text-on-primary-container mt-4">© 2026 Cup Cafe. Handcrafted with ♥</p>
+          <div className="flex flex-col gap-1 mt-4">
+            <p className="font-body-md text-xs text-on-primary-container">© {new Date().getFullYear()} Cup Cafe. All rights reserved.</p>
+            <p className="font-body-md text-[11px] text-on-primary-container/80">Concept redesign for portfolio. Not affiliated with Cup Cafe SF.</p>
+          </div>
         </div>
       </div>
       {/* Dock clearance — phone bottom nav floats over the footer otherwise */}

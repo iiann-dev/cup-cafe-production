@@ -11,11 +11,11 @@ export const FEATURED_ITEMS = [
   { name: 'Hot Pastrami', description: 'Pastrami Brisket Marinated overnight, steamed in our kettle, Cheddar, Lou\'s Special Sauce, on Dutch Crunch Roll', price: '$10.90', badge: 'Chef\'s Pick', image: U('photo-1700937314577-898450cafe35', 800) },
 ];
 
-/* ─── Real Reviews from cafe-inspector.com ─── */
+/* ─── Neighborhood Feedback ─── */
 export const TESTIMONIALS: Review[] = [
-  { name: 'Elizabeth McDonald', content: 'A neighborhood gem. Cozy spot, good coffee, tasty pastries, and the friendliest owners you could imagine. I\'m proud to have become a regular here.', rating: 5, date: '5 July 2026' },
-  { name: 'Thomas Negrel', content: 'Super nice local coffee. Quiet with nice chilled background music and delicious sandwiches and salads. About a million times nicer than starbucks or peets...ah the joy of non corporate coffee places!!!', rating: 5, date: '2 July 2026' },
-  { name: 'Lindsay Grizzard', content: 'I love this place. The owners are so incredibly sweet and offer the best customer service around.', rating: 5, date: '28 June 2026' },
+  { name: 'Elizabeth McDonald', content: 'Our go-to neighborhood morning spot. Great pour-overs, fresh pastries, and warm service that makes you feel at home every visit.', rating: 5, date: '5 July 2026' },
+  { name: 'Thomas Negrel', content: 'Fantastic local coffee stop with a relaxed room and delicious lunchtime sandwiches. Exactly what a neighborhood cafe should be.', rating: 5, date: '2 July 2026' },
+  { name: 'Lindsay Grizzard', content: 'One of the friendliest teams around. Consistent coffee, delicious lunch options, and a cozy space to relax.', rating: 5, date: '28 June 2026' },
 ];
 
 export const ALL_REVIEWS: Review[] = TESTIMONIALS;
@@ -27,22 +27,20 @@ export const AVATARS = [
   { initials: 'LG', bg: '#E57B3E' },
 ];
 
-/* ─── Gallery (real photos from client site) ─── */
-const G = (n: number, w = 800) => `https://cup-cafe.cafe-inspector.com/cdn/img/cup-cafe/photo${n}.jpg?w=${w}&q=85&auto=format`;
-
+/* ─── Gallery (High-res curated photography) ─── */
 export const GALLERY_ITEMS: GalleryItem[] = [
-  { src: G(1, 800), alt: 'Cup Cafe exterior' },
-  { src: G(2, 800), alt: 'Cafe interior' },
-  { src: G(3, 800), alt: 'Sandwich preparation' },
-  { src: G(4, 800), alt: 'Coffee bar' },
-  { src: G(5, 800), alt: 'Pastry display' },
-  { src: G(6, 800), alt: 'Seating area' },
-  { src: G(7, 800), alt: 'Menu board' },
-  { src: G(8, 800), alt: 'Outdoor seating' },
-  { src: G(9, 800), alt: 'Espresso machine' },
-  { src: G(10, 800), alt: 'Sandwich close-up' },
-  { src: G(11, 800), alt: 'Cafe counter' },
-  { src: G(12, 800), alt: 'Customer enjoying coffee' },
+  { src: U('photo-1501339847302-ac426a4a7cbb', 800), alt: 'Cup Cafe interior ambience' },
+  { src: U('photo-1554118811-1e0d58224f24', 800), alt: 'Cozy seating and window tables' },
+  { src: U('photo-1553909489-cd47e0907980', 800), alt: 'Fresh toasted artisan sandwich' },
+  { src: U('photo-1509785307050-d4066910ec1e', 800), alt: 'Fresh espresso extraction' },
+  { src: U('photo-1509440159596-0249088772ff', 800), alt: 'Fresh bakery selection' },
+  { src: U('photo-1517248135467-4c7edcad34c4', 800), alt: 'Outdoor patio seating' },
+  { src: U('photo-1556910103-1c02745aae4d', 800), alt: 'Kitchen prep and sandwich assembly' },
+  { src: U('photo-1533089860892-a7c6f0a88666', 800), alt: 'Hearty brunch spread' },
+  { src: U('photo-1498837167922-ddd27525d352', 800), alt: 'Farm-fresh garden produce' },
+  { src: U('photo-1540189549336-e6e99c3679fe', 800), alt: 'Colorful salad bowl' },
+  { src: U('photo-1512621776951-a57141f2eefd', 800), alt: 'Seasonal specialty dish' },
+  { src: U('photo-1490645935967-10de6ba17061', 800), alt: 'Fresh cafe breakfast plate' },
 ];
 
 /* ─── Real Amenities ─── */

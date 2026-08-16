@@ -1,25 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
   <defs>
-    <linearGradient id="cupGrad" x1="0%" y1="100%" x2="0%" y2="0%">
-      <stop offset="0%" stop-color="#D46A2E"/>
-      <stop offset="100%" stop-color="#E57B3E"/>
-    </linearGradient>
-    <linearGradient id="steamGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#F5F0E0" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#D4C8A8" stop-opacity="0.3"/>
+    <linearGradient id="cup-warm" x1="100" y1="100" x2="412" y2="412" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#EA580C" />
+      <stop offset="100%" stop-color="#C2410C" />
     </linearGradient>
   </defs>
-  <!-- Coffee cup forming C -->
-  <g transform="translate(6, 8)">
-    <!-- Cup body -->
-    <path d="M4 4 L4 20 Q4 22 6 22 L18 22 Q20 22 20 20 L20 4" fill="none" stroke="url(#cupGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <!-- Cup bottom -->
-    <path d="M6 22 L18 22" stroke="url(#cupGrad)" stroke-width="2.5" stroke-linecap="round"/>
-    <!-- Handle -->
-    <path d="M20 6 Q26 6 26 12 Q26 18 20 18" fill="none" stroke="url(#cupGrad)" stroke-width="2" stroke-linecap="round"/>
-    <!-- Steam forming C curve -->
-    <path d="M10 4 Q6 0 4 -2 Q2 -4 0 -4" fill="none" stroke="url(#steamGrad)" stroke-width="1.5" stroke-linecap="round" opacity="0.9"/>
-    <path d="M14 4 Q10 0 8 -2 Q6 -4 4 -4" fill="none" stroke="url(#steamGrad)" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
-    <path d="M18 4 Q14 0 12 -2 Q10 -4 8 -4" fill="none" stroke="url(#steamGrad)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-  </g>
+  <!-- Background Badge -->
+  <rect width="512" height="512" rx="128" fill="#1C1917" />
+  
+  <!-- Stylized Minimalist Coffee Cup -->
+  <path d="M140,190 L340,190 C340,190 330,340 240,340 C150,340 140,190 140,190 Z" fill="url(#cup-warm)" />
+  
+  <!-- Handle -->
+  <path d="M330,220 C375,220 395,250 395,275 C395,300 375,320 320,320" stroke="#EA580C" stroke-width="20" stroke-linecap="round" fill="none" />
+  
+  <!-- Saucer Line -->
+  <path d="M120,370 L360,370" stroke="#FED7AA" stroke-width="16" stroke-linecap="round" />
+  
+  <!-- Modern Steam Wave -->
+  <path d="M210,150 C210,130 225,120 225,100" stroke="#FED7AA" stroke-width="12" stroke-linecap="round" fill="none" />
+  <path d="M270,150 C270,130 285,120 285,100" stroke="#FED7AA" stroke-width="12" stroke-linecap="round" fill="none" />
 </svg>
