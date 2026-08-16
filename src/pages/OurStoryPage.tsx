@@ -18,8 +18,8 @@ export default function OurStoryPage() {
             <h1 className="font-display-lg text-display-lg text-primary mb-8">
               The Story Behind <br/><span className="italic text-secondary">Every Bite.</span>
             </h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
-              From a tiny corner booth to a neighborhood staple. Cup Cafe is built on early mornings, secret recipes, and the belief that good food brings people together.
+            <p className="font-body-md text-on-surface-variant max-w-xl mx-auto">
+              From early morning counter service to fresh lunch orders, our mission is simple: honest ingredients, thoughtful preparation, and welcoming hospitality.
             </p>
           </motion.div>
           <motion.div initial={{ x: 40, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="lg:col-span-5 relative">

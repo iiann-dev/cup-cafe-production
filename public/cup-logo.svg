@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="cup-nav-grad" x1="100" y1="100" x2="412" y2="412" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#EA580C" />
+      <stop offset="100%" stop-color="#C2410C" />
+    </linearGradient>
+  </defs>
+  <!-- Stylized Minimalist Coffee Cup without background -->
+  <path d="M140,190 L340,190 C340,190 330,340 240,340 C150,340 140,190 140,190 Z" fill="url(#cup-nav-grad)" />
+  
+  <!-- Handle -->
+  <path d="M330,220 C375,220 395,250 395,275 C395,300 375,320 320,320" stroke="#EA580C" stroke-width="20" stroke-linecap="round" fill="none" />
+  
+  <!-- Saucer Line -->
+  <path d="M120,370 L360,370" stroke="#EA580C" stroke-width="16" stroke-linecap="round" />
+  
+  <!-- Steam Waves -->
+  <path d="M210,150 C210,130 225,120 225,100" stroke="#EA580C" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.85" />
+  <path d="M270,150 C270,130 285,120 285,100" stroke="#EA580C" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.85" />
+</svg>

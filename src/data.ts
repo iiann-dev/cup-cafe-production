@@ -61,10 +61,10 @@ export const AMENITIES: Amenity[] = [
 
 /* ─── Real FAQ ─── */
 export const FAQ: FAQItem[] = [
-  { question: 'Do you offer gluten-free options?', answer: 'Yes! Most of our gourmet sandwiches can be made on a gluten-free bread option. Just let our team know when ordering.' },
-  { question: 'Can I pre-order for a large group?', answer: 'Absolutely — we recommend placing large orders (10+) at least 24 hours in advance. Check our Catering Menu for box lunch options.' },
-  { question: 'What are your payment options?', answer: 'We accept all major credit cards, Apple Pay, Android Pay, and good old cash.' },
-  { question: 'Do you have vegan options?', answer: 'Yes, we offer vegan-friendly sandwiches and salads. Our Veggie and Veggie-Licious sandwiches can be prepared vegan upon request.' },
+  { question: 'Do you offer gluten-free options?', answer: 'Yes, most of our sandwiches can be served on gluten-free bread. Just let our team know when placing your order.' },
+  { question: 'Can I pre-order for a large group?', answer: 'Yes, we recommend placing orders for 10 or more people at least 24 hours ahead so we can have everything boxed and ready.' },
+  { question: 'What are your payment options?', answer: 'We accept credit cards, Apple Pay, Android Pay, and cash at the counter.' },
+  { question: 'Do you have vegan options?', answer: 'Yes, our veggie sandwich and house garden salads can be customized fully vegan upon request.' },
 ];
 
 /* ─── Images ─── */
