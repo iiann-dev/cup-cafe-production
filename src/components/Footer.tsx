@@ -40,9 +40,11 @@ export default function Footer() {
         </div>
       </div>
       {/* Dock clearance — phone bottom nav floats over the footer otherwise.
-          Phone-only: drastically reduced (was h-28=112px → now h-14=56px)
-          so the footer stays short on phone and doesn't push past the viewport. */}
-      <div className="h-14 md:hidden" aria-hidden="true" />
+          Phone-only: match the dock's total height (dock ~75px + safe area inset ~34px
+          on iPhone) so the dark footer extends fully behind the dock and no cream
+          page background shows at the bottom edge. Was h-28 (112px) → h-14 (56px)
+          was too short; now h-24 (96px) ≈ dock + safe area. */}
+      <div className="h-24 md:hidden" aria-hidden="true" />
     </footer>
   );
 }
