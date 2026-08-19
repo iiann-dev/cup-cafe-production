@@ -12,14 +12,6 @@ const GalleryPage = lazy(() => import('./pages/GalleryPage'));
 const ReviewsPage = lazy(() => import('./pages/ReviewsPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 
-/* Static placeholder while a lazy page chunk loads — keeps the layout
-   height stable so the footer never flashes to the top. */
-function PageFallback() {
-  return (
-    <div className="min-h-[60vh] bg-background" aria-hidden="true" />
-  );
-}
-
 function Layout() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
@@ -40,7 +32,7 @@ function Layout() {
   }, [location.pathname]);
 
   return (
-        <div className="min-h-dvh bg-background text-on-surface font-body">
+        <div className="min-h-screen bg-background text-on-surface font-body">
           <Nav scrolled={scrolled} />
           <main>
             <Outlet />
@@ -55,13 +47,13 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-                  <Route index element={<HomePage />} />
-                  <Route path="menu" element={<Suspense fallback={<PageFallback />}><MenuPage /></Suspense>} />
-                  <Route path="our-story" element={<Suspense fallback={<PageFallback />}><OurStoryPage /></Suspense>} />
-                  <Route path="gallery" element={<Suspense fallback={<PageFallback />}><GalleryPage /></Suspense>} />
-                  <Route path="reviews" element={<Suspense fallback={<PageFallback />}><ReviewsPage /></Suspense>} />
-                  <Route path="contact" element={<Suspense fallback={<PageFallback />}><ContactPage /></Suspense>} />
-                </Route>
+          <Route index element={<HomePage />} />
+          <Route path="menu" element={<Suspense fallback={null}><MenuPage /></Suspense>} />
+          <Route path="our-story" element={<Suspense fallback={null}><OurStoryPage /></Suspense>} />
+          <Route path="gallery" element={<Suspense fallback={null}><GalleryPage /></Suspense>} />
+          <Route path="reviews" element={<Suspense fallback={null}><ReviewsPage /></Suspense>} />
+          <Route path="contact" element={<Suspense fallback={null}><ContactPage /></Suspense>} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
