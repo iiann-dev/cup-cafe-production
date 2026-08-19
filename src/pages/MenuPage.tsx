@@ -11,8 +11,17 @@ export default function MenuPage() {
   const selectCategory = (id: string) => {
       // Jump to the top BEFORE the swap — otherwise the height collapse
       // clamps the viewport to the new (shorter) page bottom first
-      listRef.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
+      window.scrollTo(0, 0);
       setActiveCategory(id);
+      // After the DOM swaps, force scroll to the top of the list — the
+      // category pills sit at pt-28 + heading, so scroll to the list's
+      // document offset minus 0. scroll-mt-32 would otherwise leave a
+      // 128px offset that pushes the footer below the viewport on short
+      // categories (Soups / Large Functions) and shows cream behind it.
+      requestAnimationFrame(() => {
+        const top = listRef.current?.getBoundingClientRect().top ?? 0;
+        window.scrollTo(0, window.scrollY + top);
+      });
     };
 
   return (
@@ -41,7 +50,7 @@ export default function MenuPage() {
           </div>
         </aside>
 
-        <div ref={listRef} className="flex-1 space-y-section-gap scroll-mt-32">
+        <div ref={listRef} className="flex-1 space-y-section-gap scroll-mt-32 [overflow-anchor:none]">
           {MENU_CATEGORIES.filter(c => c.id === activeCategory).map(cat => (
             <motion.section key={cat.id} {...fadeUp} className="scroll-mt-32">
               <div className="flex items-center justify-between mb-8">
