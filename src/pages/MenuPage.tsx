@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { MENU_CATEGORIES } from '../data-menu';
 import { motion } from 'framer-motion';
 
@@ -9,11 +9,42 @@ export default function MenuPage() {
   const listRef = useRef<HTMLDivElement>(null);
 
   const selectCategory = (id: string) => {
-      // Jump to the top BEFORE the swap — otherwise the height collapse
-      // clamps the viewport to the new (shorter) page bottom first
-      listRef.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
-      setActiveCategory(id);
-    };
+    // Jump to the top BEFORE the swap — otherwise the height collapse
+    // clamps the viewport to the new (shorter) page bottom first
+    listRef.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    setActiveCategory(id);
+  };
+
+  // Phone-only gap guard: after a category swap the new page can be much
+  // shorter than the old scroll offset. Scroll anchoring + Lenis would park
+  // the viewport at a stale position, leaving the footer's bottom edge short
+  // of the viewport bottom with cream showing under/behind the dock.
+  // When the new page barely scrolls (maxScroll is small), snap to the
+  // bottom so the footer lands flush at the viewport edge. Long pages
+  // (maxScroll large) are untouched. Retries a few times because the
+  // layout commits in steps (motion.section entrance, lazy fonts).
+  useEffect(() => {
+    if (!window.matchMedia('(max-width: 760px)').matches) return;
+    let attempts = 0;
+    const t = window.setInterval(() => {
+      attempts += 1;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const footer = document.querySelector('footer');
+      if (!footer) return;
+      const gap = window.innerHeight - footer.getBoundingClientRect().bottom;
+      // Footer is already flush (gap >= -2) or we're already at max scroll
+      if (gap >= -2 || window.scrollY >= maxScroll - 2) return;
+      if (maxScroll < 450) {
+        const lenis = (window as unknown as Record<string, unknown>).__lenis as
+          | { scrollTo: (y: number, o?: { immediate?: boolean }) => void }
+          | undefined;
+        if (lenis) lenis.scrollTo(maxScroll, { immediate: true });
+        else window.scrollTo(0, maxScroll);
+      }
+      if (attempts > 8) window.clearInterval(t);
+    }, 100);
+    return () => window.clearInterval(t);
+  }, [activeCategory]);
 
   return (
     <div className="px-margin-desktop max-w-screen-2xl mx-auto pt-28">

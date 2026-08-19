@@ -39,8 +39,10 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      {/* Dock clearance — phone bottom nav floats over the footer otherwise */}
-      <div className="h-28 md:hidden" aria-hidden="true" />
+      {/* Dock clearance — phone bottom nav floats over the footer otherwise.
+          Phone-only: drastically reduced (was h-28=112px → now h-14=56px)
+          so the footer stays short on phone and doesn't push past the viewport. */}
+      <div className="h-14 md:hidden" aria-hidden="true" />
     </footer>
   );
 }
