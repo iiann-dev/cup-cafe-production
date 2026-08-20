@@ -321,16 +321,16 @@ export default function HomePage() {
           <picture>
             <source
               media="(max-width: 600px)"
-              srcSet="/hero-mobile.webp"
+              srcSet={`${import.meta.env.BASE_URL}hero-mobile.webp`}
             />
             <source
               media="(min-width: 601px)"
-              srcSet="/hero-lg.webp 1200w, /hero.webp 1400w"
+              srcSet={`${import.meta.env.BASE_URL}hero-lg.webp 1200w, ${import.meta.env.BASE_URL}hero.webp 1400w`}
               sizes="(min-width: 1456px) 58vw, 100vw"
             />
             <img
               className="hero-photo"
-              src="/hero.png"
+              src={`${import.meta.env.BASE_URL}hero.png`}
               alt="Grilled sandwich on a plate with fresh greens, wooden table setting"
               loading="eager"
               decoding="async"

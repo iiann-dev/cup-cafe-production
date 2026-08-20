@@ -93,7 +93,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
           aria-label="Cup Cafe home"
         >
           <img
-            src="/cup-logo.svg"
+            src={`${import.meta.env.BASE_URL}cup-logo.svg`}
             alt="Cup Cafe"
             className="h-9 w-auto object-contain"
           />
@@ -115,7 +115,7 @@ export default function Nav({ scrolled }: { scrolled: boolean }) {
             className="justify-self-start flex items-center gap-2 group pl-4 md:pl-6"
           >
             <img
-              src="/cup-logo.svg"
+              src={`${import.meta.env.BASE_URL}cup-logo.svg`}
               alt="Cup Cafe"
               className="h-10 md:h-12 w-auto object-contain"
             />
